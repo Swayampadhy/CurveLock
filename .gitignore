@@ -54,4 +54,4 @@ dkms.conf
 /.vs/CurveLock/v17/Browse.VC.db
 *.vsidx
 /.vs/CurveLock/v17/Browse.VC.db
-/.vs
+/.vs/*
