@@ -51,3 +51,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 /.vs/CurveLock/v17
+/.vs/CurveLock/v17/Browse.VC.db
+*.vsidx
+/.vs/CurveLock/v17/Browse.VC.db
