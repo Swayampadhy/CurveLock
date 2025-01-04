@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>87df4776-eba8-41a0-a7f2-acf7d094764a</ProjectGuid>
+    <ProjectGuid>fc048c44-b4a1-478b-97b9-092cfcfa4540</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Payload_Embeddor.py</StartupFile>
+    <StartupFile>PayloadEmbeddor.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Payload Embeddor</Name>
-    <RootNamespace>Payload Embeddor</RootNamespace>
+    <Name>PayloadEmbeddor</Name>
+    <RootNamespace>PayloadEmbeddor</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Payload_Embeddor.py" />
+    <Compile Include="PayloadEmbeddor.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
