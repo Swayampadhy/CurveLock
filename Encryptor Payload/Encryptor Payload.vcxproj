@@ -24,6 +24,7 @@
     <ProjectGuid>{11be8b25-505a-4ccc-8a71-a2809e6ca62d}</ProjectGuid>
     <RootNamespace>EncryptorPayload</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>PayloadEncryptor</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
