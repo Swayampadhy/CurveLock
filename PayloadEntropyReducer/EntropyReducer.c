@@ -8,7 +8,6 @@
 // - ppLinkedList: pointer to a LINKED_LIST structure, that will represent the head of the linked list
 BOOL InitializePayloadList(IN PBYTE pPayload, IN OUT PSIZE_T sPayloadSize, OUT PLINKED_LIST* ppLinkedList)
 {
-	printf("1.");
 	// variable used to count the linked list elements (used to calculate the final size)
 	// it is also used as the node's ID
 	unsigned int x = 0;
