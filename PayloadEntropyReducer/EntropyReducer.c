@@ -87,3 +87,112 @@ BOOL WritePayloadFile(IN PSTR cFileInput, IN LPCVOID pPayloadData, IN SIZE_T Siz
 
 	return TRUE;
 }
+
+// covert raw payload bytes to a linked list
+// - pPayload: Base Address of the payload
+// - sPayloadSize: pointer to a SIZE_T variable that holds the size of the payload, it will be set to the serialized size of the linked list
+// - ppLinkedList: pointer to a LINKED_LIST structure, that will represent the head of the linked list
+BOOL InitializePayloadList(IN PBYTE pPayload, IN OUT PSIZE_T sPayloadSize, OUT PLINKED_LIST* ppLinkedList)
+{
+
+	// variable used to count the linked list elements (used to calculate the final size)
+	// it is also used as the node's ID
+	unsigned int x = 0;
+
+
+	// setting the payload size to be multiple of 'BUFF_SIZE'
+	SIZE_T	sTmpSize = NEAREST_MULTIPLE(*sPayloadSize, BUFF_SIZE);
+	if (!sTmpSize)
+		return FALSE;
+
+	// new padded buffer 
+	PBYTE	pTmpBuffer = (PBYTE)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sTmpSize);
+	if (!pTmpBuffer)
+		return FALSE;
+
+	memcpy(pTmpBuffer, pPayload, *sPayloadSize);
+
+	// for each 'BUFF_SIZE' in the padded payload, add it to the linked list
+	for (int i = 0; i < sTmpSize; i++) {
+		if (i % BUFF_SIZE == 0) {
+			*ppLinkedList = InsertAtTheEnd((PLINKED_LIST)*ppLinkedList, &pTmpBuffer[i], x);
+			x++;
+		}
+	}
+
+	// updating the size to be the size of the whole *serialized* linked list
+	*sPayloadSize = SERIALIZED_SIZE * x;
+
+	// if the head is null
+	if (*ppLinkedList == NULL)
+		return FALSE;
+
+	return TRUE;
+}
+
+// used to insert a node at the end of the given linked list
+// - LinkedList: a variable pointing to a 'LINKED_LIST' structure, this will represent the linked list head, this variable can be NULL, and thus will be initialized here
+// - pBuffer: the payload chunk (of size 'BUFF_SIZE')
+// - ID: the id of the node 
+PLINKED_LIST InsertAtTheEnd(IN OUT PLINKED_LIST LinkedList, IN PBYTE pBuffer, IN INT ID) {
+
+	// new tmp pointer, pointing to the head of the linked list
+	PLINKED_LIST pTmpHead = (PLINKED_LIST)LinkedList;
+
+	// creating a new node
+	PLINKED_LIST pNewNode = (PLINKED_LIST)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(LINKED_LIST));
+	if (!pNewNode)
+		return NULL;
+	memcpy(pNewNode->pBuffer, pBuffer, BUFF_SIZE);
+	pNewNode->ID = ID;
+	pNewNode->Next = NULL;
+
+	// if the head is null, it will start at the new node we created earlier
+	if (LinkedList == NULL) {
+		LinkedList = pNewNode;
+		return LinkedList;
+	}
+
+	// else we will keep walking down the linked list till we find an empty node 
+	while (pTmpHead->Next != NULL)
+		pTmpHead = pTmpHead->Next;
+
+	// pTmpHead now is the last node in the linked list
+	// setting the 'Next' value to the new node
+	pTmpHead->Next = pNewNode;
+
+	// returning the head of the linked list
+	return LinkedList;
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+///
+/// The MergeSort function is used to sort the linked list based on the ID or the buffer
+///
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//Function to split the linked list into two halves
+void Split(PLINKED_LIST top, PLINKED_LIST* front, PLINKED_LIST* back) {
+	
+	// Local Variables
+	PLINKED_LIST fast = top->Next;
+	PLINKED_LIST slow = top;
+
+	// Move 'fast' two nodes, and move 'slow' one node
+	while (fast != NULL) {
+		fast = fast->Next;		/* "fast" moves on first time */
+		if (fast != NULL) {
+			slow = slow->Next;	/* "slow" moves on first time */
+			fast = fast->Next;	/* "fast" moves on second time */
+		}
+	}
+
+	// 'slow' is before the midpoint in the list, so split it in two at that point.
+	*front = top;
+	*back = slow->Next;
+	slow->Next = NULL;			/* end of the input list */
+}
+
+// Function to merge two linked lists
+PLINKED_LIST Merge(PLINKED_LIST top1, PLINKED_LIST top2, enum SORT_TYPE eType) {
+
