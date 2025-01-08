@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
 
 	// Encrypt the Payload
 	SystemFunction033(&_data, &key);
-	Printf("[+] Payload Encrypted with RC4.\n");
+	printf("[+] Payload Encrypted with RC4.\n");
 
 	// Add the Key to the Payload
 	SIZE_T	sNewPayloadSize = (SIZE_T)(RawPayloadSize + KEY_SIZE);

@@ -17,7 +17,7 @@ typedef struct _LINKED_LIST {
 	BYTE pBuffer[BUFF_SIZE];   // Buffer to store the data
 	BYTE pNull[NULL_BYTES];    // Buffer to store the NULL bytes
 	INT ID;                    // ID of the buffer
-	struct _LINKED_LIST* Next; // Pointer to the next buffer
+	struct LINKED_LIST* Next; // Pointer to the next buffer
 }LINKED_LIST, *PLINKED_LIST;
 
 // Serialized Size of each node
