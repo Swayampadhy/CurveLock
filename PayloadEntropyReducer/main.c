@@ -5,56 +5,61 @@
 
 // Serialization and Obfuscation Function
 BOOL Obfuscate(IN PBYTE PayloadBuffer, IN SIZE_T PayloadSize, OUT PBYTE* ObfuscatedBuffer, OUT PSIZE_T ObfuscatedSize) {
+    // Initialize the linked list
+    PLINKED_LIST pLinkedList = NULL;
+    *ObfuscatedSize = PayloadSize;
 
-	// Initialize the linked list
-	PLINKED_LIST pLinkedList = NULL;
-	*ObfuscatedSize = PayloadSize;
+    // convert the payload to a linked list
+    if (!InitializePayloadList(PayloadBuffer, ObfuscatedSize, &pLinkedList)) {
+        printf("[!] InitializePayloadList failed\n");
+        return 0;
+    }
 
-	// convert the payload to a linked list
-	if (!InitializePayloadList(PayloadBuffer, ObfuscatedSize, &pLinkedList))
-		return 0;
+    // ObfuscatedSize now is the size of the serialized linked list
+    // pLinkedList is the head of the linked list
 
-	// ObfuscatedSize now is the size of the serialized linked list
-	// pLinkedList is the head of the linked list
+    // randomize the linked list (sorted by the value of 'Buffer[0] ^ Buffer[1] ^ Buffer[3]')
+    MergeSort(&pLinkedList, SORT_BY_BUFFER);
 
-	// randomize the linked list (sorted by the value of 'Buffer[0] ^ Buffer[1] ^ Buffer[3]')
-	MergeSort(&pLinkedList, SORT_BY_BUFFER);
-	PLINKED_LIST	pTmpHead = pLinkedList;
-	SIZE_T			BufferSize = NULL;
-	PBYTE			BufferBytes = (PBYTE)LocalAlloc(LPTR, SERIALIZED_SIZE);
+    PLINKED_LIST pTmpHead = pLinkedList;
+    SIZE_T BufferSize = 0;
+    PBYTE BufferBytes = (PBYTE)LocalAlloc(LPTR, SERIALIZED_SIZE);
 
-	// Serailize the linked list
-	while (pTmpHead != NULL) {
+    // Serialize the linked list
+    while (pTmpHead != NULL) {
+        // this buffer will keep data of each node
+        BYTE TmpBuffer[SERIALIZED_SIZE] = { 0 };
 
-		// this buffer will keep data of each node
-		BYTE TmpBuffer[SERIALIZED_SIZE] = { 0 };
+        // copying the payload buffer
+        memcpy(TmpBuffer, pTmpHead->pBuffer, BUFF_SIZE);
+        // no need to copy the 'Null' element, cz its NULL already
+        // copying the ID value
+        memcpy((TmpBuffer + BUFF_SIZE + NULL_BYTES), &pTmpHead->ID, sizeof(int));
 
-		// copying the payload buffer
-		memcpy(TmpBuffer, pTmpHead->pBuffer, BUFF_SIZE);
-		// no need to copy the 'Null' element, cz its NULL already
-		// copying the ID value
-		memcpy((TmpBuffer + BUFF_SIZE + NULL_BYTES), &pTmpHead->ID, sizeof(int));
+        // reallocating and moving 'TmpBuffer' to the final buffer
+        BufferSize += SERIALIZED_SIZE;
 
-		// reallocating and moving 'TmpBuffer' to the final buffer
-		BufferSize += SERIALIZED_SIZE;
+        if (BufferBytes != NULL) {
+            BufferBytes = (PBYTE)LocalReAlloc(BufferBytes, BufferSize, LMEM_MOVEABLE | LMEM_ZEROINIT);
+            memcpy((PVOID)(BufferBytes + (BufferSize - SERIALIZED_SIZE)), TmpBuffer, SERIALIZED_SIZE);
+        }
 
-		if (BufferBytes != NULL) {
-			BufferBytes = (PBYTE)LocalReAlloc(BufferBytes, BufferSize, LMEM_MOVEABLE | LMEM_ZEROINIT);
-			memcpy((PVOID)(BufferBytes + (BufferSize - SERIALIZED_SIZE)), TmpBuffer, SERIALIZED_SIZE);
-		}
+        // next node
+        pTmpHead = pTmpHead->Next;
+    }
 
-		// next node
-		pTmpHead = pTmpHead->Next;
-	}
+    // 'BufferBytes' is the serialized buffer
+    *ObfuscatedBuffer = BufferBytes;
 
-	// 'BufferBytes' is the serailized buffer
-	*ObfuscatedBuffer = BufferBytes;
-
-	// If buffer or size is NULL, return Failure
-	if (*ObfuscatedBuffer != NULL && *ObfuscatedSize > PayloadSize)
-		return 1;
-	else
-		return 0;
+    // If buffer or size is NULL, return Failure
+    if (*ObfuscatedBuffer != NULL && *ObfuscatedSize > PayloadSize) {
+        printf("[+] Obfuscation completed successfully\n");
+        return 1;
+    }
+    else {
+        printf("[!] Obfuscation failed\n");
+        return 0;
+    }
 }
 
 int main(int argc, char* argv[]) {
