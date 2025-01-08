@@ -25,7 +25,7 @@ typedef struct _LINKED_LIST {
 
 typedef enum SORT_TYPE {
 	SORT_BY_ID,
-	SORT_B_BUFFER
+	SORT_BY_BUFFER
 };
 
 // set the 'sPayloadSize' variable to be equal to the next nearest number that is multiple of 'N'

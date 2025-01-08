@@ -15,7 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PayloadEntropyReducer.cpp">
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntropyReducer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileOps.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

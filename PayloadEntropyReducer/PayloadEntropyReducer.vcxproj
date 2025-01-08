@@ -127,7 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="PayloadEntropyReducer.cpp" />
+    <ClCompile Include="EntropyReducer.c" />
+    <ClCompile Include="FileOps.c" />
+    <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="entropyreducer.h" />
