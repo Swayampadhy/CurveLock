@@ -6,7 +6,7 @@
 #ifndef HELPER_H
 #define HELPER_H
 
-// Get the size of the file
+// Padding and reducing entropy of payload
 #define BUFF_SIZE 0X04
 #define NULL_BYTES 0X01
 

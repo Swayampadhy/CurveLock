@@ -21,9 +21,6 @@
     <ClCompile Include="EntropyReducer.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileOps.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="entropyreducer.h">
