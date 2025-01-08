@@ -165,11 +165,11 @@ PLINKED_LIST InsertAtTheEnd(IN OUT PLINKED_LIST LinkedList, IN PBYTE pBuffer, IN
 	return LinkedList;
 }
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 ///
 /// The MergeSort function is used to sort the linked list based on the ID or the buffer
 ///
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 
 //Function to split the linked list into two halves
 void Split(PLINKED_LIST top, PLINKED_LIST* front, PLINKED_LIST* back) {
@@ -195,4 +195,65 @@ void Split(PLINKED_LIST top, PLINKED_LIST* front, PLINKED_LIST* back) {
 
 // Function to merge two linked lists
 PLINKED_LIST Merge(PLINKED_LIST top1, PLINKED_LIST top2, enum SORT_TYPE eType) {
+	
+	// If the first linked list is empty, return the second linked list
+	if (top1 == NULL)
+		return top2;
+	else
+		if (top2 == NULL)
+			return top1;
 
+	PLINKED_LIST pnt = NULL;
+
+	int iValue1 = 0;
+	int iValue2 = 0;
+	
+	// Sorting based on the ID
+	switch (eType) {
+		// this is used to deobfuscate by sorting through id
+	case SORT_BY_ID: {
+		iValue1 = (int)top1->ID;
+		iValue2 = (int)top2->ID;
+		break;
+	}
+		// this is used to obfuscate by sorting through buffer
+	case SORT_BY_BUFFER: {
+		iValue1 = (int)(top1->pBuffer[0] ^ top1->pBuffer[1] ^ top1->pBuffer[2]);   // calculating a value from the payload buffer chunk
+		iValue2 = (int)(top2->pBuffer[0] ^ top2->pBuffer[1] ^ top2->pBuffer[2]);   // calculating a value from the payload buffer chunk
+		break;
+	}
+	default: {
+		return NULL;
+	}
+	}
+
+	/* pick either top1 or top2, and merge them */
+	if (iValue1 <= iValue2) {
+		pnt = top1;
+		pnt->Next = Merge(top1->Next, top2, eType);
+	}
+	else {
+		pnt = top2;
+		pnt->Next = Merge(top1, top2->Next, eType);
+	}
+	return pnt;
+}
+
+// the mergesort function
+// - pLinkedList : is the head node of the linked list
+// - eType :
+//      * is set to SORT_BY_BUFFER to obfuscate
+//      * is set to SORT_BY_ID to deobfuscate
+VOID MergeSort(PLINKED_LIST* top, enum SORT_TYPE eType) {
+	PLINKED_LIST tmp = *top, * a, * b;
+
+	if (tmp != NULL && tmp->Next != NULL) {
+		Split(tmp, &a, &b);				/* (divide) split head into "a" and "b" sublists */
+
+		/* sort the sublists */
+		MergeSort(&a, eType);
+		MergeSort(&b, eType);
+
+		*top = Merge(a, b, eType);				/* (combine) merge the two sorted lists together */
+	}
+}
