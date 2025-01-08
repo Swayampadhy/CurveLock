@@ -1,8 +1,10 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (PayloadEntropyReducer.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   EntropyReducer.c
+  ReadWrite.c
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\common.h(29,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
   (compiling source file 'EntropyReducer.c')
   
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(11,2): warning C4013: 'printf' undefined; assuming extern returning int
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(72,12): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(76,17): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(97,8): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
@@ -10,23 +12,27 @@ C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyRedu
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(100,9): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(106,8): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(92,15): warning C4133: 'initializing': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(147,25): warning C4133: 'function': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(147,13): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(151,31): warning C4133: 'function': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(151,13): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(165,14): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(165,14): warning C4024: 'Split': different types for formal and actual parameter 2
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(165,18): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(165,18): warning C4024: 'Split': different types for formal and actual parameter 3
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(168,13): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(168,13): warning C4024: 'MergeSort': different types for formal and actual parameter 1
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(169,13): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(169,13): warning C4024: 'MergeSort': different types for formal and actual parameter 1
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(171,16): warning C4047: 'function': 'PLINKED_LIST' differs in levels of indirection from 'PLINKED_LIST *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(171,16): warning C4024: 'Merge': different types for formal and actual parameter 1
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(171,19): warning C4047: 'function': 'PLINKED_LIST' differs in levels of indirection from 'PLINKED_LIST *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(171,19): warning C4024: 'Merge': different types for formal and actual parameter 2
-  ReadWrite.c
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(145,8): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(149,8): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(172,18): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(173,9): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(176,18): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(177,9): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(179,11): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(184,17): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(186,17): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(202,14): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(202,14): warning C4024: 'Split': different types for formal and actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(202,18): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(202,18): warning C4024: 'Split': different types for formal and actual parameter 3
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(205,13): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(205,13): warning C4024: 'MergeSort': different types for formal and actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(206,13): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(206,13): warning C4024: 'MergeSort': different types for formal and actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(208,16): warning C4047: 'function': 'PLINKED_LIST' differs in levels of indirection from 'PLINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(208,16): warning C4024: 'Merge': different types for formal and actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(208,19): warning C4047: 'function': 'PLINKED_LIST' differs in levels of indirection from 'PLINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(208,19): warning C4024: 'Merge': different types for formal and actual parameter 2
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\common.h(29,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
   (compiling source file 'ReadWrite.c')
   
