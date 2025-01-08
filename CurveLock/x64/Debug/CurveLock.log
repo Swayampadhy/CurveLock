@@ -1,1 +1,11 @@
-﻿
+﻿  CurveLock.c
+  EntropyReducer.c
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\yvals_core.h(23,1): error C1189: #error:  error STL1003: Unexpected compiler, expected C++ compiler.
+  (compiling source file 'CurveLock.c')
+  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.h(29,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
+  (compiling source file 'EntropyReducer.c')
+  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(32,18): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(36,20): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
+  Generating Code...

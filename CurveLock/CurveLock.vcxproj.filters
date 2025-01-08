@@ -18,6 +18,9 @@
     <ClCompile Include="CurveLock.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EntropyReducer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EntropyReducer.h">
