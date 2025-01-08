@@ -61,7 +61,7 @@ typedef NTSTATUS(WINAPI* _SystemFunction033)(
 	struct ustring* memoryRegion,
 	struct ustring* keyPointer);
 
-// Struct to encrypt the payload
+// Struct of ustring
 struct ustring {
 	DWORD Length;
 	DWORD MaximumLength;
@@ -92,9 +92,7 @@ int main(int argc, char* argv[]) {
 	_SystemFunction033 SystemFunction033 = (_SystemFunction033)GetProcAddress(LoadLibrary(L"advapi32"), "SystemFunction033");
 
 	// Generate the Key
-	BYTE	_key[KEY_SIZE];
-
-	// Generate the Key
+	BYTE _key[KEY_SIZE];
 	GenerateBytes(_key, KEY_SIZE);
 
 	// Print the Key
@@ -126,12 +124,9 @@ int main(int argc, char* argv[]) {
 	// Encrypt the Payload
 	key.Buffer = (&_key);
 	key.Length = sizeof(_key);
-
-	// Encrypt the Payload
 	_data.Buffer = ShellcodeBuffer;
 	_data.Length = RawPayloadSize;
 
-	// Encrypt the Payload
 	SystemFunction033(&_data, &key);
 	printf("[+] Payload Encrypted with RC4.\n");
 
@@ -140,7 +135,6 @@ int main(int argc, char* argv[]) {
 	PVOID	pNewPayloadData = malloc(sNewPayloadSize);
 	ZeroMemory(pNewPayloadData, sNewPayloadSize);
 
-	// Copy the Key to the Payload
 	memcpy(pNewPayloadData, _key, KEY_SIZE);
 	memcpy((PVOID)((ULONG_PTR)pNewPayloadData + KEY_SIZE), ShellcodeBuffer, RawPayloadSize);
 	printf("[+] Key added to the payload blob.\n");
