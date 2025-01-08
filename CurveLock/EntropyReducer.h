@@ -31,6 +31,46 @@ typedef enum SORT_TYPE {
 // set the 'sPayloadSize' variable to be equal to the next nearest number that is multiple of 'N'
 #define NEAREST_MULTIPLE(sPayloadSize, N)(SIZE_T)((SIZE_T)sPayloadSize + (int)N - ((SIZE_T)sPayloadSize % (int)N))
 
+//Defining the USTRING structure
+typedef struct
+{
+	DWORD	Length;
+	DWORD	MaximumLength;
+	PVOID	Buffer;
+
+} USTRING;
+
+// Defining NTAPIs to be used
+typedef NTSTATUS(NTAPI* NtWriteVirtualMemory_t)(
+	HANDLE ProcessHandle,
+	PVOID BaseAddress,
+	PVOID Buffer,
+	SIZE_T NumberOfBytesToWrite,
+	PSIZE_T NumberOfBytesWritten OPTIONAL
+	);
+
+typedef NTSTATUS(WINAPI* pfnNtAllocateVirtualMemory)(
+	HANDLE    ProcessHandle,
+	PVOID* BaseAddress,
+	ULONG_PTR ZeroBits,
+	PSIZE_T   RegionSize,
+	ULONG     AllocationType,
+	ULONG     Protect
+	);
+
+typedef NTSTATUS(WINAPI* NtProtectVirtualMemory_t)(
+	HANDLE               ProcessHandle,
+	PVOID* BaseAddress,
+	PULONG				 NumberOfBytesToProtect,
+	ULONG                NewAccessProtection,
+	PULONG				 OldAccessProtection
+	);
+
+typedef NTSTATUS(NTAPI* fnSystemFunction033)(
+	struct USTRING* Data,
+	struct USTRING* Key
+	);
+
 // Deobfuscation function Prototype
 BOOL Deobfuscate(IN PBYTE pFuscatedBuff, IN SIZE_T sFuscatedSize, OUT PBYTE* ptPayload, OUT PSIZE_T psSize);
 
