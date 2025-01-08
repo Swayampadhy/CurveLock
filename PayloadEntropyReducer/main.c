@@ -3,32 +3,6 @@
 
 #include "entropyreducer.h"
 
-//to del
-VOID PrintList(IN PLINKED_LIST LinkedList) {
-
-	PLINKED_LIST pTmpHead = (PLINKED_LIST)LinkedList;
-	if (!pTmpHead)
-		return;
-
-	while (pTmpHead != NULL) {
-
-		printf("\t>>> ");
-		for (int i = 0; i < BUFF_SIZE; i++) {
-			printf("0x%0.2X ", pTmpHead->pBuffer[i]);
-		}
-		printf("\t(%0.2d)\n", pTmpHead->ID);
-
-		printf("\t\t>>> ");
-		for (int i = 0; i < NULL_BYTES; i++) {
-			printf("0x%0.2X ", pTmpHead->pNull[i]);
-		}
-
-		printf("\n\n");
-		pTmpHead = pTmpHead->Next;
-	}
-}
-
-
 // Serialization and Obfuscation Function
 BOOL Obfuscate(IN PBYTE PayloadBuffer, IN SIZE_T PayloadSize, OUT PBYTE* ObfuscatedBuffer, OUT PSIZE_T ObfuscatedSize) {
 
@@ -45,12 +19,6 @@ BOOL Obfuscate(IN PBYTE PayloadBuffer, IN SIZE_T PayloadSize, OUT PBYTE* Obfusca
 
 	// randomize the linked list (sorted by the value of 'Buffer[0] ^ Buffer[1] ^ Buffer[3]')
 	MergeSort(&pLinkedList, SORT_BY_BUFFER);
-
-		printf("---------------------------------------------------------------------------------------------\n\n");
-		PrintList(pLinkedList);
-		printf("---------------------------------------------------------------------------------------------\n\n");
-
-
 	PLINKED_LIST	pTmpHead = pLinkedList;
 	SIZE_T			BufferSize = NULL;
 	PBYTE			BufferBytes = (PBYTE)LocalAlloc(LPTR, SERIALIZED_SIZE);

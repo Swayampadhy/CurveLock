@@ -1,0 +1,24 @@
+﻿  main.c
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\entropyreducer.h(29,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
+  (compiling source file 'main.c')
+  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(23,11): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(79,9): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'SIZE_T'
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(79,9):
+      consider using '%lld' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(79,9):
+      consider using '%Id' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(79,9):
+      consider using '%I64d' in the format string
+  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(90,9): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'SIZE_T'
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(90,9):
+      consider using '%lld' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(90,9):
+      consider using '%Id' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(90,9):
+      consider using '%I64d' in the format string
+  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(70,9): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(82,9): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
+  PayloadEntropyReducer.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\PayloadEntropyReducer.exe
