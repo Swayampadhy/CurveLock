@@ -9,7 +9,7 @@
 // Padding and reducing entropy of payload
 #define BUFF_SIZE 0X04
 #define NULL_BYTES 0X01
-
+#define KEY_SIZE 0x10
 
 // Structure Of Payload Linked List
 struct LINKED_LIST;
