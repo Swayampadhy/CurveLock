@@ -47,6 +47,7 @@ BOOL Rc4EncryptionViSystemFunc033(IN PBYTE pRc4Key, IN PBYTE pPayloadData, IN DW
 }
 
 int main(int argc, char* argv[]) {
+    
     if (!(argc >= 2)) {
         printf("[!] Please Specify Input '.ER' File To Run ... \n");
         return -1;
