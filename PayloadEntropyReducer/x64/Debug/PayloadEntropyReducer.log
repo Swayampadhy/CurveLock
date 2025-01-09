@@ -1,80 +1,28 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (PayloadEntropyReducer.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  ReadWrite.c
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\common.h(29,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
-  (compiling source file 'ReadWrite.c')
-  
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\ReadWrite.c(54,45): warning C4047: '==': 'ULONG_PTR' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\ReadWrite.c(20,8): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\ReadWrite.c(21,8): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\ReadWrite.c(74,87): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\ReadWrite.c(74,87): warning C4024: 'CreateFileA': different types for formal and actual parameter 6
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\ReadWrite.c(79,47): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\ReadWrite.c(80,10): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 2 has type 'SIZE_T'
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\ReadWrite.c(80,10):
-      consider using '%lld' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\ReadWrite.c(80,10):
-      consider using '%Id' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\ReadWrite.c(80,10):
-      consider using '%I64d' in the format string
-  
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\ReadWrite.c(67,8): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
   main.c
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\common.h(29,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
   (compiling source file 'main.c')
   
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(47,12): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(23,11): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(89,8): warning C4013: 'time' undefined; assuming extern returning int
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(115,9): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'SIZE_T'
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(115,9):
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(81,8): warning C4013: 'time' undefined; assuming extern returning int
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(99,9): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'SIZE_T'
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(99,9):
       consider using '%lld' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(115,9):
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(99,9):
       consider using '%Id' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(115,9):
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(99,9):
       consider using '%I64d' in the format string
   
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(128,17): warning C4244: '=': conversion from 'SIZE_T' to 'DWORD', possible loss of data
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(152,9): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'SIZE_T'
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(152,9):
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(110,17): warning C4244: '=': conversion from 'SIZE_T' to 'DWORD', possible loss of data
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(125,9): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'SIZE_T'
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(125,9):
       consider using '%lld' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(152,9):
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(125,9):
       consider using '%Id' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(152,9):
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(125,9):
       consider using '%I64d' in the format string
   
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(106,9): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(143,9): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
-  EntropyReducer.c
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\common.h(29,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
-  (compiling source file 'EntropyReducer.c')
-  
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(71,12): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(75,17): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(96,8): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(98,9): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(99,9): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(105,8): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(91,15): warning C4133: 'initializing': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(144,8): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(148,8): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(171,18): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(172,9): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(175,18): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(176,9): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(178,11): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(183,17): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(185,17): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(201,14): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(201,14): warning C4024: 'Split': different types for formal and actual parameter 2
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(201,18): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(201,18): warning C4024: 'Split': different types for formal and actual parameter 3
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(204,13): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(204,13): warning C4024: 'MergeSort': different types for formal and actual parameter 1
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(205,13): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(205,13): warning C4024: 'MergeSort': different types for formal and actual parameter 1
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(207,16): warning C4047: 'function': 'PLINKED_LIST' differs in levels of indirection from 'PLINKED_LIST *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(207,16): warning C4024: 'Merge': different types for formal and actual parameter 1
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(207,19): warning C4047: 'function': 'PLINKED_LIST' differs in levels of indirection from 'PLINKED_LIST *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\EntropyReducer.c(207,19): warning C4024: 'Merge': different types for formal and actual parameter 2
-  Generating Code...
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(90,9): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEntropyReducer\main.c(116,9): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
   PayloadEntropyReducer.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\PayloadEntropyReducer.exe

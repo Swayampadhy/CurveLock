@@ -9,6 +9,7 @@
 // if you modified them there, you need to modify these here as well
 #define BUFF_SIZE				0x04			
 #define NULL_BYTES				0x01			
+#define KEY_SIZE				0x10
 
 // Structure to hold the linked list
 struct LINKED_LIST;

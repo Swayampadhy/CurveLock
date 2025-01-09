@@ -1,15 +1,41 @@
-﻿  CurveLock.c
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.h(29,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
-  (compiling source file 'CurveLock.c')
+﻿  EntropyReducer.c
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.h(30,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
+  (compiling source file 'EntropyReducer.c')
   
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(41,37): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(41,44): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(90,12): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'SIZE_T'
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(90,12):
-      consider using '%lld' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(90,12):
-      consider using '%Id' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(90,12):
-      consider using '%I64d' in the format string
-  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(33,18): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(37,20): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(97,10): warning C4013: 'ReportError' undefined; assuming extern returning int
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(124,45): warning C4047: '==': 'ULONG_PTR' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(90,8): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(91,8): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(144,14): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(146,18): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(147,18): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(153,11): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(139,18): warning C4133: 'initializing': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(192,8): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(196,8): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(219,18): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(220,9): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(223,18): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(224,9): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(226,11): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(231,17): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(233,17): warning C4133: '=': incompatible types - from 'PLINKED_LIST' to 'LINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(249,14): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(249,14): warning C4024: 'Split': different types for formal and actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(249,18): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(249,18): warning C4024: 'Split': different types for formal and actual parameter 3
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(252,13): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(252,13): warning C4024: 'MergeSort': different types for formal and actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(253,13): warning C4047: 'function': 'PLINKED_LIST *' differs in levels of indirection from 'PLINKED_LIST **'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(253,13): warning C4024: 'MergeSort': different types for formal and actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(255,16): warning C4047: 'function': 'PLINKED_LIST' differs in levels of indirection from 'PLINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(255,16): warning C4024: 'Merge': different types for formal and actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(255,19): warning C4047: 'function': 'PLINKED_LIST' differs in levels of indirection from 'PLINKED_LIST *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(255,19): warning C4024: 'Merge': different types for formal and actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(294,18): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(311,19): warning C4133: '=': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(279,14): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.c(303,18): warning C4133: 'initializing': incompatible types - from 'LINKED_LIST *' to 'PLINKED_LIST'
   CurveLock.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\CurveLock.exe

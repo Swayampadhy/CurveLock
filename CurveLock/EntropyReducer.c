@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include "EntropyReducer.h"
 #include <stdio.h>
 
 #include "EntropyReducer.h"
@@ -316,3 +317,4 @@ BOOL Deobfuscate(IN PBYTE pFuscatedBuff, IN SIZE_T sFuscatedSize, OUT PBYTE* ptP
     else
         return 0;
 }
+
