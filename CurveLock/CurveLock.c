@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "common.h"
 
-#define PREFIX ".testing"
+//#define PREFIX ".testing"
 
 // Function to report WinApi Errors
 BOOL ReportError(const char* WinApiName) {
@@ -48,34 +48,34 @@ BOOL Rc4EncryptionViSystemFunc033(IN PBYTE pRc4Key, IN PBYTE pPayloadData, IN DW
     return TRUE;
 }
 
-// Function to Write the Payload File
-BOOL WritePayloadFile(IN PSTR cFileInput, IN LPCVOID pPayloadData, IN SIZE_T Size)
-{
-    // Local Variable definitions
-    HANDLE	hFile = INVALID_HANDLE_VALUE;
-    DWORD	dwNumberOfBytesWritten = NULL;
-
-    // constructing the output file name
-    CHAR* cFileName = (CHAR*)malloc(strlen(cFileInput) + sizeof(PREFIX) + 1);
-    wsprintfA(cFileName, "%s%s", cFileInput, PREFIX);
-
-    // Open the file
-    hFile = CreateFileA(cFileName, GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, NULL, NULL);
-    if (hFile == INVALID_HANDLE_VALUE)
-        return ReportError("CreateFileA");
-
-    // Write the file
-    if (!WriteFile(hFile, (LPCVOID)pPayloadData, Size, &dwNumberOfBytesWritten, NULL) || (DWORD)Size != dwNumberOfBytesWritten) {
-        printf("[i] Wrote %ld from %ld Bytes \n", dwNumberOfBytesWritten, Size);
-        return ReportError("WriteFile");
-    }
-
-    // cleanup
-    free(cFileName);
-    CloseHandle(hFile);
-
-    return TRUE;
-}
+//// Function to Write the Payload File
+//BOOL WritePayloadFile(IN PSTR cFileInput, IN LPCVOID pPayloadData, IN SIZE_T Size)
+//{
+//    // Local Variable definitions
+//    HANDLE	hFile = INVALID_HANDLE_VALUE;
+//    DWORD	dwNumberOfBytesWritten = NULL;
+//
+//    // constructing the output file name
+//    CHAR* cFileName = (CHAR*)malloc(strlen(cFileInput) + sizeof(PREFIX) + 1);
+//    wsprintfA(cFileName, "%s%s", cFileInput, PREFIX);
+//
+//    // Open the file
+//    hFile = CreateFileA(cFileName, GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, NULL, NULL);
+//    if (hFile == INVALID_HANDLE_VALUE)
+//        return ReportError("CreateFileA");
+//
+//    // Write the file
+//    if (!WriteFile(hFile, (LPCVOID)pPayloadData, Size, &dwNumberOfBytesWritten, NULL) || (DWORD)Size != dwNumberOfBytesWritten) {
+//        printf("[i] Wrote %ld from %ld Bytes \n", dwNumberOfBytesWritten, Size);
+//        return ReportError("WriteFile");
+//    }
+//
+//    // cleanup
+//    free(cFileName);
+//    CloseHandle(hFile);
+//
+//    return TRUE;
+//}
 
 int main(int argc, char* argv[]) {
     
