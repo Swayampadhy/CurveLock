@@ -261,59 +261,69 @@ VOID MergeSort(PLINKED_LIST* top, enum SORT_TYPE eType) {
 ///
 // --------------------------------------------------------------------------------------------------------
 
-BOOL Deobfuscate(IN PBYTE pFuscatedBuff, IN SIZE_T sFuscatedSize, OUT PBYTE* ptPayload, OUT PSIZE_T psSize)
+BOOL Deobfuscate(IN PBYTE pFuscatedBuff, IN SIZE_T sFuscatedSize, OUT PBYTE* ptPayload, OUT PSIZE_T psSize, IN PBYTE KeySizeBuffer)
 {
-    PLINKED_LIST	pLinkedList = NULL;
+	PLINKED_LIST pLinkedList = NULL;
 
-    // deserialize (from buffer to linked list - this must be done to re-order the payload's bytes)
-    for (size_t i = 0; i < sFuscatedSize; i++) {
-        if (i % SERIALIZED_SIZE == 0)
-            pLinkedList = InsertAtTheEnd(pLinkedList, &pFuscatedBuff[i], *(int*)&pFuscatedBuff[i + BUFF_SIZE + NULL_BYTES]);
-    }
+	// Deserialize (from buffer to linked list - this must be done to re-order the payload's bytes)
+	for (size_t i = 0; i < sFuscatedSize; i++) {
+		if (i % SERIALIZED_SIZE == 0)
+			pLinkedList = InsertAtTheEnd(pLinkedList, &pFuscatedBuff[i], *(int*)&pFuscatedBuff[i + BUFF_SIZE + NULL_BYTES]);
+	}
 
-    // re-ordering the payload's bytes
-    MergeSort(&pLinkedList, SORT_BY_ID);
+	// Re-ordering the payload's bytes
+	MergeSort(&pLinkedList, SORT_BY_ID);
 
-    PLINKED_LIST	pTmpHead = pLinkedList;
-    SIZE_T			BufferSize = NULL;
-    unsigned int	x = 0x00;
+	PLINKED_LIST pTmpHead = pLinkedList;
+	SIZE_T BufferSize = NULL;
+	unsigned int x = 0x00;
 
-    while (pTmpHead != NULL) {
+	while (pTmpHead != NULL) {
 
-        BYTE TmpBuffer[BUFF_SIZE] = { 0 };
+		BYTE TmpBuffer[BUFF_SIZE] = { 0 };
 
-        // copying the 'pBuffer' element from each node
-        memcpy(TmpBuffer, pTmpHead->pBuffer, BUFF_SIZE);
+		// Copying the 'pBuffer' element from each node
+		memcpy(TmpBuffer, pTmpHead->pBuffer, BUFF_SIZE);
 
-        BufferSize += BUFF_SIZE;
+		BufferSize += BUFF_SIZE;
 
-        // copy the buffer to the original memory location
-        memcpy((PVOID)(pFuscatedBuff + (BufferSize - BUFF_SIZE)), TmpBuffer, BUFF_SIZE);
+		// Copy the buffer to the original memory location
+		memcpy((PVOID)(pFuscatedBuff + (BufferSize - BUFF_SIZE)), TmpBuffer, BUFF_SIZE);
 
-        pTmpHead = pTmpHead->Next;
-        x++; // number if nodes
-    }
+		pTmpHead = pTmpHead->Next;
+		x++; // Number of nodes
+	}
 
-    *ptPayload = pFuscatedBuff;  // payload base address 
-    *psSize = x * BUFF_SIZE; // payload size
+	*ptPayload = pFuscatedBuff;  // Payload base address 
+	*psSize = x * BUFF_SIZE; // Payload size
 
-    // free linked list's nodes
-    pTmpHead = pLinkedList;
-    PLINKED_LIST pTmpHead2 = pTmpHead->Next;
+	// Free linked list's nodes
+	pTmpHead = pLinkedList;
+	PLINKED_LIST pTmpHead2 = pTmpHead->Next;
 
-    while (pTmpHead2 != NULL) {
+	while (pTmpHead2 != NULL) {
+		if (!HeapFree(GetProcessHeap(), 0, (PVOID)pTmpHead)) {
+			// Failed
+		}
+		pTmpHead = pTmpHead2;
+		pTmpHead2 = pTmpHead2->Next;
+	}
 
-        if (!HeapFree(GetProcessHeap(), 0, (PVOID)pTmpHead)) {
-            // failed
-        }
-        pTmpHead = pTmpHead2;
-        pTmpHead2 = pTmpHead2->Next;
-    }
+	// Remove the number of bytes from the end of pFuscatedBuff equal to the value in KeySizeBuffer
+	SIZE_T PaddingSize = *(SIZE_T*)KeySizeBuffer;
+	if (*psSize > PaddingSize) {
+		*psSize -= PaddingSize;
+		sFuscatedSize -= PaddingSize;
+	}
+	else {
+		*psSize = 0;
+		sFuscatedSize = 0;
+	}
 
 	// If extracted payload is null or the size is less than the fuscated size, return 0.
-    if (*ptPayload != NULL && *psSize < sFuscatedSize)
-        return 1;
-    else
-        return 0;
+	if (*ptPayload != NULL && *psSize < sFuscatedSize)
+		return 1;
+	else
+		return 0;
 }
 

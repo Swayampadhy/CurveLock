@@ -47,7 +47,7 @@ typedef NTSTATUS(NTAPI* fnSystemFunction033)(
 	);
 
 // Deobfuscation function Prototype
-BOOL Deobfuscate(IN PBYTE pFuscatedBuff, IN SIZE_T sFuscatedSize, OUT PBYTE* ptPayload, OUT PSIZE_T psSize);
+BOOL Deobfuscate(IN PBYTE pFuscatedBuff, IN SIZE_T sFuscatedSize, OUT PBYTE* ptPayload, OUT PSIZE_T psSize, IN PBYTE KeySizeBuffer);
 
 
 #endif // !HELPER_H
