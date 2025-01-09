@@ -6,20 +6,22 @@
 // - pPayload: Base Address of the payload
 // - sPayloadSize: pointer to a SIZE_T variable that holds the size of the payload, it will be set to the serialized size of the linked list
 // - ppLinkedList: pointer to a LINKED_LIST structure, that will represent the head of the linked list
-BOOL InitializePayloadList(IN PBYTE pPayload, IN OUT PSIZE_T sPayloadSize, OUT PLINKED_LIST* ppLinkedList)
+BOOL InitializePayloadList(IN PBYTE pPayload, IN OUT PSIZE_T sPayloadSize, OUT PLINKED_LIST* ppLinkedList, OUT PSIZE_T pPaddingSize)
 {
 	// variable used to count the linked list elements (used to calculate the final size)
 	// it is also used as the node's ID
 	unsigned int x = 0;
 
-
 	// setting the payload size to be multiple of 'BUFF_SIZE'
-	SIZE_T	sTmpSize = NEAREST_MULTIPLE(*sPayloadSize, BUFF_SIZE);
+	SIZE_T sTmpSize = NEAREST_MULTIPLE(*sPayloadSize, BUFF_SIZE);
 	if (!sTmpSize)
 		return FALSE;
 
+	// calculate the padding size
+	*pPaddingSize = sTmpSize - *sPayloadSize;
+
 	// new padded buffer 
-	PBYTE	pTmpBuffer = (PBYTE)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sTmpSize);
+	PBYTE pTmpBuffer = (PBYTE)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sTmpSize);
 	if (!pTmpBuffer)
 		return FALSE;
 
@@ -42,6 +44,7 @@ BOOL InitializePayloadList(IN PBYTE pPayload, IN OUT PSIZE_T sPayloadSize, OUT P
 
 	return TRUE;
 }
+
 
 // used to insert a node at the end of the given linked list
 // - LinkedList: a variable pointing to a 'LINKED_LIST' structure, this will represent the linked list head, this variable can be NULL, and thus will be initialized here
