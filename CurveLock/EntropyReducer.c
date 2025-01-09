@@ -2,7 +2,6 @@
 #include "EntropyReducer.h"
 #include <stdio.h>
 
-#include "EntropyReducer.h"
 
 // used to insert a node at the end of the given linked list
 // - LinkedList: a variable pointing to a 'LINKED_LIST' structure, this will represent the linked list head, this variable can be NULL, and thus will be initialized here
