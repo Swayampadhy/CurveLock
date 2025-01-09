@@ -2,7 +2,19 @@
 C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\common.h(30,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
   (compiling source file 'CurveLock.c')
   
-C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(41,37): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(41,44): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(120,86): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
+C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(43,37): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(43,44): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(63,90): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(63,90): warning C4024: 'CreateFileA': different types for formal and actual parameter 6
+C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(68,50): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
+C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(69,16): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 2 has type 'SIZE_T'
+      C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(69,16):
+      consider using '%lld' in the format string
+      C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(69,16):
+      consider using '%Id' in the format string
+      C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(69,16):
+      consider using '%I64d' in the format string
+  
+C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(56,11): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(151,86): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
   CurveLock.vcxproj -> C:\Users\swaya\source\repos\Swayampadhy\CurveLock\x64\Debug\CurveLock.exe
