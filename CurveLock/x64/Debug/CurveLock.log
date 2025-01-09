@@ -2,36 +2,14 @@
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\EntropyReducer.h(29,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
   (compiling source file 'CurveLock.c')
   
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(34,34): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(34,41): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(14,11): warning C4047: 'initializing': 'NTSTATUS' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(58,7): warning C4013: 'ReadPayloadFile' undefined; assuming extern returning int
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(62,9): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'SIZE_T'
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(62,9):
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(41,37): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(41,44): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(90,12): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'SIZE_T'
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(90,12):
       consider using '%lld' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(62,9):
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(90,12):
       consider using '%Id' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(62,9):
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(90,12):
       consider using '%I64d' in the format string
   
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(78,52): warning C4133: 'function': incompatible types - from 'SIZE_T *' to 'PULONG'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(96,9): warning C4477: 'printf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'SIZE_T'
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(96,9):
-      consider using '%lld' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(96,9):
-      consider using '%Id' in the format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(96,9):
-      consider using '%I64d' in the format string
-  
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(103,35): warning C4474: 'printf' : too many arguments passed for format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(103,35):
-      placeholders and their parameters expect 0 variadic arguments, but 1 were provided
-  
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(119,31): warning C4047: 'function': 'SIZE_T' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(119,31): warning C4024: 'CreateThread': different types for formal and actual parameter 2
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(119,69): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(119,69): warning C4024: 'CreateThread': different types for formal and actual parameter 5
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(53,9): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(87,9): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(109,53): warning C4244: 'initializing': conversion from 'SIZE_T' to 'DWORD', possible loss of data
   CurveLock.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\CurveLock.exe

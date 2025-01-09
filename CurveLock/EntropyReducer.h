@@ -40,32 +40,6 @@ typedef struct
 
 } USTRING;
 
-// Defining NTAPIs to be used
-typedef NTSTATUS(NTAPI* NtWriteVirtualMemory_t)(
-	HANDLE ProcessHandle,
-	PVOID BaseAddress,
-	PVOID Buffer,
-	SIZE_T NumberOfBytesToWrite,
-	PSIZE_T NumberOfBytesWritten OPTIONAL
-	);
-
-typedef NTSTATUS(WINAPI* pfnNtAllocateVirtualMemory)(
-	HANDLE    ProcessHandle,
-	PVOID* BaseAddress,
-	ULONG_PTR ZeroBits,
-	PSIZE_T   RegionSize,
-	ULONG     AllocationType,
-	ULONG     Protect
-	);
-
-typedef NTSTATUS(WINAPI* NtProtectVirtualMemory_t)(
-	HANDLE               ProcessHandle,
-	PVOID* BaseAddress,
-	PULONG				 NumberOfBytesToProtect,
-	ULONG                NewAccessProtection,
-	PULONG				 OldAccessProtection
-	);
-
 typedef NTSTATUS(NTAPI* fnSystemFunction033)(
 	struct USTRING* Data,
 	struct USTRING* Key

