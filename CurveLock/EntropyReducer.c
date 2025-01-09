@@ -1,5 +1,5 @@
 #include <Windows.h>
-#include "EntropyReducer.h"
+#include "common.h"
 #include <stdio.h>
 
 

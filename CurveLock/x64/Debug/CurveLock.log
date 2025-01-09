@@ -1,8 +1,8 @@
 ﻿  CurveLock.c
-C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\EntropyReducer.h(30,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
+C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\common.h(30,2): warning C4091: 'typedef ': ignored on left of 'SORT_TYPE' when no variable is declared
   (compiling source file 'CurveLock.c')
   
 C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(41,37): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
 C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(41,44): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(129,86): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
+C:\Users\swaya\source\repos\Swayampadhy\CurveLock\CurveLock\CurveLock.c(120,86): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
   CurveLock.vcxproj -> C:\Users\swaya\source\repos\Swayampadhy\CurveLock\x64\Debug\CurveLock.exe

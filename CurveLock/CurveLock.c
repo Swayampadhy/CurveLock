@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include <stdio.h>
-#include "EntropyReducer.h"
+#include "common.h"
 
 // Function to report WinApi Errors
 BOOL ReportError(const char* WinApiName) {
@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
     pBuffer += KEY_SIZE;
     dwFileSize -= KEY_SIZE;
 
-	printf("[i] Encrypted Payload Size : %ld \n", dwFileSize);
+	printf("[i] Deobfuscated Payload Size : %ld \n", dwFileSize);
 
     // Deobfuscate the Payload
     SIZE_T DeobfuscatedPayloadSize = 0;
