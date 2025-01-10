@@ -131,7 +131,6 @@ def plant_payload_in_png(ipng_fname, opng_fname, png_buffer):
 
     # add our payload as IDAT sections
     with open(opng_fname, 'ab') as f:
-        # Encryption of Payload
         for i in range(0, len(png_buffer), (MAX_IDAT_LNG - RC4_KEY_LNG)):
             rc4_key                 = generate_random_bytes()
             idat_chunk_data         = rc4_key + encrypt_rc4(rc4_key, png_buffer[i:i + (MAX_IDAT_LNG - RC4_KEY_LNG)])  

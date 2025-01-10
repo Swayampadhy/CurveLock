@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PayloadEmbedFetch.cpp">
+    <ClCompile Include="PayloadEmbedFetch.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
