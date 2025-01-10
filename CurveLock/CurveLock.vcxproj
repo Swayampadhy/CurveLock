@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CurveLock.c" />
-    <ClCompile Include="EntropyReducer.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
