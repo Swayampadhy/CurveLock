@@ -131,7 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ReadWrite.c" />
-    <ClCompile Include="main.c" />
+    <ClCompile Include="EntropyReducermain.c" />
     <ClCompile Include="EntropyReducer.c" />
   </ItemGroup>
   <ItemGroup>

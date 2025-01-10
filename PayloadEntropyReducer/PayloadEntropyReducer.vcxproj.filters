@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c">
+    <ClCompile Include="EntropyReducermain.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ReadWrite.c">
