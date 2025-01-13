@@ -1,7 +1,1 @@
-﻿  PayloadFetcher.c
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(165,54): warning C4047: 'function': 'PBYTE' differs in levels of indirection from 'PBYTE [16]'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(165,54): warning C4024: 'Rc4EncryptDecrypt': different types for formal and actual parameter 3
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(236,9): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(237,3): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(291,56): warning C4133: 'function': incompatible types - from 'SIZE_T *' to 'PDWORD'
-  CurveLock.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\CurveLock.exe
+﻿
