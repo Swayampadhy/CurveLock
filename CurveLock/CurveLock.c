@@ -9,5 +9,6 @@ BOOL ReportError(const char* WinApiName) {
 }
 
 int main() {
-
+    //Fetching payload
+	fetchPayload();
 }

