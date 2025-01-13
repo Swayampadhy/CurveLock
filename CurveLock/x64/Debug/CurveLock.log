@@ -4,5 +4,5 @@ C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(161,54
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(198,9): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(199,3): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(253,100): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(286,56): warning C4133: 'function': incompatible types - from 'SIZE_T *' to 'PDWORD'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(286,59): warning C4133: 'function': incompatible types - from 'SIZE_T *' to 'PDWORD'
   CurveLock.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\CurveLock.exe

