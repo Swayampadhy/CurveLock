@@ -1,8 +1,8 @@
 ﻿  PayloadEmbedFetch.c
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEmbedFetch\PayloadEmbedFetch.c(164,54): warning C4047: 'function': 'PBYTE' differs in levels of indirection from 'PBYTE [16]'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEmbedFetch\PayloadEmbedFetch.c(164,54): warning C4024: 'Rc4EncryptDecrypt': different types for formal and actual parameter 3
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEmbedFetch\PayloadEmbedFetch.c(234,9): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEmbedFetch\PayloadEmbedFetch.c(235,3): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEmbedFetch\PayloadEmbedFetch.c(290,56): warning C4133: 'function': incompatible types - from 'SIZE_T *' to 'PDWORD'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEmbedFetch\PayloadEmbedFetch.c(298,66): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEmbedFetch\PayloadEmbedFetch.c(235,9): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEmbedFetch\PayloadEmbedFetch.c(236,3): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEmbedFetch\PayloadEmbedFetch.c(291,56): warning C4133: 'function': incompatible types - from 'SIZE_T *' to 'PDWORD'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\PayloadEmbedFetch\PayloadEmbedFetch.c(299,66): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
   PayloadEmbedFetch.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\PayloadEmbedFetch.exe
