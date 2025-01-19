@@ -1,8 +1,26 @@
-﻿  PayloadFetcher.c
+﻿  CurveLock.c
+  PayloadFetcher.c
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(45,54): warning C4047: 'function': 'UINT' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(45,54): warning C4024: 'MessageBoxA': different types for formal and actual parameter 4
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(47,41): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(47,41): warning C4024: 'SetCriticalSectionSpinCount': different types for formal and actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(49,31): warning C4047: 'function': 'int' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(49,31): warning C4024: 'GetWindowLongPtrW': different types for formal and actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(52,28): warning C4047: 'function': 'LCID' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(52,28): warning C4024: 'ConvertDefaultLocale': different types for formal and actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(53,27): warning C4047: 'function': 'UINT' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(53,27): warning C4024: 'MultiByteToWideChar': different types for formal and actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(53,33): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(53,33): warning C4024: 'MultiByteToWideChar': different types for formal and actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(53,45): warning C4047: 'function': 'int' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(53,45): warning C4024: 'MultiByteToWideChar': different types for formal and actual parameter 4
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(53,57): warning C4047: 'function': 'int' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(53,57): warning C4024: 'MultiByteToWideChar': different types for formal and actual parameter 6
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(161,54): warning C4047: 'function': 'PBYTE' differs in levels of indirection from 'PBYTE [16]'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(161,54): warning C4024: 'Rc4EncryptDecrypt': different types for formal and actual parameter 3
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(198,9): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(199,3): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(253,100): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(286,59): warning C4133: 'function': incompatible types - from 'SIZE_T *' to 'PDWORD'
+  Generating Code...
   CurveLock.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\CurveLock.exe
