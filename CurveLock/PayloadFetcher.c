@@ -275,7 +275,7 @@ _END_OF_FUNC:
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 
-int fetchPayload() {
+BOOL fetchPayload() {
 
 	PBYTE pPngFileBuffer = NULL;
 	PBYTE pShellcodeBuffer = NULL;

