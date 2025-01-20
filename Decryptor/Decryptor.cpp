@@ -1,24 +1,11 @@
-// hasher.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Decryptor.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
-#include <string>
-
-// Simple hash function definition
-unsigned int HASHA(const std::string& str) {
-    unsigned int hash = 0;
-    for (char c : str) {
-        hash = hash * 31 + c;
-    }
-    return hash;
-}
 
 int main()
 {
-    printf("[i] Hash Of \"%s\" Is : 0x%0.8X \n", "USER32.DLL", HASHA("USER32.DLL")); 
-    printf("[i] Hash Of \"%s\" Is : 0x%0.8X \n", "MessageBoxA", HASHA("MessageBoxA"));
-
-    return 0;
+    std::cout << "Hello World!\n";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

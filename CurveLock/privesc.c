@@ -52,6 +52,7 @@ FARPROC GetProcAddressQ(IN HMODULE hModule, IN LPCSTR lpApiName) {
 	return NULL;
 }
 
+
 // Function that escalates the current process privileges
 BOOL DoPrivilegeEscalation() {
 	printf("[i] Escalating Privileges \n");
