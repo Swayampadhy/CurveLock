@@ -103,6 +103,7 @@ BOOL ReadNtdllFromASuspendedProcess(IN LPCSTR lpProcessName, OUT PVOID* ppNtdllB
 	// terminating the process
 	if (DebugActiveProcessStop(Pi.dwProcessId) && TerminateProcess(Pi.hProcess, 0)) {
 		// process terminated successfully
+		printf("[+] Suspended Process Terminated Successfully \n");
 	}
 
 
