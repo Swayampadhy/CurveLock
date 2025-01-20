@@ -1,9 +1,1 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (hasher.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  test.c
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\hasher\test.c(35,28): warning C4244: '=': conversion from 'SIZE_T' to 'DWORD', possible loss of data
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\hasher\test.c(50,90): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\hasher\test.c(50,90): warning C4024: 'CreateFileW': different types for formal and actual parameter 6
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\hasher\test.c(59,66): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\hasher\test.c(71,90): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\hasher\test.c(71,90): warning C4024: 'CreateFileW': different types for formal and actual parameter 6
-  hasher.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\test.exe
+﻿
