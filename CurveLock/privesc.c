@@ -193,7 +193,14 @@ _END_OF_FUNC:
 		LocalFree(pTokenLabel);
 }
 
-
+// Get Current Process Id
+DWORD _GetCurrentProcessId() {
+#ifdef _WIN64
+	return HandleToUlong(((PTEB)__readgsqword(0x30))->ClientId.UniqueProcess);
+#else
+	return HandleToUlong(((PTEB)__readfsdword(0x18))->ClientId.UniqueProcess);
+#endif
+}
 
 // Function that escalates the current process privileges
 BOOL DoPrivilegeEscalation() {
