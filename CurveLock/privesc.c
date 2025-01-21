@@ -195,7 +195,7 @@ _END_OF_FUNC:
 // Function that escalates the current process privileges
 BOOL DoPrivilegeEscalation() {
 	
-	printf("[i] Escalating Privileges \n");
+	printf("[i] Checking For Privilege Escalation \n");
 
 	// Getting Current Token
 	HANDLE hToken = GetCurrentToken();
@@ -208,6 +208,7 @@ BOOL DoPrivilegeEscalation() {
 
 	else {
 		printf("[i] Process is not running as admin\n");
+		printf("[i] Trying To Escalate Privileges \n");
 
 		// Checking the integrity level of the token
 		printf("[i] Getting The Process Token Integrity Level. Lower the Level The Better\n");

