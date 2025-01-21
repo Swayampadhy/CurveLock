@@ -1,1 +1,6 @@
-﻿
+﻿  privesc.c
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\privesc.c(209,61): warning C4133: 'function': incompatible types - from 'BOOL *' to 'PBOOLEAN'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\privesc.c(299,1): warning C4715: 'DoPrivilegeEscalation': not all control paths return a value
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\privesc.c(193,1): warning C4715: 'QueryTokenIntegrity': not all control paths return a value
+  LINK : C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\CurveLock.exe not found or not built by the last incremental link; performing full link
+  CurveLock.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\CurveLock.exe

