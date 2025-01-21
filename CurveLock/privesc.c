@@ -181,6 +181,7 @@ DWORD QueryTokenIntegrity(IN HANDLE hToken) {
 
 		if (dwIntegrity >= SECURITY_MANDATORY_HIGH_RID) {
 			dwIntegrity = THREAD_INTEGRITY_HIGH;
+			printf("[i] Process Token is at a High Integrity Level\n");
 		}
 	}
 
@@ -190,15 +191,6 @@ DWORD QueryTokenIntegrity(IN HANDLE hToken) {
 _END_OF_FUNC:
 	if (pTokenLabel)
 		LocalFree(pTokenLabel);
-}
-
-// Get Current Process Id
-DWORD _GetCurrentProcessId() {
-#ifdef _WIN64
-	return HandleToUlong(((PTEB)__readgsqword(0x30))->ClientId.UniqueProcess);
-#else
-	return HandleToUlong(((PTEB)__readfsdword(0x18))->ClientId.UniqueProcess);
-#endif
 }
 
 // Function that escalates the current process privileges
@@ -223,10 +215,6 @@ BOOL DoPrivilegeEscalation() {
 		printf("[i] Getting The Process Token Integrity Level. Higher the Level The Better\n");
 		DWORD dwIntegrity = QueryTokenIntegrity(hToken);
 		printf("[i] Current Process Integrity Level : %d \n", dwIntegrity);
-
-		if (dwIntegrity == THREAD_INTEGRITY_HIGH) {
-			printf("[!] Process is in high integrity \n");
-		}
 
 	}
 
