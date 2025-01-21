@@ -13,6 +13,7 @@
 #define THREAD_INTEGRITY_MEDIUM    2
 #define THREAD_INTEGRITY_HIGH      3
 
+#pragma warning(disable: 4996)
 
 // NTAPI Typedefs
 typedef NTSTATUS(NTAPI* fnNtOpenProcessToken)(HANDLE ProcessHandle, ACCESS_MASK DesiredAccess, PHANDLE TokenHandle);

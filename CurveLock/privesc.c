@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include "common.h"
+#include "Structs.h"
 
 // GetProcAddress replacement function
 FARPROC GetProcAddressQ(IN HMODULE hModule, IN LPCSTR lpApiName) {
@@ -192,6 +193,8 @@ _END_OF_FUNC:
 		LocalFree(pTokenLabel);
 }
 
+
+
 // Function that escalates the current process privileges
 BOOL DoPrivilegeEscalation() {
 	
@@ -211,10 +214,13 @@ BOOL DoPrivilegeEscalation() {
 		printf("[i] Trying To Escalate Privileges \n");
 
 		// Checking the integrity level of the token
-		printf("[i] Getting The Process Token Integrity Level. Lower the Level The Better\n");
+		printf("[i] Getting The Process Token Integrity Level. Higher the Level The Better\n");
 		DWORD dwIntegrity = QueryTokenIntegrity(hToken);
 		printf("[i] Current Process Integrity Level : %d \n", dwIntegrity);
 
+		if (dwIntegrity == THREAD_INTEGRITY_HIGH) {
+			printf("[!] Process is in high integrity \n");
+		}
 
 	}
 

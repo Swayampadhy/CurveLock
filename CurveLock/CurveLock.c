@@ -304,5 +304,7 @@ int main() {
 		printf("[!] Failed To Fetch Payload \n");
 	}
 
+	getchar();
+
 	return 0;
 }
