@@ -181,7 +181,6 @@ DWORD QueryTokenIntegrity(IN HANDLE hToken) {
 
 		if (dwIntegrity >= SECURITY_MANDATORY_HIGH_RID) {
 			dwIntegrity = THREAD_INTEGRITY_HIGH;
-			printf("[i] Process Token is at a High Integrity Level\n");
 		}
 	}
 
