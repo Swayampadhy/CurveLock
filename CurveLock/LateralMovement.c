@@ -79,11 +79,12 @@ BOOL DoLateralMovement() {
     const char* filePath = "top.txt";
     int count = 0;
     KeyValuePair* resultArray = parseResult(filePath, &count);
-
+	printf("[i] Printing Results From DcSyncer\n");
     if (resultArray) {
         for (int i = 0; i < count; i++) {
             printf("{\"%s\": \"%s\"}\n", resultArray[i].objectRDN, resultArray[i].hashNTLM);
         }
+        printf("\n\n");
         free(resultArray);
     }
 
