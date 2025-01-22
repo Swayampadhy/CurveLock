@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CurveLock.c" />
+    <ClCompile Include="LateralMovement.c" />
     <ClCompile Include="ntdll.c" />
     <ClCompile Include="PayloadFetcher.c" />
     <ClCompile Include="privesc.c" />
