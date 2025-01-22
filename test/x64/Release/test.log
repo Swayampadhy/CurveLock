@@ -1,0 +1,7 @@
+﻿  test.c
+  Generating code
+  5 of 5 functions (100.0%) were compiled.
+    1 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  test.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Release\test.exe

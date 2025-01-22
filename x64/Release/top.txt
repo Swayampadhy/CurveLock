@@ -1,0 +1,501 @@
+[i] dcsync: Domain would be mini.lab
+[i] dcsync: DC would be dc.mini.lab
+
+
+Object RDN           : Guest
+SAM Username         : Guest
+User Account Control : 00010222 ( ACCOUNTDISABLE PASSWD_NOTREQD NORMAL_ACCOUNT DONT_EXPIRE_PASSWD )
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-501
+Object Relative ID   : 501
+
+Credentials:
+
+
+Object RDN           : Remote Desktop Users
+SAM Username         : Remote Desktop Users
+Object Security ID   : S-1-5-32-555
+Object Relative ID   : 555
+
+Credentials:
+
+
+Object RDN           : Network Configuration Operators
+SAM Username         : Network Configuration Operators
+Object Security ID   : S-1-5-32-556
+Object Relative ID   : 556
+
+Credentials:
+
+
+Object RDN           : Performance Monitor Users
+SAM Username         : Performance Monitor Users
+Object Security ID   : S-1-5-32-558
+Object Relative ID   : 558
+
+Credentials:
+
+
+Object RDN           : Performance Log Users
+SAM Username         : Performance Log Users
+Object Security ID   : S-1-5-32-559
+Object Relative ID   : 559
+
+Credentials:
+
+
+Object RDN           : Distributed COM Users
+SAM Username         : Distributed COM Users
+Object Security ID   : S-1-5-32-562
+Object Relative ID   : 562
+
+Credentials:
+
+
+Object RDN           : IIS_IUSRS
+SAM Username         : IIS_IUSRS
+Object Security ID   : S-1-5-32-568
+Object Relative ID   : 568
+
+Credentials:
+
+
+Object RDN           : Cryptographic Operators
+SAM Username         : Cryptographic Operators
+Object Security ID   : S-1-5-32-569
+Object Relative ID   : 569
+
+Credentials:
+
+
+Object RDN           : Event Log Readers
+SAM Username         : Event Log Readers
+Object Security ID   : S-1-5-32-573
+Object Relative ID   : 573
+
+Credentials:
+
+
+Object RDN           : Certificate Service DCOM Access
+SAM Username         : Certificate Service DCOM Access
+Object Security ID   : S-1-5-32-574
+Object Relative ID   : 574
+
+Credentials:
+
+
+Object RDN           : RDS Remote Access Servers
+SAM Username         : RDS Remote Access Servers
+Object Security ID   : S-1-5-32-575
+Object Relative ID   : 575
+
+Credentials:
+
+
+Object RDN           : RDS Endpoint Servers
+SAM Username         : RDS Endpoint Servers
+Object Security ID   : S-1-5-32-576
+Object Relative ID   : 576
+
+Credentials:
+
+
+Object RDN           : RDS Management Servers
+SAM Username         : RDS Management Servers
+Object Security ID   : S-1-5-32-577
+Object Relative ID   : 577
+
+Credentials:
+
+
+Object RDN           : Hyper-V Administrators
+SAM Username         : Hyper-V Administrators
+Object Security ID   : S-1-5-32-578
+Object Relative ID   : 578
+
+Credentials:
+
+
+Object RDN           : Access Control Assistance Operators
+SAM Username         : Access Control Assistance Operators
+Object Security ID   : S-1-5-32-579
+Object Relative ID   : 579
+
+Credentials:
+
+
+Object RDN           : Remote Management Users
+SAM Username         : Remote Management Users
+Object Security ID   : S-1-5-32-580
+Object Relative ID   : 580
+
+Credentials:
+
+
+Object RDN           : Storage Replica Administrators
+SAM Username         : Storage Replica Administrators
+Object Security ID   : S-1-5-32-582
+Object Relative ID   : 582
+
+Credentials:
+
+
+Object RDN           : Domain Computers
+SAM Username         : Domain Computers
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-515
+Object Relative ID   : 515
+
+Credentials:
+
+
+Object RDN           : Cert Publishers
+SAM Username         : Cert Publishers
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-517
+Object Relative ID   : 517
+
+Credentials:
+
+
+Object RDN           : Domain Users
+SAM Username         : Domain Users
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-513
+Object Relative ID   : 513
+
+Credentials:
+
+
+Object RDN           : Domain Guests
+SAM Username         : Domain Guests
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-514
+Object Relative ID   : 514
+
+Credentials:
+
+
+Object RDN           : RAS and IAS Servers
+SAM Username         : RAS and IAS Servers
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-553
+Object Relative ID   : 553
+
+Credentials:
+
+
+Object RDN           : Incoming Forest Trust Builders
+SAM Username         : Incoming Forest Trust Builders
+Object Security ID   : S-1-5-32-557
+Object Relative ID   : 557
+
+Credentials:
+
+
+Object RDN           : Terminal Server License Servers
+SAM Username         : Terminal Server License Servers
+Object Security ID   : S-1-5-32-561
+Object Relative ID   : 561
+
+Credentials:
+
+
+Object RDN           : Users
+SAM Username         : Users
+Object Security ID   : S-1-5-32-545
+Object Relative ID   : 545
+
+Credentials:
+
+
+Object RDN           : Guests
+SAM Username         : Guests
+Object Security ID   : S-1-5-32-546
+Object Relative ID   : 546
+
+Credentials:
+
+
+Object RDN           : Group Policy Creator Owners
+SAM Username         : Group Policy Creator Owners
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-520
+Object Relative ID   : 520
+
+Credentials:
+
+
+Object RDN           : Pre-Windows 2000 Compatible Access
+SAM Username         : Pre-Windows 2000 Compatible Access
+Object Security ID   : S-1-5-32-554
+Object Relative ID   : 554
+
+Credentials:
+
+
+Object RDN           : Windows Authorization Access Group
+SAM Username         : Windows Authorization Access Group
+Object Security ID   : S-1-5-32-560
+Object Relative ID   : 560
+
+Credentials:
+
+
+Object RDN           : Allowed RODC Password Replication Group
+SAM Username         : Allowed RODC Password Replication Group
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-571
+Object Relative ID   : 571
+
+Credentials:
+
+
+Object RDN           : Enterprise Read-only Domain Controllers
+SAM Username         : Enterprise Read-only Domain Controllers
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-498
+Object Relative ID   : 498
+
+Credentials:
+
+
+Object RDN           : Denied RODC Password Replication Group
+SAM Username         : Denied RODC Password Replication Group
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-572
+Object Relative ID   : 572
+
+Credentials:
+
+
+Object RDN           : Cloneable Domain Controllers
+SAM Username         : Cloneable Domain Controllers
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-522
+Object Relative ID   : 522
+
+Credentials:
+
+
+Object RDN           : Protected Users
+SAM Username         : Protected Users
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-525
+Object Relative ID   : 525
+
+Credentials:
+
+
+Object RDN           : DnsAdmins
+SAM Username         : DnsAdmins
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-1102
+Object Relative ID   : 1102
+
+Credentials:
+
+
+Object RDN           : DnsUpdateProxy
+SAM Username         : DnsUpdateProxy
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-1103
+Object Relative ID   : 1103
+
+Credentials:
+
+
+Object RDN           : DC
+SAM Username         : DC$
+User Account Control : 00082000 ( SERVER_TRUST_ACCOUNT TRUSTED_FOR_DELEGATION )
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-1001
+Object Relative ID   : 1001
+
+Credentials:
+  Hash NTLM: 2d3763b11e156a916b16cfc9d229b64b
+
+
+Object RDN           : Enterprise Key Admins
+SAM Username         : Enterprise Key Admins
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-527
+Object Relative ID   : 527
+
+Credentials:
+
+
+Object RDN           : Key Admins
+SAM Username         : Key Admins
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-526
+Object Relative ID   : 526
+
+Credentials:
+
+
+Object RDN           : Schema Admins
+SAM Username         : Schema Admins
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-518
+Object Relative ID   : 518
+
+Credentials:
+
+
+Object RDN           : Enterprise Admins
+SAM Username         : Enterprise Admins
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-519
+Object Relative ID   : 519
+
+Credentials:
+
+
+Object RDN           : vagrant
+SAM Username         : vagrant
+User Account Control : 00010200 ( NORMAL_ACCOUNT DONT_EXPIRE_PASSWD )
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-1000
+Object Relative ID   : 1000
+
+Credentials:
+  Hash NTLM: e02bc503339d51f71d913c245d35b50b
+
+
+Object RDN           : Backup Operators
+SAM Username         : Backup Operators
+Object Security ID   : S-1-5-32-551
+Object Relative ID   : 551
+
+Credentials:
+
+
+Object RDN           : Replicator
+SAM Username         : Replicator
+Object Security ID   : S-1-5-32-552
+Object Relative ID   : 552
+
+Credentials:
+
+
+Object RDN           : Print Operators
+SAM Username         : Print Operators
+Object Security ID   : S-1-5-32-550
+Object Relative ID   : 550
+
+Credentials:
+
+
+Object RDN           : Server Operators
+SAM Username         : Server Operators
+Object Security ID   : S-1-5-32-549
+Object Relative ID   : 549
+
+Credentials:
+
+
+Object RDN           : Administrators
+SAM Username         : Administrators
+Object Security ID   : S-1-5-32-544
+Object Relative ID   : 544
+
+Credentials:
+
+
+Object RDN           : Account Operators
+SAM Username         : Account Operators
+Object Security ID   : S-1-5-32-548
+Object Relative ID   : 548
+
+Credentials:
+
+
+Object RDN           : krbtgt
+SAM Username         : krbtgt
+User Account Control : 00000202 ( ACCOUNTDISABLE NORMAL_ACCOUNT )
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-502
+Object Relative ID   : 502
+
+Credentials:
+  Hash NTLM: b3040ad961a86b89eb5c3c54a18916c3
+
+
+Object RDN           : Read-only Domain Controllers
+SAM Username         : Read-only Domain Controllers
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-521
+Object Relative ID   : 521
+
+Credentials:
+
+
+Object RDN           : Domain Controllers
+SAM Username         : Domain Controllers
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-516
+Object Relative ID   : 516
+
+Credentials:
+
+
+Object RDN           : Administrator
+SAM Username         : Administrator
+User Account Control : 00010200 ( NORMAL_ACCOUNT DONT_EXPIRE_PASSWD )
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-500
+Object Relative ID   : 500
+
+Credentials:
+  Hash NTLM: c66d72021a2d4744409969a581a1705e
+
+
+Object RDN           : WS
+SAM Username         : WS$
+User Account Control : 00001000 ( WORKSTATION_TRUST_ACCOUNT )
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-1104
+Object Relative ID   : 1104
+
+Credentials:
+  Hash NTLM: 79df429d714a0b9b9c5396e1f301696c
+
+
+Object RDN           : bob
+SAM Username         : bob
+User Account Control : 00010200 ( NORMAL_ACCOUNT DONT_EXPIRE_PASSWD )
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-1108
+Object Relative ID   : 1108
+
+Credentials:
+  Hash NTLM: 72f5cfa80f07819ccbcfb72feb9eb9b7
+
+
+Object RDN           : Domain Admins
+SAM Username         : Domain Admins
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-512
+Object Relative ID   : 512
+
+Credentials:
+
+
+Object RDN           : dave
+SAM Username         : dave
+User Account Control : 00010200 ( NORMAL_ACCOUNT DONT_EXPIRE_PASSWD )
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-1110
+Object Relative ID   : 1110
+
+Credentials:
+  Hash NTLM: 91d5b3ce10ef251dff59a63f93d34b36
+
+
+Object RDN           : wsadmin
+SAM Username         : wsadmin
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-1105
+Object Relative ID   : 1105
+
+Credentials:
+
+
+Object RDN           : wsrdp
+SAM Username         : wsrdp
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-1106
+Object Relative ID   : 1106
+
+Credentials:
+
+
+Object RDN           : alice
+SAM Username         : alice
+User Account Control : 00010200 ( NORMAL_ACCOUNT DONT_EXPIRE_PASSWD )
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-1107
+Object Relative ID   : 1107
+
+Credentials:
+  Hash NTLM: d33b15ba0f27dbf0fd56cd54b1db1ade
+
+
+Object RDN           : carol
+SAM Username         : carol
+User Account Control : 00010200 ( NORMAL_ACCOUNT DONT_EXPIRE_PASSWD )
+Object Security ID   : S-1-5-21-2062852266-2608360060-3813650753-1109
+Object Relative ID   : 1109
+
+Credentials:
+  Hash NTLM: c22b315c040ae6e0efee3518d830362b

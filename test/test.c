@@ -1,19 +1,14 @@
 #include <Windows.h>
 #include <stdio.h>
-#include "common.h"
 #include <stdlib.h>
 #include <string.h>
 
-// Function to retrieve the domain name of the current computer
-BOOL GetDomainName(LPWSTR domainName, DWORD domainNameSize) {
-    if (GetComputerNameEx(ComputerNameDnsDomain, domainName, &domainNameSize)) {
-        return TRUE;
-    }
-    else {
-        printf("[!] GetComputerNameEx Failed With Error: %d\n", GetLastError());
-        return FALSE;
-    }
-}
+#pragma warning(disable:4996)
+// Struct to store Username:NTLM Hash
+typedef struct {
+    char objectRDN[256];
+    char hashNTLM[256];
+} KeyValuePair;
 
 // Function to parse the result file
 KeyValuePair* parseResult(const char* filePath, int* count) {
@@ -23,13 +18,13 @@ KeyValuePair* parseResult(const char* filePath, int* count) {
         return NULL;
     }
 
-    // Initialize variables
+	// Initialize variables
     KeyValuePair* resultArray = NULL;
     char line[512];
     char currentRDN[256] = { 0 };
     int resultCount = 0;
 
-    // Read file line by line
+	// Read file line by line
     while (fgets(line, sizeof(line), file)) {
         if (strstr(line, "Object RDN") != NULL) {
             char* pos = strchr(line, ':');
@@ -38,7 +33,7 @@ KeyValuePair* parseResult(const char* filePath, int* count) {
                 currentRDN[strcspn(currentRDN, "\n")] = 0; // Remove newline character
             }
         }
-        // Check if the line contains the NTLM hash
+		// Check if the line contains the NTLM hash
         else if (strstr(line, "Hash NTLM") != NULL) {
             char* pos = strchr(line, ':');
             if (pos) {
@@ -46,7 +41,7 @@ KeyValuePair* parseResult(const char* filePath, int* count) {
                 strcpy(hashNTLM, pos + 2);
                 hashNTLM[strcspn(hashNTLM, "\n")] = 0; // Remove newline character
 
-                // Allocate memory for the result array
+				// Allocate memory for the result array
                 resultArray = realloc(resultArray, (resultCount + 1) * sizeof(KeyValuePair));
                 strcpy(resultArray[resultCount].objectRDN, currentRDN);
                 strcpy(resultArray[resultCount].hashNTLM, hashNTLM);
@@ -55,27 +50,13 @@ KeyValuePair* parseResult(const char* filePath, int* count) {
         }
     }
 
-    // Close the file
+	// Close the file
     fclose(file);
     *count = resultCount;
     return resultArray;
 }
 
-// Lateral Movement Main Function
-BOOL DoLateralMovement() {
-    printf("[+] Lateral Movement Started\n");
-
-    WCHAR domainName[256];
-    DWORD domainNameSize = sizeof(domainName) / sizeof(domainName[0]);
-
-    if (GetDomainName(domainName, domainNameSize)) {
-        wprintf(L"[+] Domain Name: %s\n", domainName);
-    }
-    else {
-        printf("[!] Failed to retrieve domain name\n");
-    }
-
-    // Parsing the results of DCSyncer
+int main() {
     const char* filePath = "top.txt";
     int count = 0;
     KeyValuePair* resultArray = parseResult(filePath, &count);
@@ -86,6 +67,5 @@ BOOL DoLateralMovement() {
         }
         free(resultArray);
     }
-
-    return TRUE;
+    return 0;
 }

