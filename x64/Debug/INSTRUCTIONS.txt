@@ -1,0 +1,9 @@
+Copy TAPI32.manifest and imm32.dll in the subfolder Tasks of system32 (is writable for all users)
+
+from cmd
+
+copy imm32.dll C:\Windows\System32\tasks
+
+copy TAPI32.manifest C:\Windows\System32\tasks
+
+Put POC_REMAP.exe and MsftMonitor in any folder (both in the same) and execute the POC, accept the TRIGGER Messagebox and the PWNED messagebox of the imm32.dll will be displayed

