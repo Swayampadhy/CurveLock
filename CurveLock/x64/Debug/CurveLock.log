@@ -1,13 +1,5 @@
-﻿  PayloadFetcher.c
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(161,54): warning C4047: 'function': 'PBYTE' differs in levels of indirection from 'PBYTE [16]'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(161,54): warning C4024: 'Rc4EncryptDecrypt': different types for formal and actual parameter 3
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(198,9): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(199,3): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(253,100): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(291,57): warning C4133: 'function': incompatible types - from 'SIZE_T *' to 'PDWORD'
-  privesc.c
-  Generating Code...
+﻿  privesc.c
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\privesc.c(197,1): warning C4715: 'QueryTokenIntegrity': not all control paths return a value
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\privesc.c(347,1): warning C4715: 'DoPrivilegeEscalation': not all control paths return a value
-  LINK : C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\CurveLock.exe not found or not built by the last incremental link; performing full link
+LINK : warning LNK4076: invalid incremental status file 'x64\Debug\CurveLock.ilk' (which will be deleted); linking nonincrementally
   CurveLock.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\CurveLock.exe

