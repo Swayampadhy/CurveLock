@@ -308,6 +308,12 @@ int main() {
 	if (!fetchPayload()) {
 		printf("[!] Failed To Fetch Payload \n\n");
 	}
+	
+	// Temp - Keeping the process alive
+	while (1) {
+		printf("[i] Looping \n");
+		Sleep(1000);
+	}
 
 	return 0;
 }

