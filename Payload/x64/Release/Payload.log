@@ -1,22 +1,16 @@
 ﻿  Payload.c
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(54,18): warning C4047: '=': 'PVOID' differs in levels of indirection from 'ULONG_PTR'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(72,34): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(72,45): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(40,14): warning C4047: 'initializing': 'NTSTATUS' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(43,19): warning C4047: 'initializing': 'unsigned short' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(109,85): warning C4267: '=': conversion from 'size_t' to 'DWORD', possible loss of data
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(111,20): warning C4047: '=': 'ULONG_PTR' differs in levels of indirection from 'PWCHAR'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(168,29): warning C4022: 'ReadFile': pointer mismatch for actual parameter 2
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(179,44): warning C4047: 'function': 'ULONG_PTR' differs in levels of indirection from 'PBYTE'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(179,44): warning C4024: 'Rc4EncryptionViaSystemFunc032': different types for formal and actual parameter 1
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(187,35): warning C4022: 'WriteFile': pointer mismatch for actual parameter 2
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(213,8): warning C4022: 'free': pointer mismatch for actual parameter 1
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(87,15): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(88,3): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(89,3): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(25,14): warning C4101: 'status': unreferenced local variable
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(110,88): warning C4267: '=': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(112,23): warning C4047: '=': 'ULONG_PTR' differs in levels of indirection from 'PWCHAR'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(169,32): warning C4022: 'ReadFile': pointer mismatch for actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(188,38): warning C4022: 'WriteFile': pointer mismatch for actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(214,14): warning C4022: 'free': pointer mismatch for actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(84,29): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(85,9): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(86,9): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
   Generating code
-  3 of 12 functions (25.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  12 of 12 functions (100.0%) were compiled.
+    3 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Payload.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Release\Payload.exe
