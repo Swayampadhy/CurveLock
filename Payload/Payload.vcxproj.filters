@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Payload.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="elliptic_curve.txt">
+    <ClCompile Include="Payload.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
