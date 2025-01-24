@@ -18,5 +18,8 @@
     <ClCompile Include="Payload.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="elliptic_curve.txt">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
