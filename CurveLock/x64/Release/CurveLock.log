@@ -1,1 +1,95 @@
-﻿
+﻿  CurveLock.c
+  LateralMovement.c
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(46,54): warning C4047: 'function': 'UINT' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(46,54): warning C4024: 'MessageBoxA': different types for formal and actual parameter 4
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(48,41): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(48,41): warning C4024: 'SetCriticalSectionSpinCount': different types for formal and actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(50,31): warning C4047: 'function': 'int' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(50,31): warning C4024: 'GetWindowLongPtrW': different types for formal and actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(53,28): warning C4047: 'function': 'LCID' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(53,28): warning C4024: 'ConvertDefaultLocale': different types for formal and actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(54,27): warning C4047: 'function': 'UINT' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(54,27): warning C4024: 'MultiByteToWideChar': different types for formal and actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(54,33): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(54,33): warning C4024: 'MultiByteToWideChar': different types for formal and actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(54,45): warning C4047: 'function': 'int' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(54,45): warning C4024: 'MultiByteToWideChar': different types for formal and actual parameter 4
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(54,57): warning C4047: 'function': 'int' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(54,57): warning C4024: 'MultiByteToWideChar': different types for formal and actual parameter 6
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(91,28): warning C4244: '=': conversion from 'SIZE_T' to 'DWORD', possible loss of data
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(106,90): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(106,90): warning C4024: 'CreateFileW': different types for formal and actual parameter 6
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(115,66): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(127,90): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(127,90): warning C4024: 'CreateFileW': different types for formal and actual parameter 6
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(180,52): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(180,52): warning C4024: 'CreateFileW': different types for formal and actual parameter 3
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(187,9): warning C4013: 'time' undefined; assuming extern returning int
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(192,39): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(194,11): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'SIZE_T'
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(194,11):
+      consider using '%lld' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(194,11):
+      consider using '%Id' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(194,11):
+      consider using '%I64d' in the format string
+  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(203,51): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(203,51): warning C4024: 'CreateFileW': different types for formal and actual parameter 3
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(209,38): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(211,11): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'SIZE_T'
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(211,11):
+      consider using '%lld' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(211,11):
+      consider using '%Id' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(211,11):
+      consider using '%I64d' in the format string
+  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(217,30): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(217,30): warning C4024: 'HeapFree': different types for formal and actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(160,10): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(161,7): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(274,26): warning C4047: 'function': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(274,26): warning C4024: 'CreateThread': different types for formal and actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(274,32): warning C4113: 'BOOL (__cdecl *)(DWORD)' differs in parameter lists from 'LPTHREAD_START_ROUTINE'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(274,46): warning C4022: 'CreateThread': pointer mismatch for actual parameter 4
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(274,50): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(274,50): warning C4024: 'CreateThread': different types for formal and actual parameter 5
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\CurveLock.c(271,8): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+  ntdll.c
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(12,3): warning C4047: 'return': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(17,3): warning C4047: 'return': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(79,3): warning C4133: 'function': incompatible types - from 'STARTUPINFO *' to 'LPSTARTUPINFOA'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(96,10): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'SIZE_T'
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(96,10):
+      consider using '%lld' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(96,10):
+      consider using '%Id' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(96,10):
+      consider using '%I64d' in the format string
+  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(96,10): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'SIZE_T'
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(96,10):
+      consider using '%lld' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(96,10):
+      consider using '%Id' in the format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(96,10):
+      consider using '%I64d' in the format string
+  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(47,9): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(48,3): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(141,10): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\ntdll.c(170,8): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+  PayloadFetcher.c
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(161,54): warning C4047: 'function': 'PBYTE' differs in levels of indirection from 'PBYTE [16]'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(161,54): warning C4024: 'Rc4EncryptDecrypt': different types for formal and actual parameter 3
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(198,9): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(199,3): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(253,100): warning C4244: 'function': conversion from 'SIZE_T' to 'DWORD', possible loss of data
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\PayloadFetcher.c(297,57): warning C4133: 'function': incompatible types - from 'SIZE_T *' to 'PDWORD'
+  privesc.c
+  Generating Code...
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\privesc.c(197,1): warning C4715: 'QueryTokenIntegrity': not all control paths return a value
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\privesc.c(347,1): warning C4715: 'DoPrivilegeEscalation': not all control paths return a value
+  LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
+  CurveLock.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Release\CurveLock.exe
