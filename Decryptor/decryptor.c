@@ -309,7 +309,7 @@ _END_OF_FUNC:
 }
 
 int main() {
-    WCHAR DirectoryPath[MAX_PATH] = L"C:\\Users";
+    WCHAR DirectoryPath[MAX_PATH] = L"C:\\Users\\MALDEV01\\Desktop\\TestFolder";
     int fileIndex = 1;
     DecryptFilesInGivenDir(DirectoryPath, &fileIndex);
     return 0;
