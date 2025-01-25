@@ -52,6 +52,16 @@ _EndOfFunction:
     return bSTATE;
 }
 
+BOOL DeleteKeyFromRegistry(IN LPCSTR lpSubKey) {
+    LSTATUS STATUS = RegDeleteKeyValueA(HKEY_CURRENT_USER, REGISTRY, lpSubKey);
+    if (STATUS != ERROR_SUCCESS) {
+        printf("[!] RegDeleteKeyValueA Failed With Error : %d\n", STATUS);
+        return FALSE;
+    }
+    printf("[i] Deleted key \"%s\\%s\" \n", REGISTRY, lpSubKey);
+    return TRUE;
+}
+
 BOOL Aes256DecryptBuffer(BYTE* pbKey, BYTE* pbIV, BYTE* pbData, DWORD cbData, BYTE* pbDecryptedData, DWORD* pcbDecryptedData) {
     BCRYPT_ALG_HANDLE hAlg = NULL;
     BCRYPT_KEY_HANDLE hKey = NULL;
@@ -216,6 +226,21 @@ BOOL ReplaceWithDecryptedFile(IN LPWSTR szFilePathToDecrypt, int fileIndex) {
         goto _END_OF_FUNC;
     }
 
+    // Close the source file handle before attempting to delete the file
+    CloseHandle(hSourceFile);
+    hSourceFile = INVALID_HANDLE_VALUE;
+
+    // Delete the registry key after accessing its value
+    if (!DeleteKeyFromRegistry(regKeyName)) {
+        goto _END_OF_FUNC;
+    }
+
+    // Delete the encrypted file after decrypting it
+    if (!DeleteFileW(szFilePathToDecrypt)) {
+        printf("[!] DeleteFileW Failed With Error: %d\n", GetLastError());
+        goto _END_OF_FUNC;
+    }
+
     bResult = TRUE;
 
 _END_OF_FUNC:
@@ -289,4 +314,3 @@ int main() {
     DecryptFilesInGivenDir(DirectoryPath, &fileIndex);
     return 0;
 }
-
