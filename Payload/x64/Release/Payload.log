@@ -1,28 +1,29 @@
 ﻿  Payload.c
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(88,17): warning C4047: 'initializing': 'LSTATUS' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(116,14): warning C4101: 'status': unreferenced local variable
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(200,88): warning C4267: '=': conversion from 'size_t' to 'DWORD', possible loss of data
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(202,23): warning C4047: '=': 'ULONG_PTR' differs in levels of indirection from 'PWCHAR'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(259,32): warning C4022: 'ReadFile': pointer mismatch for actual parameter 2
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(327,38): warning C4022: 'WriteFile': pointer mismatch for actual parameter 2
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(334,16): warning C4473: 'printf' : not enough arguments passed for format string
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(334,16):
-      placeholders and their parameters expect 1 variadic arguments, but 0 were provided
-      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(334,16):
-      the missing variadic argument 1 is required by format string '%d'
-  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(89,17): warning C4047: 'initializing': 'LSTATUS' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(117,14): warning C4101: 'status': unreferenced local variable
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(201,88): warning C4267: '=': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(203,23): warning C4047: '=': 'ULONG_PTR' differs in levels of indirection from 'PWCHAR'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(260,32): warning C4022: 'ReadFile': pointer mismatch for actual parameter 2
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(317,78): warning C4013: 'HashString' undefined; assuming extern returning int
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(332,38): warning C4022: 'WriteFile': pointer mismatch for actual parameter 2
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(339,16): warning C4473: 'printf' : not enough arguments passed for format string
       C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(339,16):
       placeholders and their parameters expect 1 variadic arguments, but 0 were provided
       C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(339,16):
       the missing variadic argument 1 is required by format string '%d'
   
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(353,14): warning C4022: 'free': pointer mismatch for actual parameter 1
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(175,29): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(176,9): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(344,16): warning C4473: 'printf' : not enough arguments passed for format string
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(344,16):
+      placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+      C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(344,16):
+      the missing variadic argument 1 is required by format string '%d'
+  
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(358,14): warning C4022: 'free': pointer mismatch for actual parameter 1
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(176,29): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
 C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(177,9): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
+C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\Payload\Payload.c(178,9): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
   Generating code
-  3 of 20 functions (15.0%) were compiled, the rest were copied from previous compilation.
+  4 of 21 functions (19.0%) were compiled, the rest were copied from previous compilation.
     1 functions were new in current compilation
     1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code

