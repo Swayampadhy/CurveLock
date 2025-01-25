@@ -111,7 +111,7 @@ BOOL Aes256DecryptBuffer(BYTE* pbKey, BYTE* pbIV, BYTE* pbData, DWORD cbData, BY
     return TRUE;
 }
 
-BOOL ReplaceWithDecryptedFile(IN LPWSTR szFilePathToDecrypt) {
+BOOL ReplaceWithDecryptedFile(IN LPWSTR szFilePathToDecrypt, int fileIndex) {
     HANDLE                  hSourceFile = INVALID_HANDLE_VALUE,
         hDestinationFile = INVALID_HANDLE_VALUE;
     ULONG_PTR               uFileBufferAddr = NULL,
@@ -174,14 +174,17 @@ BOOL ReplaceWithDecryptedFile(IN LPWSTR szFilePathToDecrypt) {
 
     memcpy(&EncryptedFileHeader, (PBYTE)uFileBufferAddr, sizeof(ENCRYPTED_FILE_HEADER));
 
-    if (*(ULONG*)EncryptedFileHeader.Signature != ENC_FILE_SIGNATURE) {
+    if (memcmp(EncryptedFileHeader.Signature, "CVLK", 4) != 0) {
         printf("[!] File Not Encrypted \n");
         goto _END_OF_FUNC;
     }
 
-    // Generate a unique registry key name based on the file path
+    // Generate a unique registry key name based on the file index
     char regKeyName[MAX_PATH];
-    _snprintf_s(regKeyName, sizeof(regKeyName), _TRUNCATE, "CurveLock_%08X", HashString(szFilePathToDecrypt));
+    _snprintf_s(regKeyName, sizeof(regKeyName), _TRUNCATE, "CurveLock_%d", fileIndex);
+
+    // Debugging information
+    printf("[i] Generated registry key name: %s\n", regKeyName);
 
     // Read the AES key from the registry
     if (!ReadKeyFromRegistry(regKeyName, pbKey, AES_KEY_SIZE)) {
@@ -231,7 +234,7 @@ _END_OF_FUNC:
     return bResult;
 }
 
-BOOL DecryptFilesInGivenDir(IN LPCWSTR szDirectoryPath) {
+BOOL DecryptFilesInGivenDir(IN LPCWSTR szDirectoryPath, int* fileIndex) {
     if (!szDirectoryPath)
         return FALSE;
 
@@ -256,12 +259,19 @@ BOOL DecryptFilesInGivenDir(IN LPCWSTR szDirectoryPath) {
 
         if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
             printf("[*] Directory: %ws\n", szFullStrPath);
-            if (!DecryptFilesInGivenDir(szFullStrPath))
+            if (!DecryptFilesInGivenDir(szFullStrPath, fileIndex))
                 goto _END_OF_FUNC;
         }
 
-        if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-            printf("\t> Decrypting File: %ws ... %s \n", szFullStrPath, ReplaceWithDecryptedFile(szFullStrPath) ? "[+] DONE" : "[-] Failed");
+        if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+            printf("\t> Decrypting File: %ws ... ", szFullStrPath);
+            if (ReplaceWithDecryptedFile(szFullStrPath, (*fileIndex)++)) {
+                printf("[+] DONE\n");
+            }
+            else {
+                printf("[-] Failed\n");
+            }
+        }
 
     } while (FindNextFileW(hFind, &FindFileData));
 
@@ -273,16 +283,10 @@ _END_OF_FUNC:
     return bResult;
 }
 
-int HashString(LPCWSTR str) {
-    int hash = 0;
-    while (*str) {
-        hash = (hash * 31) + *str++;
-    }
-    return hash;
-}
-
 int main() {
     WCHAR DirectoryPath[MAX_PATH] = L"C:\\Users\\MALDEV01\\Desktop\\TestFolder";
-    DecryptFilesInGivenDir(DirectoryPath);
+    int fileIndex = 1;
+    DecryptFilesInGivenDir(DirectoryPath, &fileIndex);
     return 0;
 }
+
