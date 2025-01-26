@@ -13,7 +13,7 @@ This project is a demonstration and should not be used maliciously. Developing o
 2. Creates a random compile time IAT seed to evade static detection
 3. Unhooks NTDll by creating a suspended process, copying the clean Ntdll from it and replacing out NTDll in the `.text` section
 4. Extracts process token and checks it's elevation and integrity and determines it it is being run as Admin or not.
-5. If not being run as admin, it exploits CVE-2024-6769 to create a new process with high integrity token. Cve Link -> `https://github.com/fortra/CVE-2024-6769/tree/main`
+5. If not being run as admin, it exploits CVE-2024-6769 to create a new process with high integrity token. Cve Link -> https://github.com/fortra/CVE-2024-6769/tree/main
 6. Exploits DcSync using the DCSyncer tool (https://github.com/notsoshant/DCSyncer) to extract username and NTLM hash combinations from the domain controller and parses it.
 7. Performs self deletion to avoid manual analysis after execution.
 8. Embeds the Ransomware Payload into a `.PNG` file's IDAT sections and encrypts each section with it's own RC4 key.
