@@ -26,7 +26,7 @@ This project is a demonstration and should not be used maliciously. Developing o
 -----------------
 
 1. ECC with Diffie-Hellman key exchange is used to generate the AES-256 keys.
-2. Each file in encrypted with it's own AES-256 key and the keys are stored in the registry under - "HKEY\HKCU_CURRENT_USER\CONTROL PANEL"
+2. Each file in encrypted with it's own AES-256 key and the keys are stored in the registry under - "HKCU_CURRENT_USER\CONTROL PANEL"
 
 ## Encryption Details - 
 
