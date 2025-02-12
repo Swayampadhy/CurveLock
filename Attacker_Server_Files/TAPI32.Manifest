@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0" copyright="Copyright (c) Microsoft Corporation. All Rights Reserved." xmlns:cmiv2="urn:schemas-microsoft-com:asm.v3" cmiv2:copyright="Copyright (c) Microsoft Corporation. All Rights Reserved.">
-  <assemblyIdentity name="TAPI32" version="124.0.2478.51" language="tasks" processorArchitecture="amd64" publicKeyToken="6595b64144ccf1df" type="win32" />
-  <file name="imm32.dll">
-  </file>
-</assembly>
-
-        
