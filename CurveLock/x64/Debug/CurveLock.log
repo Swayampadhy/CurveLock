@@ -1,5 +1,0 @@
-﻿  privesc.c
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\privesc.c(197,1): warning C4715: 'QueryTokenIntegrity': not all control paths return a value
-C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\CurveLock\privesc.c(347,1): warning C4715: 'DoPrivilegeEscalation': not all control paths return a value
-LINK : warning LNK4076: invalid incremental status file 'x64\Debug\CurveLock.ilk' (which will be deleted); linking nonincrementally
-  CurveLock.vcxproj -> C:\Users\MALDEV01\Desktop\Source_OWN\CurveLock\x64\Debug\CurveLock.exe
