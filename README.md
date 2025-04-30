@@ -19,7 +19,7 @@ This project is a demonstration and should not be used maliciously. Developing o
 ## Steps To Run
 
 1. Build The Solution
-2. Host all the required exploits and the files given in "Attacker Server Files" in a web server.
+2. Host all the required exploits and the files given in "Attacker Server Files" in a web server. Also edit the hardcoded IP addresses in CurveLock project.
 3. Execute the CurveLock binary in the target machine.
 
 ## Results
