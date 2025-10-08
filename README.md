@@ -1,5 +1,6 @@
 # CurveLock
-A mordern ransomware designed from scratch to infect faster and encrypt target contents using Elliptical Curve Cryptography (ECC) algorithm. For implementation details, visit -> https://swayampadhy.gitbook.io/root/projects/curvelock
+A mordern ransomware designed from scratch to infect faster and encrypt target contents using Elliptical Curve Cryptography (ECC) algorithm. 
+For implementation details, visit -> https://swayampadhy.gitbook.io/root/projects/curvelock
 
 ## Disclaimer 
 This project is a demonstration and should not be used maliciously. Developing or deploying ransomware without explicit permission is illegal and unethical. The author is not responsible for any misuse of this code.
